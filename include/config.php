@@ -1,0 +1,18 @@
+<?php
+	// Mysql Info
+
+	$host = 'localhost';
+	$user = 'david';
+	$pass = 'Acex-9437';
+	$database = 'dad';
+	$table = 'users';
+
+	// Mysql Connection
+	 
+	mysql_connect($host, $user, $pass) or die(mysql_error());
+	mysql_select_db($database);
+
+	// Game Configurations
+
+	$maxchars = 1;
+?>
