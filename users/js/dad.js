@@ -7,6 +7,42 @@ document.body.appendChild(canvas);
 
 // Initialize dummies
 var i = 0;
+var oldSelected = 0;
+
+// Framing Function
+function frame(x) {
+	ctx.beginPath();
+	ctx.moveTo(0,(x * 64));
+	ctx.lineTo(512,(x * 64));
+	ctx.lineTo(512,((x * 64) + 64));
+	ctx.lineTo(0,((x * 64) + 64));
+	ctx.closePath();
+	ctx.stroke();
+};
+
+// Select Character Frame
+canvas.addEventListener('click', function(e) {
+
+	// Calculate Click Position
+	var y;
+	if (e.pageY) {
+		y = e.pageY;
+	}
+	else {
+		y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+	}
+	y -= canvas.offsetTop;
+
+	// Deframe Old Selected Character
+	ctx.strokeStyle = "rgb(255, 255, 255)";
+	frame(oldSelected);
+
+	// Frame Selected Character
+	var x = Math.floor(y/64);
+	ctx.strokeStyle = "rgb(0, 0, 0)";
+	frame(x);
+	oldSelected = x;
+}, false);
 
 // Char Images
 var heroImage = new Array(charamount);
@@ -17,18 +53,18 @@ var charlist = function() {
 	ctx.font = "24px Helvetica";
 	ctx.textAlign = "left";
 	ctx.textBaseline = "top";
-	ctx.fillText(charnames[i], 0, (i * 64));
+	ctx.fillText(charnames[i], 5, (i * 64));
 	ctx.textAlign = "right";
-	ctx.fillText(charmaps[i], 512, (i * 64));
+	ctx.fillText(charmaps[i], 507, (i * 64));
 
 	// Hero image
 	heroImage[i] = new Image();
 	heroImage[i].onload = function () {
-		ctx.drawImage(heroImage[i], 0, ((i * 64) + 32));
+		ctx.drawImage(heroImage[i], 5, ((i * 64) + 27));
 		i++;
 		if (i < charamount) {
 			charlist();
-		}
+		};
 	};
 	heroImage[i].src = "images/" + charraces[i] +".gif";
 };

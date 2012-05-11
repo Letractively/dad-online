@@ -14,5 +14,5 @@
 
 	// Game Configurations
 
-	$maxchars = 1;
+	$maxchars = 3;
 ?>

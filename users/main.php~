@@ -48,12 +48,10 @@
 			</script>';
 
 		// Verify room for more characters
-		if($numrows >= $maxchars) {
-			
-				echo '<p><button type="button"><a href="logout.php">Logout</a></button></p>';
-			exit;
+		if($numrows < $maxchars) {
+			echo '<p><button type="button"><a href="cc.php">Create Character</a></button></p>';
 		}
-		echo '<p><button type="button"><a href="cc.php">Create Character</a></button></p>';
+		echo '<p><button type="button"><a href="logout.php">Logout</a></button></p>';
 		exit;
 	}
 
