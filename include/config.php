@@ -2,10 +2,9 @@
 	// Mysql Info
 
 	$host = 'localhost';
-	$user = 'david';
-	$pass = 'Acex-9437';
+	$user = 'dad';
+	$pass = 'dad';
 	$database = 'dad';
-	$table = 'users';
 
 	// Mysql Connection
 	 
