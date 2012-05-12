@@ -8,6 +8,10 @@
 
 	session_validate();
 
+    // Load HTML5 Template
+
+    $depth = "../aat/"; include_once '../aat/header.php';
+
 	// Get session variables
 
 	$userid = $_SESSION['userid'];
@@ -45,5 +49,11 @@
 	$query = "INSERT INTO characters (userid,name,race,map) VALUES('$userid','$name','$race',(SELECT startmap FROM races WHERE name = '$race'))";
 	$result = mysql_query($query) or die(mysql_error());
 
-	header('Location: main.php');
+	include 'main.php';
+
+    // Load HTML5 Template
+
+    include_once '../aat/footer.php';
+
+    exit;
 ?>

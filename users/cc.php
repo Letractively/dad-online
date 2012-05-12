@@ -6,6 +6,10 @@
 
 	require_once '../include/config.php';
 
+    // Load HTML5 Template
+
+    $depth = "../aat/"; include_once '../aat/header.php';
+
 	// Get races list
 
 	$query = "SELECT name,showname FROM races";
@@ -38,3 +42,9 @@
 ?>
 
 <img name="pic" src="images/blank.png" border="0">
+
+<?php 
+    // Load HTML5 Template
+
+    include_once '../aat/footer.php';
+?>

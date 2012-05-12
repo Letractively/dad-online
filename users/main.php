@@ -4,9 +4,13 @@
 	require_once '../include/config.php';
 	require_once '../include/functions.php';
 
-	// Login Validation
+    // Login Validation
 
 	session_validate();
+
+    // Load HTML5 Template
+
+    $depth = "../aat/"; include_once '../aat/header.php';
 
 	// Get session variables
 
@@ -20,43 +24,49 @@
 
 	$numrows = mysql_num_rows($result);
 
-	if($numrows) {
-		echo '<p>You are logged in as '. $email. '.</p>';
+    // No characters redirect
 
-		// Initialize javascript arrays
-		echo '<script type="text/javascript">
-				var charamount = '.$numrows.';
-				var charnames = new Array();
-				var charraces = new Array();
-				var charmaps = new Array();
-				charnames[0] = "mierdaaa";
-			</script>';
+	if(!$numrows) {
+        include 'cc.php';
+        exit;
+    }
 
-		// Fill javascript arrays
-		$i = 0;
-		while($row = mysql_fetch_array($result)) {
-			echo '<script type="text/javascript">
-					charnames['.$i.'] = "'.$row[0].'";
-					charraces['.$i.'] = "'.$row[1].'";
-					charmaps['.$i.'] = "'.$row[2].'";
-				</script>';
-			$i++;
-		}
+    // Show user info
 
-		// Draw user characters
-		echo '<script language="javascript" src="js/dad.js">
-			</script>';
+    echo '<p>You are logged in as '. $email. '.</p>';
 
-		// Verify room for more characters
-		if($numrows < $maxchars) {
-			echo '<p><button type="button"><a href="cc.php">Create Character</a></button></p>';
-		}
-		echo '<p><button type="button"><a href="logout.php">Logout</a></button></p>';
-		exit;
-	}
+    // Initialize javascript arrays
+    echo '<script type="text/javascript">
+            var charamount = '.$numrows.';
+            var charnames = new Array();
+            var charraces = new Array();
+            var charmaps = new Array();
+        </script>';
 
-	// No characters redirect
+    // Fill javascript arrays
+    $i = 0;
+    while($row = mysql_fetch_array($result)) {
+        echo '<script type="text/javascript">
+                charnames['.$i.'] = "'.$row[0].'";
+                charraces['.$i.'] = "'.$row[1].'";
+                charmaps['.$i.'] = "'.$row[2].'";
+            </script>';
+        $i++;
+    }
 
-	header('Location: cc.php');
-	exit;
+    // Draw user characters
+    echo '<script language="javascript" src="js/dad.js">
+        </script>';
+
+    // Verify room for more characters
+    if($numrows < $maxchars) {
+        echo '<p><button type="button"><a href="cc.php">Create Character</a></button></p>';
+    }
+    echo '<p><button type="button"><a href="logout.php">Logout</a></button></p>';
+
+    // Load HTML5 Template
+
+    include_once '../aat/footer.php';
+
+    exit;
 ?>

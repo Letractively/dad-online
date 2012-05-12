@@ -28,6 +28,6 @@
 <?php 
     // Load HTML5 Template
 
-    include_once '../aat/footer.php'
+    include_once '../aat/footer.php';
 ?>
 

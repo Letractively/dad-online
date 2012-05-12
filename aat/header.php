@@ -43,4 +43,4 @@ src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
 <section id="main"><!-- #main content and sidebar area -->
 
 <section id="content"><!-- #content -->
-<article>
+<article id="drawhere">

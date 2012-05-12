@@ -1,5 +1,5 @@
 <?php
-	// Load mysql info
+    // Load mysql info
 
 	require_once '../include/config.php';
 
@@ -7,6 +7,10 @@
 
 	session_start();
 	session_destroy();
+
+    // Load HTML5 Template
+
+    $depth = "../aat/"; include_once '../aat/header.php';
 
 	// Get form variables
 
@@ -25,7 +29,7 @@
 		session_start();
 		$_SESSION['userid'] = htmlspecialchars($row[0]);
 		$_SESSION['email'] = htmlspecialchars($email);
-		header('Location: main.php');
+		include 'main.php';
 		exit;
 	}
 
@@ -33,5 +37,10 @@
 
 	echo '<p><strong>Error:</strong> Invalid email or password.</p>';
 	include 'login.php';
-	exit;
+
+    // Load HTML5 Template
+
+    include_once '../aat/footer.php';
+
+    exit;
 ?>

@@ -3,7 +3,8 @@ var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
 canvas.width = 512;
 canvas.height = 64 * charamount;
-document.body.appendChild(canvas);
+var el = document.getElementById("drawhere");
+el.appendChild(canvas);
 
 // Initialize dummies
 var i = 0;
