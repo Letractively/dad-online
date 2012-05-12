@@ -3,6 +3,10 @@
 
 	session_start();
 	session_destroy();
+
+    // Load HTML5 Template
+
+    $depth = "../aat/"; include_once '../aat/header.php';
 ?>
 
 <! Register Form>
@@ -20,4 +24,10 @@
 		<button type='button'><a href="../index.php">Cancel</a></button>
 	</fieldset>
 </form>
+
+<?php 
+    // Load HTML5 Template
+
+    include_once '../aat/footer.php'
+?>
 

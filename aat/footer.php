@@ -34,7 +34,7 @@
 </div> 
 <div id="tab3" class="tab_content"> 
 <h3>Who I Am</h3> 
-<img src="att/images/me.png" alt="" /><p>David Lyon</p>
+<img src="<?php echo $depth;?>images/me.png" alt="" /><p>David Lyon</p>
 </div>
 </div>
 </div>

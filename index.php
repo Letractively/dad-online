@@ -3,9 +3,11 @@
 
 	session_start();
 	session_destroy();
-?>
 
-<?php include 'aat/header.php';?>
+    // Load HTML5 Template
+
+    $depth = "aat/"; include_once 'aat/header.php';
+?>
 
 <! Login/Register Buttons>
 
@@ -20,4 +22,8 @@
 	</tr>
 </table>
 
-<?php include 'aat/footer.php';?>
+<?php 
+    // Load HTML5 Template
+
+    include_once 'aat/footer.php';
+?>

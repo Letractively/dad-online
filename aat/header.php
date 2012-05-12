@@ -2,13 +2,13 @@
 <head>
 <meta charset="utf-8" />
 <title>DAD Online</title>
-<link rel="stylesheet" href="aat/styles.css" type="text/css" media="screen" />
-<link rel="stylesheet" type="text/css" href="aat/print.css" media="print" />
-<link rel="stylesheet" href="aat/simpletabs.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="<?php echo $depth;?>styles.css" type="text/css" media="screen" />
+<link rel="stylesheet" type="text/css" href="<?php echo $depth;?>print.css" media="print" />
+<link rel="stylesheet" href="<?php echo $depth;?>simpletabs.css" type="text/css" media="screen" />
 <script type="text/javascript"
 src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script> 
-<script type="text/javascript" src="aat/js/simpletabs.js"></script>
-<script type="text/javascript" src="aat/js/functions.js"></script>
+<script type="text/javascript" src="<?php echo $depth;?>js/simpletabs.js"></script>
+<script type="text/javascript" src="<?php echo $depth;?>js/functions.js"></script>
 </head>
 <body>
 

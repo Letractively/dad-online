@@ -1,12 +1,16 @@
 <?php
+    // Logged in people must NOT be here
+    
+	session_start();
+	session_destroy();
+    
 	// Load mysql info
 
 	require_once '../include/config.php';
-
-	// Logged in people must NOT be here
-
-	session_start();
-	session_destroy();
+    
+    // Load HTML5 Template
+    
+    $depth = "../aat/"; include_once '../aat/header.php';
 
 	// Get form variables
 
@@ -56,6 +60,10 @@
 	$query = "INSERT INTO users (email,password) VALUES('$email',PASSWORD('$pwd1'))";
 	$result = mysql_query($query) or die(mysql_error());
 
-	header('Location: welcome.php');
+	include 'welcome.php';
 	exit;
+
+    // Load HTML5 Template
+
+    include_once '../aat/footer.php'
 ?>
