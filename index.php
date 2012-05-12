@@ -5,6 +5,8 @@
 	session_destroy();
 ?>
 
+<?php include 'aat/header.php';?>
+
 <! Login/Register Buttons>
 
 <table align=center>
@@ -17,3 +19,5 @@
 		</td>
 	</tr>
 </table>
+
+<?php include 'aat/footer.php';?>
