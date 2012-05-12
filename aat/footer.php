@@ -1,4 +1,11 @@
-</article>				
+<?php
+/*
+DAD Online. Web browser MMORPG.
+Copyright(C) 2012 Aceapps Aplicaciones. 
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses
+*/
+
+echo '</article>				
 </section><!-- end of #content -->
 
 <aside id="sidebar"><!-- sidebar -->
@@ -34,7 +41,7 @@
 </div> 
 <div id="tab3" class="tab_content"> 
 <h3>Who I Am</h3> 
-<img src="<?php echo $depth;?>images/me.png" alt="" /><p>David Lyon</p>
+<img src="'.$depth.'images/me.png" alt="" /><p>David Lyon</p>
 </div>
 </div>
 </div>
@@ -62,4 +69,5 @@
 </div><!-- #wrapper -->
 
 </body>
-</html>
+</html>';
+?>
