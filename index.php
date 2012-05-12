@@ -16,16 +16,8 @@ This program is free software: you can redistribute it and/or modify it under th
 
     // Login/Register Buttons
 
-    echo '<table align=center>
-			<tr>
-				<td align="left">
-					<button type="button"><a href="users/login.php">Login</a></button>
-				</td>
-				<td align="right">
-					<button type="button"><a href="users/register.php">Register</a></button>
-				</td>
-			</tr>
-		</table>';
+    echo '<button type="button"><a href="users/login.php">Login</a></button>
+		<button type="button"><a href="users/register.php">Register</a></button>';
 
     // Load HTML5 Template
 

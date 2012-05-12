@@ -166,7 +166,6 @@ border: none;
 }
 
 #drawhere p, ul, ol, hr {
-text-align: center;
 margin-bottom: 24px;
 }
 

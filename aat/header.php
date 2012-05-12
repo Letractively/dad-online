@@ -24,13 +24,40 @@ This program is free software: you can redistribute it and/or modify it under th
 		</head>
 		<body>
 
+<style>
+ul#navigation .home a{
+    background-image: url('.$depth.'images/content/home.png);
+}
+ul#navigation .about a      {
+    background-image: url('.$depth.'images/content/id_card.png);
+}
+ul#navigation .shortcodes a      {
+    background-image: url('.$depth.'images/content/search.png);
+}
+</style>
+
 		<ul id="navigation">
 		<li class="home"><a href="'.$bottom.'" title="Home"></a></li>
 		<li class="about"><a href="'.$bottom.'about.php" title="About"></a></li>
-		<li class="shortcodes"><a href="#shortcodes" title="Shortcodes"></a></li>
-		<li class="photos"><a href="#photos" title="Photos"></a></li>
-		<li class="rssfeed"><a href="#feed" title="Rss Feed"></a></li>
-		<li class="contact"><a href="#contact" title="Contact"></a></li>
+		<li class="shortcodes"><a href="#" title="Shortcodes"></a></li>
+		</ul>
+
+<style>
+ul#navigationR .home a{
+    background-image: url('.$depth.'images/content/camera.png);
+}
+ul#navigationR .about a      {
+    background-image: url('.$depth.'images/content/mail.png);
+}
+ul#navigationR .shortcodes a      {
+    background-image: url('.$depth.'images/content/rss.png);
+}
+</style>
+
+		<ul id="navigationR">
+		<li class="home"><a href="#" title="Home"></a></li>
+		<li class="about"><a href="#" title="About"></a></li>
+		<li class="shortcodes"><a href="#" title="Shortcodes"></a></li>
 		</ul>
 
 		<div id="wrapper"><!-- #wrapper -->
@@ -52,8 +79,7 @@ This program is free software: you can redistribute it and/or modify it under th
 		</div>
 		</nav><!-- end of top nav -->
 
-		<section id="main"><!-- #main content and sidebar area -->
+		<section id="main"><!-- #main content area -->
 
-		<section id="content"><!-- #content -->
-		<article id="drawhere">';
+		<article id="drawhere"><p>';
 ?>
