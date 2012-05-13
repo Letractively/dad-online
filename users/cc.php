@@ -1,7 +1,10 @@
-<script language="javascript" src="js/cc.js">
-</script>
-
 <?php
+/*
+DAD Online. Web browser MMORPG.
+Copyright(C) 2012 Aceapps Aplicaciones. 
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses
+*/
+
 	// Load files
 
 	require_once '../include/config.php';
@@ -17,7 +20,9 @@
 
 	// Characer Creation Form
 
-	echo '<form id="cc" name="cc" action="cc_do.php" method="post" accept-charset="UTF-8">
+	echo '<script language="javascript" src="js/cc.js">
+		</script>
+		<form id="cc" name="cc" action="cc_do.php" method="post" accept-charset="UTF-8">
 		<fieldset>
 		<legend>Character Creation</legend>
 		<label for="name">Name:</label>
@@ -32,18 +37,15 @@
 		echo '<option value="'.$row[0].'">'.$row[1].'</option>';
 	}
 
-	// Character Creation Form continues
+	// Character Creation Form end + Race picture preview
 
 	echo '</select></br>
 		<input type="submit" value="Create"/>
 		<button type="button"><a href="../index.php">Cancel</a></button>
 		</fieldset>
-		</form>';
-?>
+		</form>
+		<img name="pic" src="images/blank.png" border="0">';
 
-<img name="pic" src="images/blank.png" border="0">
-
-<?php 
     // Load HTML5 Template
 
     include_once '../aat/footer.php';
