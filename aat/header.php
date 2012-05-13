@@ -17,7 +17,6 @@ This program is free software: you can redistribute it and/or modify it under th
 		<meta charset="utf-8" />
 		<title>DAD Online</title>
 		<link rel="stylesheet" type="text/css" href="'.$depth.'styles.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="'.$depth.'simpletabs.css" media="screen" />
 		<script type="text/javascript"
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
 		<script type="text/javascript" src="'.$depth.'js/functions.js"></script>
@@ -81,5 +80,5 @@ ul#navigationR .shortcodes a      {
 
 		<section id="main"><!-- #main content area -->
 
-		<article id="drawhere"><p>';
+		<article id="drawhere">';
 ?>

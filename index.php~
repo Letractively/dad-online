@@ -14,18 +14,16 @@ This program is free software: you can redistribute it and/or modify it under th
 
     $depth = "aat/"; include_once 'aat/header.php';
 
-    // Login/Register Buttons
+    // Login/Register Form
 
-    echo '<table align=center>
-			<tr>
-				<td align="left">
-					<button type="button"><a href="users/login.php">Login</a></button>
-				</td>
-				<td align="right">
-					<button type="button"><a href="users/register.php">Register</a></button>
-				</td>
-			</tr>
-		</table>';
+	echo '<form name="lrform" action="oops.php" method="post" accept-charset="UTF-8">
+			<label>Email:</label>
+			<input type="text" name="email" class="email" />
+			<label>Password:</label>
+			<input type="password" name="password" class="password" />
+			<input type="submit" value="Submit" name="submit" class="submit" onClick="document.lrform.action=\'users/login_do.php\';"/>
+			<input type="submit" value="Register" name="register" class="register" />
+		</form>';
 
     // Load HTML5 Template
 

@@ -19,7 +19,7 @@ display: block;
 
 body {
 line-height: 1;
-background: #ddd url(images/bg.jpg) repeat;;
+background: #000000;
 font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
 color: #666;
 font-size: 14px;
@@ -29,17 +29,17 @@ line-height: 18px;
 /* Layout */
 
 #wrapper {
-width: 750px; /*940*/
+width: 750px;
 margin: 0 auto;
 margin-top: 5px;
 margin-bottom: 5px;
 }
 
 nav {
-width: 750px; /*940*/
+width: 750px;
 height: 50px;
 margin: 0 auto;
-background: #648250;
+background: #4E0085;
 	/* Curved border radius */
 	-moz-border-radius-topright: 10px;
 	-moz-border-radius-topleft: 10px;
@@ -48,22 +48,19 @@ background: #648250;
 }
 
 header {
-width: 750px; /*940*/
+width: 750px;
 }
 
 #main {
-width: 730px; /*920*/
-margin: 0 auto;
-padding-top: 30px;
-background: #eee;
+width: 730px;
+background: #4E0085;
 overflow: hidden;
-border: 10px #648250 solid;
-float: center;
+border: 10px #4E0085 solid;
 }
 
 footer {
-width: 750px; /*940*/
-background: #648250;
+width: 750px;
+background: #4E0085;
 color: #fff;
 margin: 0 auto;
 clear: both;
@@ -90,22 +87,9 @@ clear: both;
 color: #333;
 }
 
-a:link, a:visited {
-color:#648250;
+article {
+	color: #FFFFFF;
 }
-
-a:hover, a:active {
-color: #B59925;
-}
-
-p {
-margin-bottom: 18px;
-}
-
-li {
-padding-left: 5px;
-}
-
 /* Header */
 
 header h1 { 	
@@ -117,7 +101,7 @@ text-align: center;
 
 header h1 a:link, header h1 a:visited {
 text-decoration: none;
-color: #FDD017;
+color: #FFFFFF;
 text-shadow: 1px 3px 4px #333;
 }
 
@@ -125,7 +109,7 @@ header h1 a:hover {
 text-decoration: underline; 
 }
 
-/* Nav */
+/* Top Navigation */
 
 nav .menu {
 font-size: 16px;
@@ -143,6 +127,7 @@ line-height: normal;
 nav .menu li {
 display: block;
 float: left;
+padding-left: 5px;
 }
 
 nav .menu a {
@@ -150,58 +135,11 @@ display: block;
 float: left;
 padding: 0 10px;
 text-decoration: none;
-color: #FDD017;
+color: #FFFFFF;
 }
 
 nav .menu a:hover {
-border-bottom: 3px solid #fdd017;
-}
-
-/* Articles */
-
-article img {
-border: none;
--webkit-box-shadow: 3px 3px 7px #777;
--moz-box-shadow: 3px 3px 7px #777;
-}
-
-#drawhere p, ul, ol, hr {
-margin-bottom: 24px;
-}
-
-#drawhere ul ul, ol ol, ul ol, ol ul {
-margin-bottom: 0;
-}
-
-#drawhere h1, h2, h3, h4, h5, h6 {
-color: #333;
-margin: 0 0 20px 0;
-line-height: 1.5em;
-}
-
-.alignleft, img.alignleft {
-display: inline;
-float: left;
-margin-right: 24px;
-margin-top: 4px;
-}
-
-.alignright, img.alignright {
-display: inline;
-float: right;
-margin-left: 24px;
-margin-top: 4px;
-}
-
-.aligncenter, img.aligncenter {
-clear: both;
-display: block;
-margin-left: auto;
-margin-right: auto;
-}
-
-img.alignleft, img.alignright, img.aligncenter {
-margin-bottom: 12px;
+border-bottom: 3px solid #FFFFFF;
 }
 
 /* Footer widget blocks */
@@ -301,4 +239,81 @@ ul#navigationR li a {
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.75);
     opacity: 0.6;
     filter:progid:DXImageTransform.Microsoft.Alpha(opacity=60);
+}
+
+/* Forms */
+
+form {
+	width: 250px;
+	padding: 20px;
+	border: 1px solid #270644;
+	float: right;
+	margin: 10px;
+
+	/* Rounded Corners */
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+
+	/* Background Gradient - Firefox and Webkit */
+	background: -moz-linear-gradient(19% 75% 90deg,#4E0085, #963AD6);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#963AD6), to(#4E0085));
+
+	/* Shadow behind the box */
+	-moz-box-shadow:0px -5px 300px #270644;
+	-webkit-box-shadow:0px -5px 300px #270644;
+}
+
+input {
+	width: 230px;
+	background: #8a33c6;
+	padding: 6px;
+	margin-bottom: 10px;
+	border-top: 1px solid #ad64e0;
+	border-left: 0px;
+	border-right: 0px;
+	border-bottom: 0px;
+
+	/* Transition Selectors - What properties to animate and how long */
+	-webkit-transition-property: -webkit-box-shadow, background;
+	-webkit-transition-duration: 0.25s;
+
+	/* Small Shadow */
+	-moz-box-shadow: 0px 0px 2px #000;
+	-webkit-box-shadow: 0px 0px 2px #000;
+}
+
+input:hover {
+	-webkit-box-shadow: 0px 0px 4px #000;
+	background: #9d39e1;
+}
+
+input.submit {
+	width: 100px;
+	color: #fff;
+	text-transform: uppercase;
+	text-shadow: #000 1px 1px;
+	border-top: 1px solid #ad64e0;
+	margin-top: 10px;
+
+	/* CSS3 Gradients */
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#963AD6), to(#781bb9));
+	background:  -moz-linear-gradient(19% 75% 90deg,#781bb9, #963AD6);
+}
+
+input.register {
+	width: 100px;
+	color: #fff;
+	text-transform: uppercase;
+	text-shadow: #000 1px 1px;
+	border-top: 1px solid #ad64e0;
+	margin-top: 10px;
+	float:right;
+
+	/* CSS3 Gradients */
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#963AD6), to(#781bb9));
+	background:  -moz-linear-gradient(19% 75% 90deg,#781bb9, #963AD6);
+}
+
+input.password, input.username {
+	width: 240px;
 }
