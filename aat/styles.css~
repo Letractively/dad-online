@@ -1,0 +1,319 @@
+/*
+DAD Online. Web browser MMORPG.
+Copyright(C) 2012 Aceapps Aplicaciones. 
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses
+*/
+
+/* Reset */
+
+* {
+margin: 0;
+padding: 0;
+}
+
+/* Render HTML5 elements as block */
+
+header, footer, section, nav, article {
+display: block;
+}
+
+body {
+line-height: 1;
+background: #000000;
+font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+color: #666;
+font-size: 14px;
+line-height: 18px;
+}
+	
+/* Layout */
+
+#wrapper {
+width: 750px;
+margin: 0 auto;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+
+nav {
+width: 750px;
+height: 50px;
+margin: 0 auto;
+background: #4E0085;
+	/* Curved border radius */
+	-moz-border-radius-topright: 10px;
+	-moz-border-radius-topleft: 10px;
+	-webkit-border-top-left-radius: 10px;
+	-webkit-border-top-right-radius: 10px;
+}
+
+header {
+width: 750px;
+}
+
+#main {
+width: 730px;
+background: #4E0085;
+overflow: hidden;
+border: 10px #4E0085 solid;
+}
+
+footer {
+width: 750px;
+background: #4E0085;
+color: #fff;
+margin: 0 auto;
+clear: both;
+	/* Curved border radius */
+	-moz-border-radius-bottomright: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+}
+
+/* Basics */
+
+@font-face {
+	font-family: 'AmerikaRegular';
+	src: url('AMERIKA_-webfont.eot');
+	src: local('AmerikaRegular'), url('AMERIKA_-webfont.woff') format('woff'), url('AMERIKA_-webfont.ttf') format('truetype'), url('AMERIKA_-webfont.svg#webfontFbN0xXy4') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+h1,h2,h3,h4,h5,h6 {
+font-weight: bold;
+clear: both;
+color: #333;
+}
+
+article {
+	color: #FFFFFF;
+}
+/* Header */
+
+header h1 { 	
+padding-top: 20px;
+font-family: 'AmerikaRegular', 'Trebuchet MS', Verdana, Arial, Helvetica, sans-serif;
+font-size: 50px;
+text-align: center;
+}
+
+header h1 a:link, header h1 a:visited {
+text-decoration: none;
+color: #FFFFFF;
+text-shadow: 1px 3px 4px #333;
+}
+
+header h1 a:hover { 
+text-decoration: underline; 
+}
+
+/* Top Navigation */
+
+nav .menu {
+font-size: 16px;
+font-weight: bold;
+margin-top: 20px;
+}
+
+nav .menu ul {
+margin: 0;
+padding: 17px 0 0 5px;
+list-style: none;
+line-height: normal;
+}
+
+nav .menu li {
+display: block;
+float: left;
+padding-left: 5px;
+}
+
+nav .menu a {
+display: block;
+float: left;
+padding: 0 10px;
+text-decoration: none;
+color: #FFFFFF;
+}
+
+nav .menu a:hover {
+border-bottom: 3px solid #FFFFFF;
+}
+
+/* Footer widget blocks */
+
+#footer-area {
+background: #03327d;
+color: #FFF;
+font-size: 90%;
+padding: 18px 0;
+overflow: hidden;
+}
+
+footer p {
+text-align: right;
+font-size: 11px;
+padding: 5px 20px 5px 0;
+}
+
+footer a {
+color: #999;
+}
+
+footer a:hover {
+color: #FFF;
+text-decoration: none;
+}
+
+footer a:link, footer a:visited {
+color: #FFF;
+}
+
+/* Left Navigation */
+
+ul#navigation {
+    position: fixed;
+    margin: 0px;
+    padding: 0px;
+    top: 10px;
+    left: 0px;
+    list-style: none;
+    z-index:9999;
+}
+ul#navigation li {
+    width: 100px;
+}
+ul#navigation li a {
+    display: block;
+    margin-left: -2px;
+    width: 100px;
+    height: 70px;    
+    background-color:#CFCFCF;
+    background-repeat:no-repeat;
+    background-position:center center;
+    border:1px solid #AFAFAF;
+    -moz-border-radius:0px 10px 10px 0px;
+    -webkit-border-bottom-right-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    -moz-box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.75) ;
+    -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.75);
+    opacity: 0.6;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=60);
+}
+
+/* Right Navigation */
+
+ul#navigationR {
+    position: fixed;
+    margin: 0px;
+    padding: 0px;
+    top: 10px;
+    right: 0px;
+    list-style: none;
+    z-index:9999;
+}
+ul#navigationR li {
+    width: 100px;
+}
+ul#navigationR li a {
+    display: block;
+    margin-right: -2px;
+    width: 100px;
+    height: 70px;    
+    background-color:#CFCFCF;
+    background-repeat:no-repeat;
+    background-position:center center;
+    border:1px solid #AFAFAF;
+    -moz-border-radius:0px 10px 10px 0px;
+    -webkit-border-bottom-left-radius: 10px;
+    -webkit-border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    -moz-box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.75) ;
+    -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.75);
+    opacity: 0.6;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=60);
+}
+
+/* Forms */
+
+form {
+	width: 250px;
+	padding: 20px;
+	border: 1px solid #270644;
+	float: right;
+	margin: 10px;
+
+	/* Rounded Corners */
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+
+	/* Background Gradient - Firefox and Webkit */
+	background: -moz-linear-gradient(19% 75% 90deg,#4E0085, #963AD6);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#963AD6), to(#4E0085));
+
+	/* Shadow behind the box */
+	-moz-box-shadow:0px -5px 300px #270644;
+	-webkit-box-shadow:0px -5px 300px #270644;
+}
+
+input {
+	width: 230px;
+	background: #8a33c6;
+	padding: 6px;
+	margin-bottom: 10px;
+	border-top: 1px solid #ad64e0;
+	border-left: 0px;
+	border-right: 0px;
+	border-bottom: 0px;
+
+	/* Transition Selectors - What properties to animate and how long */
+	-webkit-transition-property: -webkit-box-shadow, background;
+	-webkit-transition-duration: 0.25s;
+
+	/* Small Shadow */
+	-moz-box-shadow: 0px 0px 2px #000;
+	-webkit-box-shadow: 0px 0px 2px #000;
+}
+
+input:hover {
+	-webkit-box-shadow: 0px 0px 4px #000;
+	background: #9d39e1;
+}
+
+input.submit {
+	width: 100px;
+	color: #fff;
+	text-transform: uppercase;
+	text-shadow: #000 1px 1px;
+	border-top: 1px solid #ad64e0;
+	margin-top: 10px;
+
+	/* CSS3 Gradients */
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#963AD6), to(#781bb9));
+	background:  -moz-linear-gradient(19% 75% 90deg,#781bb9, #963AD6);
+}
+
+input.cancel {
+	width: 100px;
+	color: #fff;
+	text-transform: uppercase;
+	text-shadow: #000 1px 1px;
+	border-top: 1px solid #ad64e0;
+	margin-top: 10px;
+	float:right;
+
+	/* CSS3 Gradients */
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#963AD6), to(#781bb9));
+	background:  -moz-linear-gradient(19% 75% 90deg,#781bb9, #963AD6);
+}
+
+input.email, input.password {
+	width: 240px;
+}

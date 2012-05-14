@@ -16,18 +16,16 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Regiser Form
 
-	echo '<form id="register" action="register_do.php" method="post" accept-charset="UTF-8">
-			<fieldset>
+	echo '<form name="rform" action="register_do.php" method="post" accept-charset="UTF-8">
 				<legend>Register</legend>
 				<label for="email">Email:</label>
-				<input type="text" name="email" id="email" maxlength="50" required/><br/>
+				<input type="text" name="email" id="email" maxlength="64" required/><br/>
 				<label for="pwd1">Password:</label>
-				<input type="password" name="pwd1" id="pwd1" maxlength="50" required/><br/>
+				<input type="password" name="pwd1" id="pwd1" required/><br/>
 				<label for="pwd2">Repeat Password:</label>
-				<input type="password" name="pwd2" id="pwd2" maxlength="50" required/><br/>
-				<input type="submit" name="Submit" value="Submit"/>
-				<button type="button"><a href="../index.php">Cancel</a></button>
-			</fieldset>
+				<input type="password" name="pwd2" id="pwd2" required/><br/>
+				<input type="submit" value="register" name="submit" class="submit" />
+				<input type="submit" value="Cancel" name="register" class="register" onClick="location.href=\'../\'" />
 		</form>';
 
 	// Load HTML5 Template
