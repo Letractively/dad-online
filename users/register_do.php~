@@ -59,5 +59,8 @@ This program is free software: you can redistribute it and/or modify it under th
 	$result = mysql_query($query) or die(mysql_error());
 
 	echo '<script language="javascript">alert("Registration successful!!!");</script>';
-	header('Location: ../');
+	echo '<script language="javascript">
+			alert("Invalid email/password!");
+			window.location = ("../index.php");
+		</script>';
 ?>

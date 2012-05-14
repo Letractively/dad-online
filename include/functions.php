@@ -8,13 +8,11 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Login Validation
 
 	function session_validate() {
-		session_start();
-
 		if(!isset($_SESSION['userid']) || !isset($_SESSION['email'])) {
 			session_destroy();
-			echo '<p>You are not logged in.</p>';
-			include 'login.php';
-			exit;
+			return false;;
+		} else {
+			return true;
 		}
 	}
 ?>

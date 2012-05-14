@@ -5,18 +5,21 @@ Copyright(C) 2012 Aceapps Aplicaciones.
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses
 */
 
+	// Session Start
+
+	session_start();
+
 	// Load files
 
 	require_once '../include/config.php';
 	require_once '../include/functions.php';
 
-	// Login Validation
+    // Login Validation
 
-	session_validate();
-
-    // Load HTML5 Template
-
-    $depth = "../aat/"; include_once '../aat/header.php';
+	if (!session_validate()) {
+		header('Location: ../');
+		exit;
+	}
 
 	// Get session variables
 
@@ -33,9 +36,10 @@ This program is free software: you can redistribute it and/or modify it under th
 	$result = mysql_query($query) or die(mysql_error());
 
 	if(mysql_num_rows($result) >= $maxchars) {
-		echo "<p>You can't create any more characters!</p>";
-		session_destroy();
-		include 'login.php';
+		echo '<script language="javascript">
+				alert("You can\'t create any more characters!");
+				window.location = ("index.php");
+			</script>';
 		exit;
 	}
 
@@ -45,7 +49,7 @@ This program is free software: you can redistribute it and/or modify it under th
 	$result = mysql_query($query) or die(mysql_error());
 
 	if(mysql_num_rows($result)) {
-		echo '<p>Character name is already being used!</p>';
+		echo '<script language="javascript">alert("Character name is already being used!");</script>';
 		include 'cc.php';
 		exit;
 	}
@@ -55,11 +59,5 @@ This program is free software: you can redistribute it and/or modify it under th
 	$query = "INSERT INTO characters (userid,name,race,map) VALUES('$userid','$name','$race',(SELECT startmap FROM races WHERE name = '$race'))";
 	$result = mysql_query($query) or die(mysql_error());
 
-	include 'main.php';
-
-    // Load HTML5 Template
-
-    include_once '../aat/footer.php';
-
-    exit;
+	header('Location: index.php');
 ?>
