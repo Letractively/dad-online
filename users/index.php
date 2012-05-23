@@ -68,14 +68,21 @@ This program is free software: you can redistribute it and/or modify it under th
     }
 
     // Draw user characters
-    echo '<script language="javascript" src="js/dad.js">
-        </script>';
+    echo '<p><script language="javascript" src="js/dad.js">
+        </script></p>';
+
+	// Options Buttons
 
     // Verify room for more characters
     if($numrows < $maxchars) {
-		echo '<p><a class="button" href="cc.php"><span>Create Character</span></a></p>';
-    }
-    echo '<p><button type="button"><a href="logout.php">Logout</a></button></p>';
+		echo '<p><input type="submit" value="create character" name="extral" class="extral"
+			onClick="location.href=\'cc.php\'" /></p>';
+	}
+
+	// Logout Button
+
+    echo '<p><input type="submit" value="logout" name="extra" class="extra"
+		onClick="location.href=\'logout.php\'" /></p>';
 
     // Load HTML5 Template
 
