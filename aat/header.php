@@ -11,6 +11,12 @@ This program is free software: you can redistribute it and/or modify it under th
 		$bottom = "../";
 	}
 
+	if (isset($_SESSION['email'])) {
+		$email = $_SESSION['email'];
+	} else {
+		$email = "";
+	}
+
 	echo '<!DOCTYPE html>
 		<html lang="en">
 		<head>
@@ -74,6 +80,7 @@ ul#navigationR .shortcodes a      {
 		<li><a href="#">Services</a></li>
 		<li><a href="#">Support</a></li>
 		<li><a href="#">Contact Us</a></li>
+		<p>'.$email.'</p>
 		</ul>
 		</div>
 		</nav><!-- end of top nav -->

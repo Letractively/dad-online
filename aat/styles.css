@@ -90,6 +90,7 @@ color: #333;
 article {
 	color: #FFFFFF;
 }
+
 /* Header */
 
 header h1 { 	
@@ -140,6 +141,12 @@ color: #FFFFFF;
 
 nav .menu a:hover {
 border-bottom: 3px solid #FFFFFF;
+}
+
+nav .menu p {
+display: block;
+float: right;
+padding: 0 10px;
 }
 
 /* Footer widget blocks */
@@ -316,4 +323,17 @@ input.register {
 
 input.email, input.password {
 	width: 240px;
+}
+
+a.button {
+	width: 100px;
+	color: #fff;
+	text-transform: uppercase;
+	text-shadow: #000 1px 1px;
+	border-top: 1px solid #ad64e0;
+	margin-top: 10px;
+
+	/* CSS3 Gradients */
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#963AD6), to(#781bb9));
+	background:  -moz-linear-gradient(19% 75% 90deg,#781bb9, #963AD6);
 }

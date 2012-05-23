@@ -17,6 +17,7 @@ This program is free software: you can redistribute it and/or modify it under th
     // Login/Register Form
 
 	echo '<form name="lrform" action="users/login_do.php" method="post" accept-charset="UTF-8">
+			<legend>Login</legend>
 			<label>Email:</label>
 			<input type="text" name="email" class="email" maxlength="64" required />
 			<label>Password:</label>

@@ -73,7 +73,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
     // Verify room for more characters
     if($numrows < $maxchars) {
-        echo '<p><button type="button"><a href="cc.php">Create Character</a></button></p>';
+		echo '<p><a class="button" href="cc.php"><span>Create Character</span></a></p>';
     }
     echo '<p><button type="button"><a href="logout.php">Logout</a></button></p>';
 
