@@ -32,7 +32,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Character amount verification info
 		
-	$query = "SELECT * FROM characters WHERE userid = '$userid'";
+	$query = "SELECT * FROM characters WHERE user = '$userid'";
 	$result = mysql_query($query) or die(mysql_error());
 
 	if(mysql_num_rows($result) >= $maxchars) {

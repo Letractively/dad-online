@@ -23,7 +23,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Get session variables
 
-	$userid = $_SESSION['userid'];
+	$userid = $_SESSION['id'];
 
 	// Get form variables
 
