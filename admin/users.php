@@ -21,14 +21,14 @@ This program is free software: you can redistribute it and/or modify it under th
 		exit;
 	}
 
-	// Load HTML5 Template
-
-    $depth = "../aat/"; include_once '../aat/header.php';
-
 	// Get Users Info
 		
 	$query = "SELECT id,email,accesslevel FROM users";
 	$result = mysql_query($query) or die(mysql_error());
+
+	// Load HTML5 Template
+
+    $depth = "../aat/"; include_once '../aat/header.php';
 
 	// Show Users Info
 
@@ -38,7 +38,7 @@ This program is free software: you can redistribute it and/or modify it under th
 		echo ('<td>'.$row[1].'</td>');
 		echo ('<td>'.$row[2].'</td>');
 		echo ('<td><a href=\'edit_user.php?id='.$row[0].'\'>Edit</a></td>');
-		echo ('<td><a href=\'delete_user.php?id='.$row[0].'\'>Delete</a></td></tr>');
+		echo ('<td><a href=\'delete.php?id='.$row[0].'&table=users\'>Delete</a></td></tr>');
 	}
 	echo '</table>';
 

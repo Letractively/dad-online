@@ -32,17 +32,17 @@ This program is free software: you can redistribute it and/or modify it under th
 		<p><input type="submit" value="add map" name="extra" class="extra"
 		onClick="location.href=\'add_map.php\'" />
 		<input type="submit" value="map list" name="extra" class="extra"
-		onClick="location.href=\'maps.php\'" /></p>
+		onClick="location.href=\'list.php?table=maps\'" /></p>
 		<p><input type="submit" value="add spell" name="extra" class="extra"
 		onClick="location.href=\'add_spell.php\'" />
 		<input type="submit" value="spell list" name="extra" class="extra"
-		onClick="location.href=\'spells.php\'" /></p>
+		onClick="location.href=\'list.php?table=spells\'" /></p>
 		<p><input type="submit" value="add race" name="extra" class="extra"
 		onClick="location.href=\'add_race.php\'" />
 		<input type="submit" value="race list" name="extra" class="extra"
-		onClick="location.href=\'races.php\'" /></p>
-		<p><input type="submit" value="character list" name="extra2" class="extra2"
-		onClick="location.href=\'characters.php\'" /></p>
+		onClick="location.href=\'list.php?table=races\'" /></p>
+		<p><input type="submit" value="character list" name="extral" class="extral"
+		onClick="location.href=\'list.php?table=characters\'" /></p>
 		<p>-</p>
 		<p><input type="submit" value="user panel" name="extra" class="extra"
 		onClick="location.href=\'../users/index.php\'" />

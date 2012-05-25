@@ -21,10 +21,6 @@ This program is free software: you can redistribute it and/or modify it under th
 		exit;
 	}
 
-	// Load HTML5 Template
-
-    $depth = "../aat/"; include_once '../aat/header.php';
-
 	// Get GET Variable
 
 	$id = $_GET['id'];
@@ -33,6 +29,10 @@ This program is free software: you can redistribute it and/or modify it under th
 		
 	$query = "SELECT email,accesslevel FROM users WHERE id=$id";
 	$result = mysql_query($query) or die(mysql_error());
+
+	// Load HTML5 Template
+
+    $depth = "../aat/"; include_once '../aat/header.php';
 
 	// Show User Info
 
