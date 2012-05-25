@@ -23,7 +23,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Get races list
 
-	$query = "SELECT name,showname FROM races";
+	$query = "SELECT name FROM races";
 	$result = mysql_query($query) or die(mysql_error());
 
 	// Load HTML5 Template
@@ -45,7 +45,7 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Fill selection with available races
 
 	while($row = mysql_fetch_array($result)) {
-		echo '<option value="'.$row[0].'">'.$row[1].'</option>';
+		echo '<option value="'.$row[0].'">'.$row[0].'</option>';
 	}
 
 	// Character Creation Form end + Race picture preview

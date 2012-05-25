@@ -8,11 +8,26 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Login Validation
 
 	function session_validate() {
-		if(!isset($_SESSION['userid']) || !isset($_SESSION['email'])) {
+		if(!isset($_SESSION['id']) || !isset($_SESSION['email']) || !isset($_SESSION['accesslevel'])) {
 			session_destroy();
-			return false;;
+			return false;
 		} else {
 			return true;
+		}
+	}
+
+	// Admin Login Validation
+
+	function admin_session_validate() {
+		if(!isset($_SESSION['id']) || !isset($_SESSION['email']) || !isset($_SESSION['accesslevel'])) {
+			session_destroy();
+			return false;
+		} else {
+			if ($_SESSION['accesslevel'] < 100) {
+				return false;
+			} else {
+				return true;
+			}
 		}
 	}
 ?>

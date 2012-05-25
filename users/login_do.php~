@@ -21,7 +21,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Login Validation
 	
-	$query = "SELECT id FROM users WHERE email = '$email' AND password = PASSWORD('$password')";
+	$query = "SELECT id,accesslevel FROM users WHERE email = '$email' AND password = PASSWORD('$password')";
 	$result = mysql_query($query) or die(mysql_error());
 
 	// Login Error
@@ -29,7 +29,7 @@ This program is free software: you can redistribute it and/or modify it under th
 	if(!mysql_num_rows($result)) {
 		echo '<script language="javascript">
 				alert("Invalid email/password!");
-				window.location = ("../");
+				window.location = ("../index.php");
 			</script>';
 		exit;
 	}
@@ -38,7 +38,14 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	$row = mysql_fetch_array($result);
 	session_start();
-	$_SESSION['userid'] = htmlspecialchars($row[0]);
+	$_SESSION['id'] = htmlspecialchars($row[0]);
 	$_SESSION['email'] = htmlspecialchars($email);
+	$_SESSION['accesslevel'] = htmlspecialchars($row[1]);
+	if ($row[1] >= 100) {
+		echo '<script language="javascript">
+				window.location = ("../admin/index.php");
+			</script>';
+		exit;
+	}
 	header('Location: index.php');
 ?>

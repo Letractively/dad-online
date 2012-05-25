@@ -14,7 +14,7 @@ This program is free software: you can redistribute it and/or modify it under th
 	require_once '../include/config.php';
 	require_once '../include/functions.php';
 
-    // Login Validation
+	// Login Validation
 
 	if (!session_validate()) {
 		header('Location: ../');
@@ -28,7 +28,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Character amount verification info
 		
-	$query = "SELECT c.name,c.race,m.name FROM characters AS c,map AS m WHERE c.userid = '$userid' AND c.map = m.id";
+	$query = "SELECT c.name,r.name,m.name FROM characters AS c,races AS r,maps AS m WHERE c.user = '$userid' AND c.race = r.id AND c.map = m.id";
 	$result = mysql_query($query) or die(mysql_error());
 
 	$numrows = mysql_num_rows($result);
@@ -75,7 +75,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
     // Verify room for more characters
     if($numrows < $maxchars) {
-		echo '<p><input type="submit" value="create character" name="extra" class="extra"
+		echo '<p><input type="submit" value="create character" name="extral" class="extral"
 			onClick="location.href=\'cc.php\'" /></p>';
 	}
 
@@ -84,7 +84,7 @@ This program is free software: you can redistribute it and/or modify it under th
     echo '<p><input type="submit" value="logout" name="extra" class="extra"
 		onClick="location.href=\'logout.php\'" /></p>';
 
-    // Load HTML5 Template
+	// Load HTML5 Template
 
-    include_once '../aat/footer.php';
+	include_once '../aat/footer.php';
 ?>
