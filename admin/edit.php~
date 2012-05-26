@@ -55,14 +55,13 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Load HTML5 Template
 
-    $depth = "../aat/"; include_once '../aat/header.php';
+	$depth = "../aat/"; include_once '../aat/header.php';
 
 	// Show Editable Info
 
-	echo '<form name="adminedit" action="" method="post" accept-charset="UTF-8">
+	echo '<form name="adminedit" action="ooops.php" method="post" accept-charset="UTF-8">
 		<legend>Edit '.$table.'</legend>';
-
-	$i = 0;
+	$i = 1;
 	$j = 0;
 	while ($i < $fields) {
 		$meta = mysql_fetch_field($result,$i);
@@ -76,11 +75,9 @@ This program is free software: you can redistribute it and/or modify it under th
 
 			echo '<p><select name="'.$meta->name.'" required >
 				<option value=""></option>';
-
 			while ($fkrow2=mysql_fetch_array($fkresult2)) {
 				echo '<option value="'.$fkrow2[0].'">'.$fkrow2[1].'</option>';
 			}
-
 			echo '</select></p>';
 
 			// REQUIRES SCRIP TO SELECT ORIGINAL!!! (value = $row[$i])
@@ -92,7 +89,6 @@ This program is free software: you can redistribute it and/or modify it under th
 		}
 		$i++;
 	}
-
 	echo '</form>';
 
 	// Cancel Button

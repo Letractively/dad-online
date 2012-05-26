@@ -21,20 +21,14 @@ This program is free software: you can redistribute it and/or modify it under th
 		exit;
 	}
 
-	// Load HTML5 Template
+	// Get GET Variables
 
-    $depth = "../aat/"; include_once '../aat/header.php';
+	$table = $_GET['table'];
 
-	// Stuff
+	// Get POST Variables
 
-	echo 'Stuff here';
-
-	// Cancel Button
-
-	echo '<p><input type="submit" value="cancel" name="extra" class="extra"
-		onClick="location.href=\'index.php\'" /></p>';
-
-	// Load HTML5 Template
-
-	include_once '../aat/footer.php';
+	$arraypost=array();
+	foreach($_POST as $key => $value) if ($key != "submit") $arraypost[]="$key='$value'";
+	$query="INSERT INTO $table SET ".implode(', ',$arraypost);
+	echo $query;
 ?>

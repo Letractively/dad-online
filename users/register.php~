@@ -10,22 +10,22 @@ This program is free software: you can redistribute it and/or modify it under th
 	session_start();
 	session_destroy();
 
-    // Load HTML5 Template
+	// Load HTML5 Template
 
-    $depth = "../aat/"; include_once '../aat/header.php';
+	$depth = "../aat/"; include_once '../aat/header.php';
 
 	// Regiser Form
 
 	echo '<form name="rform" action="register_do.php" method="post" accept-charset="UTF-8">
-				<legend>Register</legend>
-				<label for="email">Email:</label>
-				<input type="text" name="email" id="email" maxlength="64" required/><br/>
-				<label for="pwd1">Password:</label>
-				<input type="password" name="pwd1" id="pwd1" required/><br/>
-				<label for="pwd2">Repeat Password:</label>
-				<input type="password" name="pwd2" id="pwd2" required/><br/>
-				<input type="submit" value="register" name="submit" class="submit" />
-				<input type="submit" value="Cancel" name="register" class="register" onClick="location.href=\'../\'" />
+			<legend>Register</legend>
+			<label for="email">Email:</label>
+			<input type="text" name="email" id="email" maxlength="64" required/><br/>
+			<label for="pwd1">Password:</label>
+			<input type="password" name="pwd1" id="pwd1" required/><br/>
+			<label for="pwd2">Repeat Password:</label>
+			<input type="password" name="pwd2" id="pwd2" required/><br/>
+			<input type="submit" value="register" name="submit" class="submit" />
+			<input type="submit" value="cancel" name="register" class="register" onClick="location.href=\'../\'" />
 		</form>';
 
 	// Load HTML5 Template

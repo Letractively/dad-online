@@ -23,15 +23,13 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Get GET Variables
 
-	$id = $_GET['id'];
 	$table = $_GET['table'];
 
 	// Get Info
 		
-	$query = "SELECT * FROM $table WHERE id=$id";
+	$query = "SELECT * FROM $table";
 	$result = mysql_query($query) or die(mysql_error());
 
-	$row=mysql_fetch_array($result);
 	$fields = mysql_num_fields($result);
 
 	// Get Foreign Keys
@@ -57,10 +55,10 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	$depth = "../aat/"; include_once '../aat/header.php';
 
-	// Show Editable Info
+	// Add Form
 
-	echo '<form name="adminedit" action="" method="post" accept-charset="UTF-8">
-		<legend>Edit '.$table.'</legend>';
+	echo '<form name="adminedit" action="add_do.php?table='.$table.'" method="post" accept-charset="UTF-8">
+		<legend>Add '.$table.'</legend>';
 	$i = 1;
 	$j = 0;
 	while ($i < $fields) {
@@ -79,17 +77,15 @@ This program is free software: you can redistribute it and/or modify it under th
 				echo '<option value="'.$fkrow2[0].'">'.$fkrow2[1].'</option>';
 			}
 			echo '</select></p>';
-
-			// REQUIRES SCRIP TO SELECT ORIGINAL!!! (value = $row[$i])
-
 			$j++;
 
 		} else {
-			echo '<input type="text" name="'.$meta->name.'" class="email" value="'.$row[$i].'" />';
+			echo '<input type="text" name="'.$meta->name.'" class="email" required />';
 		}
 		$i++;
 	}
-	echo '</form>';
+	echo '<input type="submit" value="add '.$table.'" name="submit" class="submit" />
+		</form>';
 
 	// Cancel Button
 

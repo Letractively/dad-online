@@ -30,15 +30,19 @@ This program is free software: you can redistribute it and/or modify it under th
 	echo '<p><input type="submit" value="user list" name="extra" class="extra"
 		onClick="location.href=\'users.php\'" /></p>
 		<p><input type="submit" value="add map" name="extra" class="extra"
-		onClick="location.href=\'add_map.php\'" />
+		onClick="location.href=\'add.php?table=maps\'" />
 		<input type="submit" value="map list" name="extra" class="extra"
 		onClick="location.href=\'list.php?table=maps\'" /></p>
 		<p><input type="submit" value="add spell" name="extra" class="extra"
-		onClick="location.href=\'add_spell.php\'" />
+		onClick="location.href=\'add.php?table=spells\'" />
 		<input type="submit" value="spell list" name="extra" class="extra"
 		onClick="location.href=\'list.php?table=spells\'" /></p>
 		<p><input type="submit" value="add race" name="extra" class="extra"
-		onClick="location.href=\'add_race.php\'" />
+		onClick="location.href=\'add.php?table=races\'" />
+		<input type="submit" value="race list" name="extra" class="extra"
+		onClick="location.href=\'list.php?table=races\'" /></p>
+		<p><input type="submit" value="add race" name="extra" class="extra"
+		onClick="location.href=\'add.php?table=races\'" />
 		<input type="submit" value="race list" name="extra" class="extra"
 		onClick="location.href=\'list.php?table=races\'" /></p>
 		<p><input type="submit" value="character list" name="extral" class="extral"
