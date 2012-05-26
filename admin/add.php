@@ -57,7 +57,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Add Form
 
-	echo '<form name="adminedit" action="add_do.php?table='.$table.'" method="post" accept-charset="UTF-8">
+	echo '<form name="adminadd" action="add_do.php?table='.$table.'" method="post" accept-charset="UTF-8">
 		<legend>Add '.$table.'</legend>';
 	$i = 1;
 	while ($i < $fields) {

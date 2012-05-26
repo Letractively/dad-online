@@ -23,6 +23,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Get GET Variables
 
+	$id = $_GET['id'];
 	$table = $_GET['table'];
 
 	// Get POST Variables
@@ -32,7 +33,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Insert
 
-	$query = "INSERT INTO $table SET ".implode(', ',$arraypost);
+	$query = "UPDATE $table SET ".implode(', ',$arraypost)." WHERE id=".$id;
 	$result = mysql_query($query) or die(mysql_error());
 
 	// Return to table list

@@ -37,10 +37,5 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Return to table list
 
-	if ($table == "users") {
-		header('Location: users.php');
-		exit;
-	}
-
 	header('Location: list.php?table='.$table);
 ?>

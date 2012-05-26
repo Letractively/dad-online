@@ -59,7 +59,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Show Editable Info
 
-	echo '<form name="adminedit" action="" method="post" accept-charset="UTF-8">
+	echo '<form name="adminedit" action="edit_do.php?id='.$id.'&table='.$table.'" method="post" accept-charset="UTF-8">
 		<legend>Edit '.$table.'</legend>';
 	$i = 1;
 	while ($i < $fields) {
@@ -74,26 +74,29 @@ This program is free software: you can redistribute it and/or modify it under th
 			$fkquery2 = "SELECT * FROM $fktables[$fkindex]";
 			$fkresult2 = mysql_query($fkquery2) or die(mysql_error());
 
+			$original = mysql_fetch_array(mysql_query("SELECT name FROM $fktables[$fkindex] WHERE id=$row[$i]"));
+
+			// Fill Foreign Keys Info
+
 			echo '<p><select name="'.$meta->name.'" required >
-				<option value=""></option>';
+				<option value="'.$row[$i].'">'.$original[0].'</option>';
 			while ($fkrow2=mysql_fetch_array($fkresult2)) {
-				echo '<option value="'.$fkrow2[0].'">'.$fkrow2[1].'</option>';
+				if ($fkrow2[0] != $row[$i]) echo '<option value="'.$fkrow2[0].'">'.$fkrow2[1].'</option>';
 			}
 			echo '</select></p>';
-
-			// REQUIRES SCRIP TO SELECT ORIGINAL!!! (value = $row[$i])
 
 		} else {
 			echo '<input type="text" name="'.$meta->name.'" class="email" value="'.$row[$i].'" />';
 		}
 		$i++;
 	}
-	echo '</form>';
+	echo '<input type="submit" value="edit '.$table.'" name="submit" class="submit" />
+		</form>';
 
 	// Cancel Button
 
 	echo '<p><input type="submit" value="cancel" name="extra" class="extra"
-		onClick="location.href=\'index.php\'" /></p>';
+		onClick="location.href=\'list.php?table='.$table.'\'" /></p>';
 
 	// Load HTML5 Template
 
