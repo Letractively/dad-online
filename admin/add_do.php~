@@ -29,6 +29,19 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	$arraypost=array();
 	foreach($_POST as $key => $value) if ($key != "submit") $arraypost[]="$key='$value'";
-	$query="INSERT INTO $table SET ".implode(', ',$arraypost);
+
+	// Insert
+
+	$query = "INSERT INTO $table SET ".implode(', ',$arraypost);
 	echo $query;
+	/*$result = mysql_query($query) or die(mysql_error());
+
+	// Return to table list
+
+	if ($table == "users") {
+		header('Location: users.php');
+		exit;
+	}
+
+	header('Location: list.php?table='.$table);*/
 ?>

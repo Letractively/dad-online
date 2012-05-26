@@ -62,7 +62,6 @@ This program is free software: you can redistribute it and/or modify it under th
 	echo '<form name="adminedit" action="" method="post" accept-charset="UTF-8">
 		<legend>Edit '.$table.'</legend>';
 	$i = 1;
-	$j = 0;
 	while ($i < $fields) {
 		$meta = mysql_fetch_field($result,$i);
 		echo '<label>'.$meta->name.':</label>';
@@ -70,7 +69,9 @@ This program is free software: you can redistribute it and/or modify it under th
 
 			// Get Foreign Keys Info
 
-			$fkquery2 = "SELECT * FROM $fktables[$j]";
+			$fkindex = array_search($meta->name, $fknames);
+
+			$fkquery2 = "SELECT * FROM $fktables[$fkindex]";
 			$fkresult2 = mysql_query($fkquery2) or die(mysql_error());
 
 			echo '<p><select name="'.$meta->name.'" required >
@@ -81,8 +82,6 @@ This program is free software: you can redistribute it and/or modify it under th
 			echo '</select></p>';
 
 			// REQUIRES SCRIP TO SELECT ORIGINAL!!! (value = $row[$i])
-
-			$j++;
 
 		} else {
 			echo '<input type="text" name="'.$meta->name.'" class="email" value="'.$row[$i].'" />';
