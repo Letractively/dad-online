@@ -21,30 +21,40 @@ This program is free software: you can redistribute it and/or modify it under th
 		exit;
 	}
 
+	// Get GET Variables
+
+	$table = $_GET['table'];
+
+	// Get List
+		
+	$query = "SELECT * FROM $table";
+	$result = mysql_query($query) or die(mysql_error());
+
+	$fields = mysql_num_fields($result);
+
 	// Load HTML5 Template
 
     $depth = "../aat/"; include_once '../aat/header.php';
 
-	// Get Maps Info
-
-	$query = "SELECT id,name FROM characters";
-	$result = mysql_query($query) or die(mysql_error());
-
-	// Show Maps Info
+	// Show Info
 
 	echo '<table border="1">';
 	while ($row=mysql_fetch_array($result)){
-		echo ('<tr><td>'.$row[0].'</td>');
-		echo ('<td>'.$row[1].'</td>');
-		echo ('<td><a href=\'edit_char.php?id='.$row[0].'\'>Edit</a></td>');
-		echo ('<td><a href=\'delete_char.php?id='.$row[0].'\'>Delete</a></td></tr>');
+		echo '<tr>';
+		$i = 0;
+		while ($i < $fields) {
+			echo '<td>'.$row[$i].'</td>';
+			$i++;
+		}
+		echo ('<td><a href=\'edit.php?id='.$row[0].'&table='.$table.'\'>Edit</a></td>');
+		echo ('<td><a href=\'delete.php?id='.$row[0].'&table='.$table.'\'>Delete</a></td></tr>');
 	}
 	echo '</table>';
 
 	// Cancel Button
 
-	echo '<input type="submit" value="cancel" name="extra" class="extra"
-		onClick="location.href=\'index.php\'" />';
+	echo '<p><input type="submit" value="cancel" name="extra" class="extra"
+		onClick="location.href=\'index.php\'" /></p>';
 
 	// Load HTML5 Template
 

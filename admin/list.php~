@@ -21,24 +21,35 @@ This program is free software: you can redistribute it and/or modify it under th
 		exit;
 	}
 
+	// Get GET Variables
+
+	$table = $_GET['table'];
+
+	// Get List
+		
+	$query = "SELECT * FROM $table";
+	$result = mysql_query($query) or die(mysql_error());
+
+	$fields = mysql_num_fields($result);
+
 	// Load HTML5 Template
 
     $depth = "../aat/"; include_once '../aat/header.php';
 
-	// Get GET Variable
+	// Show Info
 
-	$id = $_GET['id'];
-
-	// Get User Info
-		
-	$query = "SELECT email,accesslevel FROM users WHERE id=$id";
-	$result = mysql_query($query) or die(mysql_error());
-
-	// Show User Info
-
-	while ($row=mysql_fetch_array($result)) {
-		echo $row[0];
+	echo '<table border="1">';
+	while ($row=mysql_fetch_array($result)){
+		echo '<tr>';
+		$i = 0;
+		while ($i < $fields) {
+			echo '<td>'.$row[$i].'</td>';
+			$i++;
+		}
+		echo ('<td><a href=\'edit.php?id='.$row[0].'&table='.$table.'\'>Edit</a></td>');
+		echo ('<td><a href=\'delete.php?id='.$row[0].'&table='.$table.'\'>Delete</a></td></tr>');
 	}
+	echo '</table>';
 
 	// Cancel Button
 

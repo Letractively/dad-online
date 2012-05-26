@@ -21,32 +21,18 @@ This program is free software: you can redistribute it and/or modify it under th
 		exit;
 	}
 
-	// Load HTML5 Template
+	// Get GET Variables
 
-    $depth = "../aat/"; include_once '../aat/header.php';
+	$id = $_GET['id'];
+	$table = $_GET['table'];
 
-	// Get Maps Info
-
-	$query = "SELECT id,name FROM races";
+	// Get User Info
+		
+	$query = "DELETE FROM $table WHERE id=$id";
 	$result = mysql_query($query) or die(mysql_error());
 
-	// Show Maps Info
-
-	echo '<table border="1">';
-	while ($row=mysql_fetch_array($result)){
-		echo ('<tr><td>'.$row[0].'</td>');
-		echo ('<td>'.$row[1].'</td>');
-		echo ('<td><a href=\'edit_race.php?id='.$row[0].'\'>Edit</a></td>');
-		echo ('<td><a href=\'delete_race.php?id='.$row[0].'\'>Delete</a></td></tr>');
-	}
-	echo '</table>';
-
-	// Cancel Button
-
-	echo '<input type="submit" value="cancel" name="extra" class="extra"
-		onClick="location.href=\'index.php\'" />';
-
-	// Load HTML5 Template
-
-	include_once '../aat/footer.php';
+	echo '<script language="javascript">
+			alert("Delete successful!!!");
+			window.location = ("index.php");
+		</script>';
 ?>
