@@ -21,6 +21,25 @@ This program is free software: you can redistribute it and/or modify it under th
 		exit;
 	}
 
+	// Get GET Variables
+
+	$cid = '';
+	$classtext = 'Please select a class';
+	$racetext = 'Select a class first';
+	if (isset($_GET['class'])) {
+		$cid = mysql_real_escape_string($_GET['class']);
+
+		// Get class name
+		$classtext = mysql_fetch_array(mysql_query("SELECT name FROM classes WHERE id=$cid"))[0];
+
+		$racetext = 'Please select a race';
+
+		// Get races list
+
+		$query2 = "SELECT id,name FROM races WHERE class=$cid";
+		$result2 = mysql_query($query2) or die(mysql_error());
+	}
+
 	// Get classes list
 
 	$query = "SELECT id,name FROM classes";
@@ -47,19 +66,32 @@ This program is free software: you can redistribute it and/or modify it under th
 			<legend>Character Creation</legend>
 			<label for="name">Name:</label>
 			<input type="text" id="name" name="name" maxlength="16" required/><br/>
-			<label for="race">Class:</label>
+			<p><label for="class">Class:</label>
 			<select name="class" onChange="reload(this.form)" required>
-			<option value="">Please select a class</option>';
+			<option value="'.$cid.'">'.$classtext.'</option>';
 
 	// Fill selection with available classes
 
 	while($row = mysql_fetch_array($result)) {
-		echo '<option value="'.$row[0].'">'.$row[1].'</option>';
+		if ($row[0] != $cid) echo '<option value="'.$row[0].'">'.$row[1].'</option>';
+	}
+
+	echo '</select></p>
+			<p><label for="race">Race:</label>
+			<select name="race" onChange="changePicture()" required>
+			<option value="">'.$racetext.'</option>';
+
+	// Fill selection with races of the selected class
+
+	if ($cid != '') {
+		while($row = mysql_fetch_array($result2)) {
+			echo '<option value="'.$row[0].'">'.$row[1].'</option>';
+		}
 	}
 
 	// Character Creation Form end + Race picture preview
 
-	echo '</select></br>
+	echo '</select></p>
 			<input type="submit" value="create" name="submit" class="submit" />
 			<input type="submit" value="cancel" name="register" class="register" onClick="location.href=\'index.php\'" />
 		</form>

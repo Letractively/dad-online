@@ -56,7 +56,12 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Character Creation
 
-	$query = "INSERT INTO characters (userid,name,race,map) VALUES('$userid','$name','$race',(SELECT startmap FROM races WHERE name = '$race'))";
+	$query = "INSERT INTO characters (name,user,race,map) VALUES('$name','$userid','$race',(SELECT startmap FROM races WHERE id = '$race'))";
+	$result = mysql_query($query) or die(mysql_error());
+
+	// Character First Spell
+
+	$query = "INSERT INTO charspells (charid,spell) VALUES((SELECT id FROM characters WHERE name = '$name'),(SELECT startspell FROM races WHERE id = '$race'))";
 	$result = mysql_query($query) or die(mysql_error());
 
 	header('Location: index.php');
