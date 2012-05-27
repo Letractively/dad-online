@@ -31,7 +31,7 @@ This program is free software: you can redistribute it and/or modify it under th
 	$arraypost=array();
 	foreach($_POST as $key => $value) if ($key != "submit") $arraypost[]="$key='$value'";
 
-	// Insert
+	// Update
 
 	$query = "UPDATE $table SET ".implode(', ',$arraypost)." WHERE id=".$id;
 	$result = mysql_query($query) or die(mysql_error());

@@ -21,29 +21,40 @@ This program is free software: you can redistribute it and/or modify it under th
 		exit;
 	}
 
-	// Load HTML5 Template
-
-    $depth = "../aat/"; include_once '../aat/header.php';
-
-	// Get GET Variable
+	// Get GET Variables
 
 	$id = $_GET['id'];
 
-	// Get User Info
+	// Get Info
 		
 	$query = "SELECT email,accesslevel FROM users WHERE id=$id";
 	$result = mysql_query($query) or die(mysql_error());
 
-	// Show User Info
+	$row=mysql_fetch_array($result);
+	$fields = mysql_num_fields($result);
 
-	while ($row=mysql_fetch_array($result)) {
-		echo $row[0];
+	// Load HTML5 Template
+
+	$depth = "../aat/"; include_once '../aat/header.php';
+
+	// Show Editable Info
+
+	echo '<form name="adminedituser" action="edit_do.php?id='.$id.'&table=users" method="post" accept-charset="UTF-8">
+		<legend>Edit User</legend>';
+	$i = 0;
+	while ($i < $fields) {
+		$meta = mysql_fetch_field($result,$i);
+		echo '<label>'.$meta->name.':</label>';
+		echo '<input type="text" name="'.$meta->name.'" class="email" value="'.$row[$i].'" />';
+		$i++;
 	}
+	echo '<input type="submit" value="edit user" name="submit" class="submit" />
+		</form>';
 
 	// Cancel Button
 
 	echo '<p><input type="submit" value="cancel" name="extra" class="extra"
-		onClick="location.href=\'index.php\'" /></p>';
+		onClick="location.href=\'users.php\'" /></p>';
 
 	// Load HTML5 Template
 
