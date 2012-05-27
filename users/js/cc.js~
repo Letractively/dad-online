@@ -11,11 +11,7 @@ function changePicture() {
 	if (selection == 0) {
 		document.pic.src = "images/blank.png";
 	} else {
+		alert(document.cc.race.options[selection].label);
 		document.pic.src = "images/" + document.cc.race.options[selection].value + ".gif";
 	};
-}
-
-function reload(form) {
-	var val=form.class.options[form.class.options.selectedIndex].value;
-	self.location="cc.php?class=" + val;
 }
