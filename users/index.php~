@@ -28,7 +28,8 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Character amount verification info
 		
-	$query = "SELECT c.name,r.name,m.name FROM characters AS c,races AS r,maps AS m WHERE c.user = '$userid' AND c.race = r.id AND c.map = m.id";
+	$query = "SELECT c.id,c.name,r.name,m.name FROM characters AS c,races AS r,maps AS m
+			WHERE c.user = '$userid' AND c.race = r.id AND c.map = m.id";
 	$result = mysql_query($query) or die(mysql_error());
 
 	$numrows = mysql_num_rows($result);
@@ -49,7 +50,7 @@ This program is free software: you can redistribute it and/or modify it under th
     echo '<p>You are logged in as '. $email. '.</p>';
 
     // Initialize javascript arrays
-    echo '<script type="text/javascript">
+    /*echo '<script type="text/javascript">
             var charamount = '.$numrows.';
             var charnames = new Array();
             var charraces = new Array();
@@ -57,7 +58,7 @@ This program is free software: you can redistribute it and/or modify it under th
         </script>';
 
     // Fill javascript arrays
-    $i = 0;
+    /*$i = 0;
     while($row = mysql_fetch_array($result)) {
         echo '<script type="text/javascript">
                 charnames['.$i.'] = "'.$row[0].'";
@@ -68,8 +69,20 @@ This program is free software: you can redistribute it and/or modify it under th
     }
 
     // Draw user characters
-    echo '<p><script language="javascript" src="js/dad.js">
-        </script></p>';
+    /*echo '<p><script language="javascript" src="js/dad.js">
+        </script></p>';*/
+
+	// Char Selection
+
+	echo '<table>';
+	while ($row = mysql_fetch_array($result)) {
+		echo '<tr><td>'.$row[1].'</td>
+			<td><img name="pic" src="images/'.$row[2].'.gif" border="0"></td>
+			<td>@ '.$row[3].'</td>
+			<td><input type="submit" value="play!" name="extra" class="extra" 
+				onClick="location.href=\'sc.php?id='.$row[0].'\'" /></td></tr>';			
+	}
+	echo '</table>';
 
 	// Options Buttons
 
