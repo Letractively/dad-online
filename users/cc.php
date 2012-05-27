@@ -21,9 +21,9 @@ This program is free software: you can redistribute it and/or modify it under th
 		exit;
 	}
 
-	// Get races list
+	// Get classes list
 
-	$query = "SELECT name FROM races";
+	$query = "SELECT name FROM classes";
 	$result = mysql_query($query) or die(mysql_error());
 
 	// Load HTML5 Template
@@ -38,11 +38,11 @@ This program is free software: you can redistribute it and/or modify it under th
 			<legend>Character Creation</legend>
 			<label for="name">Name:</label>
 			<input type="text" id="name" name="name" maxlength="16" required/><br/>
-			<label for="race">Race:</label>
-			<select name="race" onChange="changePicture()" required>
-			<option value="">Please select a race</option>';
+			<label for="race">Class:</label>
+			<select name="class" onChange="changePicture()" required>
+			<option value="">Please select a class</option>';
 
-	// Fill selection with available races
+	// Fill selection with available classes
 
 	while($row = mysql_fetch_array($result)) {
 		echo '<option value="'.$row[0].'">'.$row[0].'</option>';
@@ -51,8 +51,8 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Character Creation Form end + Race picture preview
 
 	echo '</select></br>
-			<input type="submit" value="Create" name="submit" class="submit" />
-			<input type="submit" value="Cancel" name="register" class="register" onClick="location.href=\'index.php\'" />
+			<input type="submit" value="create" name="submit" class="submit" />
+			<input type="submit" value="cancel" name="register" class="register" onClick="location.href=\'index.php\'" />
 		</form>
 		<img name="pic" src="images/blank.png" border="0">';
 
