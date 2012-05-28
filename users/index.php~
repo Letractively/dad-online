@@ -86,15 +86,16 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Options Buttons
 
-    // Verify room for more characters
-    if($numrows < $maxchars) {
+	// Verify room for more characters
+
+	if($numrows < $maxchars) {
 		echo '<p><input type="submit" value="create character" name="extral" class="extral"
 			onClick="location.href=\'cc.php\'" /></p>';
 	}
 
 	// Logout Button
 
-    echo '<p><input type="submit" value="logout" name="extra" class="extra"
+	echo '<p><input type="submit" value="logout" name="extra" class="extra"
 		onClick="location.href=\'logout.php\'" /></p>';
 
 	// Load HTML5 Template

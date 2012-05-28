@@ -30,7 +30,8 @@ This program is free software: you can redistribute it and/or modify it under th
 		$cid = mysql_real_escape_string($_GET['class']);
 
 		// Get class name
-		$classtext = mysql_fetch_array(mysql_query("SELECT name FROM classes WHERE id=$cid"))[0];
+		$classtextarray = mysql_fetch_array(mysql_query("SELECT name FROM classes WHERE id=$cid"));
+		$classtext = $classtextarray[0];
 
 		$racetext = 'Please select a race';
 

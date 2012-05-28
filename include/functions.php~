@@ -30,4 +30,14 @@ This program is free software: you can redistribute it and/or modify it under th
 			}
 		}
 	}
+
+	// Selected Char Validation
+
+	function char_selected() {
+		if(!isset($_SESSION['charid'])) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 ?>

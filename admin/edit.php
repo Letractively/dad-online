@@ -74,12 +74,12 @@ This program is free software: you can redistribute it and/or modify it under th
 			$fkquery2 = "SELECT * FROM $fktables[$fkindex]";
 			$fkresult2 = mysql_query($fkquery2) or die(mysql_error());
 
-			$original = mysql_fetch_array(mysql_query("SELECT name FROM $fktables[$fkindex] WHERE id=$row[$i]"))[0];
+			$original = mysql_fetch_array(mysql_query("SELECT name FROM $fktables[$fkindex] WHERE id=$row[$i]"));
 
 			// Fill Foreign Keys Info
 
 			echo '<p><select name="'.$meta->name.'" required >
-				<option value="'.$row[$i].'">'.$original.'</option>';
+				<option value="'.$row[$i].'">'.$original[0].'</option>';
 			while ($fkrow2=mysql_fetch_array($fkresult2)) {
 				if ($fkrow2[0] != $row[$i]) echo '<option value="'.$fkrow2[0].'">'.$fkrow2[1].'</option>';
 			}
