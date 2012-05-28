@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 28-05-2012 a las 12:01:59
+-- Tiempo de generación: 28-05-2012 a las 13:39:55
 -- Versión del servidor: 5.5.22
 -- Versión de PHP: 5.3.10-1ubuntu3.1
 
@@ -43,6 +43,22 @@ CREATE TABLE IF NOT EXISTS `characters` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `charitems`
+--
+
+DROP TABLE IF EXISTS `charitems`;
+CREATE TABLE IF NOT EXISTS `charitems` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `charid` int(11) NOT NULL,
+  `item` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `charid` (`charid`),
+  KEY `item` (`item`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `charspells`
 --
 
@@ -69,6 +85,19 @@ CREATE TABLE IF NOT EXISTS `classes` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `items`
+--
+
+DROP TABLE IF EXISTS `items`;
+CREATE TABLE IF NOT EXISTS `items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -163,6 +192,38 @@ CREATE TABLE IF NOT EXISTS `npcs` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `questitems`
+--
+
+DROP TABLE IF EXISTS `questitems`;
+CREATE TABLE IF NOT EXISTS `questitems` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `quest` int(11) NOT NULL,
+  `item` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `quest` (`quest`),
+  KEY `item` (`item`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `questmobs`
+--
+
+DROP TABLE IF EXISTS `questmobs`;
+CREATE TABLE IF NOT EXISTS `questmobs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `quest` int(11) NOT NULL,
+  `mob` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `quest` (`quest`),
+  KEY `mob` (`mob`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `quests`
 --
 
@@ -193,6 +254,22 @@ CREATE TABLE IF NOT EXISTS `races` (
   KEY `startspell` (`startspell`),
   KEY `class` (`class`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `routes`
+--
+
+DROP TABLE IF EXISTS `routes`;
+CREATE TABLE IF NOT EXISTS `routes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `start` int(11) NOT NULL,
+  `end` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `start` (`start`),
+  KEY `end` (`end`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -237,6 +314,13 @@ ALTER TABLE `characters`
   ADD CONSTRAINT `characters_ibfk_3` FOREIGN KEY (`map`) REFERENCES `maps` (`id`);
 
 --
+-- Filtros para la tabla `charitems`
+--
+ALTER TABLE `charitems`
+  ADD CONSTRAINT `charitems_ibfk_2` FOREIGN KEY (`item`) REFERENCES `items` (`id`),
+  ADD CONSTRAINT `charitems_ibfk_1` FOREIGN KEY (`charid`) REFERENCES `characters` (`id`);
+
+--
 -- Filtros para la tabla `charspells`
 --
 ALTER TABLE `charspells`
@@ -268,12 +352,35 @@ ALTER TABLE `npcquests`
   ADD CONSTRAINT `npcquests_ibfk_2` FOREIGN KEY (`quest`) REFERENCES `quests` (`id`);
 
 --
+-- Filtros para la tabla `questitems`
+--
+ALTER TABLE `questitems`
+  ADD CONSTRAINT `questitems_ibfk_3` FOREIGN KEY (`item`) REFERENCES `items` (`id`),
+  ADD CONSTRAINT `questitems_ibfk_1` FOREIGN KEY (`quest`) REFERENCES `quests` (`id`),
+  ADD CONSTRAINT `questitems_ibfk_2` FOREIGN KEY (`item`) REFERENCES `items` (`id`);
+
+--
+-- Filtros para la tabla `questmobs`
+--
+ALTER TABLE `questmobs`
+  ADD CONSTRAINT `questmobs_ibfk_2` FOREIGN KEY (`mob`) REFERENCES `mobs` (`id`),
+  ADD CONSTRAINT `questmobs_ibfk_1` FOREIGN KEY (`quest`) REFERENCES `quests` (`id`);
+
+--
 -- Filtros para la tabla `races`
 --
 ALTER TABLE `races`
   ADD CONSTRAINT `races_ibfk_1` FOREIGN KEY (`startmap`) REFERENCES `maps` (`id`),
   ADD CONSTRAINT `races_ibfk_2` FOREIGN KEY (`startspell`) REFERENCES `spells` (`id`),
   ADD CONSTRAINT `races_ibfk_8` FOREIGN KEY (`class`) REFERENCES `classes` (`id`);
+
+--
+-- Filtros para la tabla `routes`
+--
+ALTER TABLE `routes`
+  ADD CONSTRAINT `routes_ibfk_3` FOREIGN KEY (`end`) REFERENCES `maps` (`id`),
+  ADD CONSTRAINT `routes_ibfk_1` FOREIGN KEY (`start`) REFERENCES `maps` (`id`),
+  ADD CONSTRAINT `routes_ibfk_2` FOREIGN KEY (`end`) REFERENCES `maps` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

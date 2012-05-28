@@ -76,6 +76,8 @@ This program is free software: you can redistribute it and/or modify it under th
 
 			$original = mysql_fetch_array(mysql_query("SELECT name FROM $fktables[$fkindex] WHERE id=$row[$i]"));
 
+			if ($meta->name == "user") $original = mysql_fetch_array(mysql_query("SELECT email FROM $fktables[$fkindex] WHERE id=$row[$i]"));
+
 			// Fill Foreign Keys Info
 
 			echo '<p><select name="'.$meta->name.'" required >
