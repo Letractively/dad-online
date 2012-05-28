@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 28-05-2012 a las 10:22:30
+-- Tiempo de generación: 28-05-2012 a las 12:01:59
 -- Versión del servidor: 5.5.22
 -- Versión de PHP: 5.3.10-1ubuntu3.1
 
@@ -73,6 +73,38 @@ CREATE TABLE IF NOT EXISTS `classes` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `mapmobs`
+--
+
+DROP TABLE IF EXISTS `mapmobs`;
+CREATE TABLE IF NOT EXISTS `mapmobs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `map` int(11) NOT NULL,
+  `mob` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `map` (`map`),
+  KEY `mob` (`mob`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `mapnpcs`
+--
+
+DROP TABLE IF EXISTS `mapnpcs`;
+CREATE TABLE IF NOT EXISTS `mapnpcs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `map` int(11) NOT NULL,
+  `npc` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `map` (`map`),
+  KEY `npc` (`npc`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `maps`
 --
 
@@ -83,6 +115,64 @@ CREATE TABLE IF NOT EXISTS `maps` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `mobs`
+--
+
+DROP TABLE IF EXISTS `mobs`;
+CREATE TABLE IF NOT EXISTS `mobs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(16) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `npcquests`
+--
+
+DROP TABLE IF EXISTS `npcquests`;
+CREATE TABLE IF NOT EXISTS `npcquests` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `npc` int(11) NOT NULL,
+  `quest` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `npc` (`npc`),
+  KEY `quest` (`quest`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `npcs`
+--
+
+DROP TABLE IF EXISTS `npcs`;
+CREATE TABLE IF NOT EXISTS `npcs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(16) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `quests`
+--
+
+DROP TABLE IF EXISTS `quests`;
+CREATE TABLE IF NOT EXISTS `quests` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -152,6 +242,30 @@ ALTER TABLE `characters`
 ALTER TABLE `charspells`
   ADD CONSTRAINT `charspells_ibfk_1` FOREIGN KEY (`charid`) REFERENCES `characters` (`id`),
   ADD CONSTRAINT `charspells_ibfk_2` FOREIGN KEY (`spell`) REFERENCES `spells` (`id`);
+
+--
+-- Filtros para la tabla `mapmobs`
+--
+ALTER TABLE `mapmobs`
+  ADD CONSTRAINT `mapmobs_ibfk_3` FOREIGN KEY (`mob`) REFERENCES `mobs` (`id`),
+  ADD CONSTRAINT `mapmobs_ibfk_1` FOREIGN KEY (`map`) REFERENCES `maps` (`id`),
+  ADD CONSTRAINT `mapmobs_ibfk_2` FOREIGN KEY (`mob`) REFERENCES `mobs` (`id`);
+
+--
+-- Filtros para la tabla `mapnpcs`
+--
+ALTER TABLE `mapnpcs`
+  ADD CONSTRAINT `mapnpcs_ibfk_3` FOREIGN KEY (`npc`) REFERENCES `npcs` (`id`),
+  ADD CONSTRAINT `mapnpcs_ibfk_1` FOREIGN KEY (`map`) REFERENCES `maps` (`id`),
+  ADD CONSTRAINT `mapnpcs_ibfk_2` FOREIGN KEY (`npc`) REFERENCES `npcs` (`id`);
+
+--
+-- Filtros para la tabla `npcquests`
+--
+ALTER TABLE `npcquests`
+  ADD CONSTRAINT `npcquests_ibfk_3` FOREIGN KEY (`quest`) REFERENCES `quests` (`id`),
+  ADD CONSTRAINT `npcquests_ibfk_1` FOREIGN KEY (`npc`) REFERENCES `npcs` (`id`),
+  ADD CONSTRAINT `npcquests_ibfk_2` FOREIGN KEY (`quest`) REFERENCES `quests` (`id`);
 
 --
 -- Filtros para la tabla `races`
