@@ -34,16 +34,36 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Get Character Info
 		
-	$query = "SELECT c.name,r.name,m.name,s.name
-		FROM characters AS c,races AS r,maps AS m,charspells AS cs,spells AS s
+	$query = "SELECT c.name,r.name,m.id,m.name
+		FROM characters AS c,races AS r,maps AS m
 		WHERE c.id = '$charid'
 			AND c.race = r.id
-			AND c.map = m.id
-			AND cs.charid = '$charid'
-			AND s.id = cs.spell";
+			AND c.map = m.id";
+	$result = mysql_query($query) or die(mysql_error());
+	$row = mysql_fetch_array($result);
+
+	// Get Routes
+
+	$query = "SELECT name FROM routes,maps WHERE start = $row[2] AND end = maps.id";
 	$result = mysql_query($query) or die(mysql_error());
 
-	$row = mysql_fetch_array($result);
+	// Get Spells
+
+	$spellq = "SELECT name FROM charspells,spells 
+		WHERE charid = $charid AND spell = spells.id";
+	$spellr = mysql_query($spellq) or die(mysql_error());
+
+	// Get Mobs
+
+	$mobq = "SELECT name FROM mapmobs,mobs 
+		WHERE map = $row[2] AND mob = mobs.id";
+	$mobr = mysql_query($mobq) or die(mysql_error());
+
+	// Get NPCs
+
+	$npcq = "SELECT npcs.id,name FROM mapnpcs,npcs 
+		WHERE map = $row[2] AND npc = npcs.id";
+	$npcr = mysql_query($npcq) or die(mysql_error());
 
 	// Load HTML5 Template
 
@@ -51,10 +71,39 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Show Character Info
 
-	echo '<p>'.$row[0].'</p>';
-	echo '<p><img name="pic" src="images/'.$row[1].'.gif" border="0"></p>';
-	echo '<p>'.$row[2].'</p>';
-	echo '<p>'.$row[3].'</p>';
+	echo '<p>'.$row[0].'</p>
+		<p><img name="pic" src="images/'.$row[1].'.gif" border="0"></p>
+		<p>@ '.$row[3].'</p>';
+
+	// Show Character Spells
+
+	echo '<p>Spells:</p>';
+	while ($row = mysql_fetch_array($spellr)) echo '<p>'.$row[0].'</p>';
+
+	// Show NPCs
+
+	echo '<p>NPCs:</p>';
+	while ($row = mysql_fetch_array($npcr)) {
+		echo '<p>'.$row[1]. '</p>';
+
+		// Show NPC Quests
+
+		$questq = "SELECT name FROM npcquests,quests
+			WHERE npc = $row[0] AND quest=quests.id";
+		$questr = mysql_query($questq) or die(mysql_error());
+
+		while ($row = mysql_fetch_array($questr)) echo '- '.$row[0];
+	}
+
+	// Show Routes
+
+	echo '<p>Routes:</p>';
+	while ($row = mysql_fetch_array($result)) echo '<p>'.$row[0].'</p>';
+
+	// Show Mobs
+
+	echo '<p>Mobs:</p>';
+	while ($row = mysql_fetch_array($mobr)) echo '<p>'.$row[0].'</p>';
 
 	// Character Selection Button
 
