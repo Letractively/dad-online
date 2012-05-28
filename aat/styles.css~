@@ -341,7 +341,7 @@ input.extra {
 }
 
 input.extral {
-	width: 200px;
+	width: 180px;
 	color: #fff;
 	text-transform: uppercase;
 	text-shadow: #000 1px 1px;
