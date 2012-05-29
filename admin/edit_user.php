@@ -35,6 +35,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Load HTML5 Template
 
+	$title = "<a>Edit User</a>";
 	$depth = "../aat/"; include_once '../aat/header.php';
 
 	// Show Editable Info

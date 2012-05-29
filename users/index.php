@@ -31,7 +31,6 @@ This program is free software: you can redistribute it and/or modify it under th
 	$query = "SELECT c.id,c.name,r.name,m.name FROM characters AS c,races AS r,maps AS m
 			WHERE c.user = '$userid' AND c.race = r.id AND c.map = m.id";
 	$result = mysql_query($query) or die(mysql_error());
-
 	$numrows = mysql_num_rows($result);
 
     // No characters redirect
@@ -43,11 +42,18 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Load HTML5 Template
 
+	$title = '<li><a href="index.php">Home</a></li>
+		<li><a href="profile.php">Profile</a></li>';
+
+	// Verify Room for More Characters
+
+	if($numrows < $maxchars) {
+		$title .= '<li><a href="cc.php">Create Character</a></li>';
+	}
+
+	$title .= '<li><a href="logout.php">Logout</a></li>';
+
     $depth = "../aat/"; include_once '../aat/header.php';
-
-    // Show user info
-
-    echo '<p>You are logged in as '. $email. '.</p>';
 
     // Initialize javascript arrays
     /*echo '<script type="text/javascript">
@@ -83,20 +89,6 @@ This program is free software: you can redistribute it and/or modify it under th
 				onClick="location.href=\'sc.php?id='.$row[0].'\'" /></td></tr>';			
 	}
 	echo '</table>';
-
-	// Options Buttons
-
-	// Verify room for more characters
-
-	if($numrows < $maxchars) {
-		echo '<p><input type="submit" value="create character" name="extral" class="extral"
-			onClick="location.href=\'cc.php\'" /></p>';
-	}
-
-	// Logout Button
-
-	echo '<p><input type="submit" value="logout" name="extra" class="extra"
-		onClick="location.href=\'logout.php\'" /></p>';
 
 	// Load HTML5 Template
 

@@ -53,6 +53,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Load HTML5 Template
 
+	$title = "<a>Add ".$table."</a>";
 	$depth = "../aat/"; include_once '../aat/header.php';
 
 	// Add Form

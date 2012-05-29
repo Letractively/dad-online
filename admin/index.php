@@ -23,7 +23,8 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Load HTML5 Template
 
-    $depth = "../aat/"; include_once '../aat/header.php';
+    $title = "<a>Admin Control Panel</a>";
+	$depth = "../aat/"; include_once '../aat/header.php';
 
 	// Admin Options
 

@@ -17,7 +17,7 @@ This program is free software: you can redistribute it and/or modify it under th
 		$email = "";
 	}
 
-	if (!isset($navigation)) $navigation = '<li><a href="'.$bottom.'index.php">Home</a></li>
+	if (!isset($title)) $title = '<li><a href="'.$bottom.'index.php">Home</a></li>
 		<li><a href="'.$bottom.'about.php">About</a></li>
 		<li><a href="'.$bottom.'products.php">Products</a></li>
 		<li><a href="'.$bottom.'services.php">Services</a></li>
@@ -81,7 +81,7 @@ ul#navigationR .shortcodes a      {
 		<nav><!-- top nav -->
 		<div class="menu">
 		<ul>
-		'.$navigation.'
+		'.$title.'
 		<p>'.$email.'</p>
 		</ul>
 		</div>

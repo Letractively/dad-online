@@ -48,6 +48,10 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Load HTML5 Template
 
+	$title = '<li><a href="index.php">Home</a></li>
+		<li><a href="profile.php">Profile</a></li>
+		<li><a href="cc.php">Create Character</a></li>
+		<li><a href="logout.php">Logout</a></li>';
     $depth = "../aat/"; include_once '../aat/header.php';
 
 	// Class/Race Selector
