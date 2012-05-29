@@ -24,7 +24,6 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Get session variables
 
 	$userid = $_SESSION['id'];
-	$email = $_SESSION['email'];
 
 	// Character amount verification info
 		
@@ -54,8 +53,9 @@ This program is free software: you can redistribute it and/or modify it under th
 	$title .= '<li><a href="logout.php">Logout</a></li>';
 	$depth = "../aat/"; include_once '../aat/header.php';
 
-// Initialize javascript arrays
-/*echo '<script type="text/javascript">
+/*// Initialize javascript arrays
+
+echo '<script type="text/javascript">
 var charamount = '.$numrows.';
 var charnames = new Array();
 var charraces = new Array();
@@ -63,6 +63,7 @@ var charmaps = new Array();
 </script>';
 
 // Fill javascript arrays
+
 /*$i = 0;
 while($row = mysql_fetch_array($result)) {
 echo '<script type="text/javascript">
@@ -74,6 +75,7 @@ $i++;
 }
 
 // Draw user characters
+
 /*echo '<p><script language="javascript" src="js/dad.js">
 </script></p>';*/
 

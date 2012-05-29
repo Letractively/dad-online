@@ -10,15 +10,15 @@ This program is free software: you can redistribute it and/or modify it under th
 	session_start();
 	session_destroy();
 
-    // Load HTML5 Template
+	// Load HTML5 Template
 
-    $depth = "aat/"; include_once 'aat/header.php';
+	$depth = "aat/"; include_once 'aat/header.php';
 
-    // Support
+	// Support
 
 	echo 'Coming soon...';
 
-    // Load HTML5 Template
+	// Load HTML5 Template
 
-    include_once 'aat/footer.php';
+	include_once 'aat/footer.php';
 ?>

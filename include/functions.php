@@ -24,6 +24,7 @@ This program is free software: you can redistribute it and/or modify it under th
 			return false;
 		} else {
 			if ($_SESSION['accesslevel'] < 100) {
+				session_destroy();
 				return false;
 			} else {
 				return true;

@@ -11,10 +11,10 @@ This program is free software: you can redistribute it and/or modify it under th
 		$bottom = "../";
 	}
 
-	if (isset($_SESSION['email'])) {
-		$email = $_SESSION['email'];
-	} else {
+	if (!isset($_SESSION['email'])) {
 		$email = "";
+	} else {
+		$email = $_SESSION['email'];
 	}
 
 	if (!isset($title)) $title = '<li><a href="'.$bottom.'index.php">Home</a></li>
@@ -35,6 +35,7 @@ This program is free software: you can redistribute it and/or modify it under th
 		<script type="text/javascript" src="'.$depth.'js/functions.js"></script>
 		</head>
 		<body>';
+
 /*
 <style>
 ul#navigation .home a{
@@ -72,6 +73,7 @@ ul#navigationR .shortcodes a      {
 		<li class="shortcodes"><a href="#" title="Shortcodes"></a></li>
 		</ul>
 */
+
 		echo '<div id="wrapper"><!-- #wrapper -->
 
 		<header><!-- header -->

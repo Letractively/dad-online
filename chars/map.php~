@@ -42,21 +42,25 @@ This program is free software: you can redistribute it and/or modify it under th
 	$result = mysql_query($query) or die(mysql_error());
 	$row = mysql_fetch_array($result);
 
+	// Save Map id
+
+	$mid = $row[2];
+
 	// Get Routes
 
-	$routeq = "SELECT name FROM routes,maps WHERE start = $row[2] AND end = maps.id";
+	$routeq = "SELECT end,name FROM routes,maps WHERE start = $mid AND end = maps.id";
 	$router = mysql_query($routeq) or die(mysql_error());
 
 	// Get Mobs
 
 	$mobq = "SELECT name FROM mapmobs,mobs 
-		WHERE map = $row[2] AND mob = mobs.id";
+		WHERE map = $mid AND mob = mobs.id";
 	$mobr = mysql_query($mobq) or die(mysql_error());
 
 	// Get NPCs
 
 	$npcq = "SELECT npcs.id,name FROM mapnpcs,npcs 
-		WHERE map = $row[2] AND npc = npcs.id";
+		WHERE map = $mid AND npc = npcs.id";
 	$npcr = mysql_query($npcq) or die(mysql_error());
 
 	// Load HTML5 Template
@@ -67,29 +71,19 @@ This program is free software: you can redistribute it and/or modify it under th
 		<li><a href="../users/logout.php">Logout</a></li>';
 	$depth = "../aat/"; include_once '../aat/header.php';
 
-	// Show Character Info
+	// Show Character Picture
 
 	echo '<p><img name="pic" src="images/'.$row[1].'.gif" border="0"></p>';
 
 	// Show NPCs
 
 	echo '<p>NPCs:</p>';
-	while ($row = mysql_fetch_array($npcr)) {
-		echo '<p>'.$row[1]. '</p>';
-
-		// Show NPC Quests
-
-		$questq = "SELECT name FROM npcquests,quests
-			WHERE npc = $row[0] AND quest=quests.id";
-		$questr = mysql_query($questq) or die(mysql_error());
-
-		while ($row = mysql_fetch_array($questr)) echo '- '.$row[0];
-	}
+	while ($row = mysql_fetch_array($npcr)) echo '<p><a href="npc.php?id='.$row[0].'">'.$row[1].'</a></p>';
 
 	// Show Routes
 
 	echo '<p>Routes:</p>';
-	while ($row = mysql_fetch_array($router)) echo '<p>'.$row[0].'</p>';
+	while ($row = mysql_fetch_array($router)) echo '<p><a href="cm.php?id='.$mid.'">'.$row[0].'</a></p>';
 
 	// Show Mobs
 

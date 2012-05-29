@@ -14,7 +14,7 @@ This program is free software: you can redistribute it and/or modify it under th
 	require_once '../include/config.php';
 	require_once '../include/functions.php';
 
-    // Login Validation
+	// Login Validation
 
 	if (!session_validate()) {
 		header('Location: ../');

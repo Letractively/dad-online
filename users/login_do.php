@@ -42,9 +42,7 @@ This program is free software: you can redistribute it and/or modify it under th
 	$_SESSION['email'] = htmlspecialchars($email);
 	$_SESSION['accesslevel'] = htmlspecialchars($row[1]);
 	if ($row[1] >= 100) {
-		echo '<script language="javascript">
-				window.location = ("../admin/index.php");
-			</script>';
+		header('Location: ../admin/');
 		exit;
 	}
 	header('Location: index.php');

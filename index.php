@@ -10,11 +10,11 @@ This program is free software: you can redistribute it and/or modify it under th
 	session_start();
 	session_destroy();
 
-    // Load HTML5 Template
+	// Load HTML5 Template
 
-    $depth = "aat/"; include_once 'aat/header.php';
+	$depth = "aat/"; include_once 'aat/header.php';
 
-    // Login/Register Form
+	// Login/Register Form
 
 	echo '<form name="lrform" action="users/login_do.php" method="post" accept-charset="UTF-8">
 			<legend>Login</legend>
@@ -26,7 +26,7 @@ This program is free software: you can redistribute it and/or modify it under th
 			<input type="button" value="register" name="register" class="register" onClick="location.href=\'users/register.php\'" />
 		</form>';
 
-    // Load HTML5 Template
+	// Load HTML5 Template
 
-    include_once 'aat/footer.php';
+	include_once 'aat/footer.php';
 ?>

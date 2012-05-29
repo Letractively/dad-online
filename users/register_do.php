@@ -10,7 +10,7 @@ This program is free software: you can redistribute it and/or modify it under th
 	session_start();
 	session_destroy();
 
-    // Load mysql info
+	// Load mysql info
 
 	require_once '../include/config.php';
 

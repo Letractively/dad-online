@@ -52,7 +52,7 @@ This program is free software: you can redistribute it and/or modify it under th
 		<li><a href="profile.php">Profile</a></li>
 		<li><a href="cc.php">Create Character</a></li>
 		<li><a href="logout.php">Logout</a></li>';
-    $depth = "../aat/"; include_once '../aat/header.php';
+	$depth = "../aat/"; include_once '../aat/header.php';
 
 	// Class/Race Selector
 
@@ -102,7 +102,7 @@ This program is free software: you can redistribute it and/or modify it under th
 		</form>
 		<img name="pic" src="images/blank.png" border="0">';
 
-    // Load HTML5 Template
+	// Load HTML5 Template
 
-    include_once '../aat/footer.php';
+	include_once '../aat/footer.php';
 ?>

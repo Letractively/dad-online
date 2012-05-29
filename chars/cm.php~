@@ -21,42 +21,46 @@ This program is free software: you can redistribute it and/or modify it under th
 		exit;
 	}
 
-	// Get session variables
+	// Character Validation
 
-	$userid = $_SESSION['id'];
-
-	// Character amount verification info
-		
-	$query = "SELECT * FROM characters WHERE user = $userid";
-	$result = mysql_query($query) or die(mysql_error());
-	$numrows = mysql_num_rows($result);
-
-	// No characters redirect
-
-	if(!$numrows) {
-		header('Location: cc.php');
+	if (!char_selected()) {
+		header('Location: ../users/');
 		exit;
 	}
 
-	// Load HTML5 Template
+	// Get Session Variables
 
-	$title = '<li><a href="index.php">Home</a></li>
-		<li><a href="profile.php">Profile</a></li>';
+	$charid = $_SESSION['charid'];
 
-	// Verify Room for More Characters
+	// Get GET Variables
 
-	if($numrows < $maxchars) {
-		$title .= '<li><a href="cc.php">Create Character</a></li>';
+	if (!isset($_GET['id'])) {
+		header('Location: ../users/logout.php');
+		exit;
+	}
+	$id = mysql_real_escape_string($_GET['id']);
+
+	// Verify Valid Route
+
+	$query = "SELECT * FROM routes
+		WHERE start = (SELECT map FROM characters WHERE id = $charid)
+		AND end = $id";
+	$result = mysql_query($query) or die(mysql_error());
+
+	if (!mysql_num_rows($result)) {
+		echo '<script language="javascript">
+			alert("You can\'t go here!!!");
+			window.location = ("map.php");
+		</script>';
+		exit;
 	}
 
-	$title .= '<li><a href="logout.php">Logout</a></li>';
-	$depth = "../aat/"; include_once '../aat/header.php';
+	// Change Map and Redirect
 
-	// Profile
+	$query = "UPDATE characters
+		SET map = $id
+		WHERE id = $charid";
+	$result = mysql_query($query) or die(mysql_error());
 
-	echo 'Coming soon...';
-
-	// Load HTML5 Template
-
-	include_once '../aat/footer.php';
+	header('Location: map.php');
 ?>
