@@ -34,8 +34,8 @@ This program is free software: you can redistribute it and/or modify it under th
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
 		<script type="text/javascript" src="'.$depth.'js/functions.js"></script>
 		</head>
-		<body>
-
+		<body>';
+/*
 <style>
 ul#navigation .home a{
     background-image: url('.$depth.'images/content/home.png);
@@ -71,8 +71,8 @@ ul#navigationR .shortcodes a      {
 		<li class="about"><a href="#" title="About"></a></li>
 		<li class="shortcodes"><a href="#" title="Shortcodes"></a></li>
 		</ul>
-
-		<div id="wrapper"><!-- #wrapper -->
+*/
+		echo '<div id="wrapper"><!-- #wrapper -->
 
 		<header><!-- header -->
 		<h1><a href="#">DAD Online</a></h1>
@@ -81,7 +81,7 @@ ul#navigationR .shortcodes a      {
 		<nav><!-- top nav -->
 		<div class="menu">
 		<ul>
-		'.$navigation.'
+		'.$title.'
 		<p>'.$email.'</p>
 		</ul>
 		</div>

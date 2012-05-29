@@ -54,40 +54,9 @@ This program is free software: you can redistribute it and/or modify it under th
 	$title .= '<li><a href="logout.php">Logout</a></li>';
 	$depth = "../aat/"; include_once '../aat/header.php';
 
-// Initialize javascript arrays
-/*echo '<script type="text/javascript">
-var charamount = '.$numrows.';
-var charnames = new Array();
-var charraces = new Array();
-var charmaps = new Array();
-</script>';
+	// Profile
 
-// Fill javascript arrays
-/*$i = 0;
-while($row = mysql_fetch_array($result)) {
-echo '<script type="text/javascript">
-charnames['.$i.'] = "'.$row[0].'";
-charraces['.$i.'] = "'.$row[1].'";
-charmaps['.$i.'] = "'.$row[2].'";
-</script>';
-$i++;
-}
-
-// Draw user characters
-/*echo '<p><script language="javascript" src="js/dad.js">
-</script></p>';*/
-
-	// Char Selection
-
-	echo '<table>';
-	while ($row = mysql_fetch_array($result)) {
-		echo '<tr><td>'.$row[1].'</td>
-			<td><img name="pic" src="images/'.$row[2].'.gif" border="0"></td>
-			<td>@ '.$row[3].'</td>
-			<td><input type="submit" value="play!" name="extra" class="extra" 
-				onClick="location.href=\'sc.php?id='.$row[0].'\'" /></td></tr>';			
-	}
-	echo '</table>';
+	echo 'Coming soon...';
 
 	// Load HTML5 Template
 

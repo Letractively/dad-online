@@ -31,15 +31,14 @@ This program is free software: you can redistribute it and/or modify it under th
 	$query = "SELECT c.id,c.name,r.name,m.name FROM characters AS c,races AS r,maps AS m
 			WHERE c.user = '$userid' AND c.race = r.id AND c.map = m.id";
 	$result = mysql_query($query) or die(mysql_error());
-
 	$numrows = mysql_num_rows($result);
 
-    // No characters redirect
+	// No characters redirect
 
 	if(!$numrows) {
-        header('Location: cc.php');
-        exit;
-    }
+		header('Location: cc.php');
+		exit;
+	}
 
 	// Load HTML5 Template
 
@@ -53,31 +52,30 @@ This program is free software: you can redistribute it and/or modify it under th
 	}
 
 	$title .= '<li><a href="logout.php">Logout</a></li>';
+	$depth = "../aat/"; include_once '../aat/header.php';
 
-    $depth = "../aat/"; include_once '../aat/header.php';
+// Initialize javascript arrays
+/*echo '<script type="text/javascript">
+var charamount = '.$numrows.';
+var charnames = new Array();
+var charraces = new Array();
+var charmaps = new Array();
+</script>';
 
-    // Initialize javascript arrays
-    /*echo '<script type="text/javascript">
-            var charamount = '.$numrows.';
-            var charnames = new Array();
-            var charraces = new Array();
-            var charmaps = new Array();
-        </script>';
+// Fill javascript arrays
+/*$i = 0;
+while($row = mysql_fetch_array($result)) {
+echo '<script type="text/javascript">
+charnames['.$i.'] = "'.$row[0].'";
+charraces['.$i.'] = "'.$row[1].'";
+charmaps['.$i.'] = "'.$row[2].'";
+</script>';
+$i++;
+}
 
-    // Fill javascript arrays
-    /*$i = 0;
-    while($row = mysql_fetch_array($result)) {
-        echo '<script type="text/javascript">
-                charnames['.$i.'] = "'.$row[0].'";
-                charraces['.$i.'] = "'.$row[1].'";
-                charmaps['.$i.'] = "'.$row[2].'";
-            </script>';
-        $i++;
-    }
-
-    // Draw user characters
-    /*echo '<p><script language="javascript" src="js/dad.js">
-        </script></p>';*/
+// Draw user characters
+/*echo '<p><script language="javascript" src="js/dad.js">
+</script></p>';*/
 
 	// Char Selection
 
