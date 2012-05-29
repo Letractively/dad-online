@@ -40,18 +40,20 @@ This program is free software: you can redistribute it and/or modify it under th
 	}
 	$id = mysql_real_escape_string($_GET['id']);
 
-	// Verify Valid NPC
+	// Verify Valid Quest
 
-	$query = "SELECT npcs.name,maps.name FROM mapnpcs,npcs,maps
+	$query = "SELECT npcs.id,npcs.name,quests.name 
+		FROM mapnpcs,npcs,npcquests,quests
 		WHERE map = (SELECT map FROM characters WHERE id = $charid)
-		AND npc = $id
-		AND npc = npcs.id
-		AND map = maps.id";
+		AND mapnpcs.npc = npcs.id
+		AND mapnpcs.npc = npcquests.npc
+		AND quest = $id
+		AND quest = quests.id";
 	$result = mysql_query($query) or die(mysql_error());
 
 	if (!mysql_num_rows($result)) {
 		echo '<script language="javascript">
-			alert("This NPC isn\'t here!!!");
+			alert("You can\'t do this quest!!!");
 			window.location = ("map.php");
 		</script>';
 		exit;
@@ -59,28 +61,32 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	$row = mysql_fetch_array($result);
 
-	// Get NPC Quests
+	// Get Quest Requirements
 
-	$questq = "SELECT quests.id,name FROM npcquests,quests
-		WHERE npc = $id
-		AND quest = quests.id";
-	$questr = mysql_query($questq) or die(mysql_error());
+	$qiq = "SELECT name FROM questitems,items
+		WHERE quest = $id
+		AND item = items.id";
+	$qir = mysql_query($qiq) or die(mysql_error());
+
+	$qmq = "SELECT name FROM questmobs,mobs
+		WHERE quest = $id
+		AND mob = mobs.id";
+	$qmr = mysql_query($qmq) or die(mysql_error());
 
 	// Load HTML5 Template
 
-	$title = '<li><a href="npc.php?id='.$id.'">'.$row[0].'</a></li>
-		<li><a href="map.php?id='.$id.'">'.$row[1].'</a></li>
+	$title = '<li><a href="quest.php?id='.$id.'">'.$row[2].'</a></li>
+		<li><a href="npc.php?id='.$row[0].'">'.$row[1].'</a></li>
 		<li><a href="../users/logout.php">Logout</a></li>';
 	$depth = "../aat/"; include_once '../aat/header.php';
 
-	// Show NPC Picture
+	// Show Quest Requirements
 
-	echo '<p><img name="pic" src="images/npcs/'.$row[0].'.gif" border="0"></p>';
+	echo '<p>Items:</p>';
+	while ($row = mysql_fetch_array($qir)) echo '<p>- '.$row[0].'</p>';
 
-	// Show NPC Quests
-
-	echo '<p>Quests:</p>';
-	while ($row = mysql_fetch_array($questr)) echo '<p>'.$row[0].'</p>';
+	echo '<p>Mobs:</p>';
+	while ($row = mysql_fetch_array($qmr)) echo '<p>- '.$row[0].'</p>';
 
 	// Load HTML5 Template
 

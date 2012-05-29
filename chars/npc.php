@@ -61,7 +61,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Get NPC Quests
 
-	$questq = "SELECT name FROM npcquests,quests
+	$questq = "SELECT quests.id,name FROM npcquests,quests
 		WHERE npc = $id
 		AND quest = quests.id";
 	$questr = mysql_query($questq) or die(mysql_error());
@@ -80,7 +80,8 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Show NPC Quests
 
 	echo '<p>Quests:</p>';
-	while ($row = mysql_fetch_array($questr)) echo '<p>'.$row[0].'</p>';
+	while ($row = mysql_fetch_array($questr)) 
+		echo '<p><a href="quest.php?id='.$row[0].'">'.$row[1].'</a></p>';
 
 	// Load HTML5 Template
 
