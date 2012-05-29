@@ -106,6 +106,17 @@ This program is free software: you can redistribute it and/or modify it under th
 		<input type="submit" value="item of quest list" name="extral" class="extral"
 		onClick="location.href=\'list.php?table=questitems\'" /></p>
 
+		<!-- Character Quests -->
+
+		<p><input type="submit" value="add quest to char" name="extral" class="extral"
+		onClick="location.href=\'add.php?table=charquests\'" />
+		<input type="submit" value="quest of char list" name="extral" class="extral"
+		onClick="location.href=\'list.php?table=charquests\'" /></p>
+		<p><input type="submit" value="add questitem to char" name="extral" class="extral"
+		onClick="location.href=\'add.php?table=charquestitems\'" />
+		<input type="submit" value="questitem of char list" name="extral" class="extral"
+		onClick="location.href=\'list.php?table=charquestitems\'" /></p>
+
 		<!-- Options -->
 
 		<p>-</p>
