@@ -23,15 +23,61 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Load HTML5 Template
 
-    $title = "<a>Admin Control Panel</a>";
+	$title = "<a>Admin Control Panel</a>";
 	$depth = "../aat/"; include_once '../aat/header.php';
 
 	// Admin Options
 
-	echo '<p><input type="submit" value="user list" name="extra" class="extra"
+	echo 'Users
+
+		<p><input type="submit" value="user list" name="extra" class="extra"
 		onClick="location.href=\'users.php\'" /></p>
 
-		<!-- Maps -->
+		Quests
+
+		<p><input type="submit" value="add quest" name="extra" class="extra"
+		onClick="location.href=\'add.php?table=quests\'" />
+		<input type="submit" value="quest list" name="extra" class="extra"
+		onClick="location.href=\'list.php?table=quests\'" /></p>
+		<p><input type="submit" value="add questmob" name="extral" class="extral"
+		onClick="location.href=\'add.php?table=questmobs\'" />
+		<input type="submit" value="questmob list" name="extral" class="extral"
+		onClick="location.href=\'list.php?table=questmobs\'" /></p>
+		<p><input type="submit" value="add questitem" name="extral" class="extral"
+		onClick="location.href=\'add.php?table=questitems\'" />
+		<input type="submit" value="questitem list" name="extral" class="extral"
+		onClick="location.href=\'list.php?table=questitems\'" /></p>
+
+		NPCs
+
+		<p><input type="submit" value="add npc" name="extra" class="extra"
+		onClick="location.href=\'add.php?table=npcs\'" />
+		<input type="submit" value="npc list" name="extra" class="extra"
+		onClick="location.href=\'list.php?table=npcs\'" /></p>
+		<p><input type="submit" value="add npcquest" name="extral" class="extral"
+		onClick="location.href=\'add.php?table=npcquests\'" />
+		<input type="submit" value="npcquest list" name="extral" class="extral"
+		onClick="location.href=\'list.php?table=npcquests\'" /></p>
+
+		Items
+
+		<p><input type="submit" value="add item" name="extra" class="extra"
+		onClick="location.href=\'add.php?table=items\'" />
+		<input type="submit" value="item list" name="extra" class="extra"
+		onClick="location.href=\'list.php?table=items\'" /></p>
+
+		Mobs
+
+		<p><input type="submit" value="add mob" name="extra" class="extra"
+		onClick="location.href=\'add.php?table=mobs\'" />
+		<input type="submit" value="mob list" name="extra" class="extra"
+		onClick="location.href=\'list.php?table=mobs\'" />
+		<input type="submit" value="add drop" name="extra" class="extra"
+		onClick="location.href=\'add.php?table=drops\'" />
+		<input type="submit" value="drop list" name="extra" class="extra"
+		onClick="location.href=\'list.php?table=drops\'" /></p>
+
+		Maps
 
 		<p><input type="submit" value="add map" name="extra" class="extra"
 		onClick="location.href=\'add.php?table=maps\'" />
@@ -40,83 +86,51 @@ This program is free software: you can redistribute it and/or modify it under th
 		<input type="submit" value="add route" name="extra" class="extra"
 		onClick="location.href=\'add.php?table=routes\'" />
 		<input type="submit" value="route list" name="extra" class="extra"
-		onClick="location.href=\'list.php?table=routes\'" /></p>
+		onClick="location.href=\'list.php?table=routes\'" />
+		<input type="submit" value="add mapnpc" name="extra" class="extra"
+		onClick="location.href=\'add.php?table=mapnpcs\'" />
+		<input type="submit" value="mapnpc list" name="extra" class="extra"
+		onClick="location.href=\'list.php?table=mapnpcs\'" /></p>
+		<p><input type="submit" value="add mapmob" name="extra" class="extra"
+		onClick="location.href=\'add.php?table=mapmobs\'" />
+		<input type="submit" value="mapmob list" name="extra" class="extra"
+		onClick="location.href=\'list.php?table=mapmobs\'" /></p>
 
-		<!-- Spells -->
+		Spells
 
 		<p><input type="submit" value="add spell" name="extra" class="extra"
 		onClick="location.href=\'add.php?table=spells\'" />
 		<input type="submit" value="spell list" name="extra" class="extra"
-		onClick="location.href=\'list.php?table=spells\'" />
-		<input type="submit" value="add spell to char" name="extral" class="extral"
-		onClick="location.href=\'add.php?table=charspells\'" />
-		<input type="submit" value="spell of char list" name="extral" class="extral"
-		onClick="location.href=\'list.php?table=charspells\'" /></p>
+		onClick="location.href=\'list.php?table=spells\'" /></p>
+
+		Classes & Races
+
 		<p><input type="submit" value="add class" name="extra" class="extra"
 		onClick="location.href=\'add.php?table=classes\'" />
 		<input type="submit" value="class list" name="extra" class="extra"
-		onClick="location.href=\'list.php?table=classes\'" /></p>
-		<p><input type="submit" value="add race" name="extra" class="extra"
+		onClick="location.href=\'list.php?table=classes\'" />
+		<input type="submit" value="add race" name="extra" class="extra"
 		onClick="location.href=\'add.php?table=races\'" />
 		<input type="submit" value="race list" name="extra" class="extra"
 		onClick="location.href=\'list.php?table=races\'" /></p>
+
+		Characters
+
 		<p><input type="submit" value="character list" name="extral" class="extral"
-		onClick="location.href=\'list.php?table=characters\'" /></p>
-		<p><input type="submit" value="add npc" name="extra" class="extra"
-		onClick="location.href=\'add.php?table=npcs\'" />
-		<input type="submit" value="npc list" name="extra" class="extra"
-		onClick="location.href=\'list.php?table=npcs\'" />
-		<input type="submit" value="add npc to map" name="extral" class="extral"
-		onClick="location.href=\'add.php?table=mapnpcs\'" />
-		<input type="submit" value="npc in map list" name="extral" class="extral"
-		onClick="location.href=\'list.php?table=mapnpcs\'" /></p>
-		<p><input type="submit" value="add mob" name="extra" class="extra"
-		onClick="location.href=\'add.php?table=mobs\'" />
-		<input type="submit" value="mob list" name="extra" class="extra"
-		onClick="location.href=\'list.php?table=mobs\'" />
-		<input type="submit" value="add mob to map" name="extral" class="extral"
-		onClick="location.href=\'add.php?table=mapmobs\'" />
-		<input type="submit" value="mob in map list" name="extral" class="extral"
-		onClick="location.href=\'list.php?table=mapmobs\'" /></p>
-		<p><input type="submit" value="add item" name="extra" class="extra"
-		onClick="location.href=\'add.php?table=items\'" />
-		<input type="submit" value="item list" name="extra" class="extra"
-		onClick="location.href=\'list.php?table=items\'" />
-		<input type="submit" value="add item to char" name="extral" class="extral"
+		onClick="location.href=\'list.php?table=characters\'" />
+		<input type="submit" value="add charspell" name="extral" class="extral"
+		onClick="location.href=\'add.php?table=charspells\'" />
+		<input type="submit" value="charspell list" name="extral" class="extral"
+		onClick="location.href=\'list.php?table=charspells\'" /></p>
+		<p><input type="submit" value="add charitem" name="extral" class="extral"
 		onClick="location.href=\'add.php?table=charitems\'" />
-		<input type="submit" value="item of char list" name="extral" class="extral"
+		<input type="submit" value="charitem list" name="extral" class="extral"
 		onClick="location.href=\'list.php?table=charitems\'" /></p>
-
-		<!-- Quests -->
-
-		<p><input type="submit" value="add quest" name="extra" class="extra"
-		onClick="location.href=\'add.php?table=quests\'" />
-		<input type="submit" value="quest list" name="extra" class="extra"
-		onClick="location.href=\'list.php?table=quests\'" />
-		<input type="submit" value="add quest to npc" name="extral" class="extral"
-		onClick="location.href=\'add.php?table=npcquests\'" />
-		<input type="submit" value="quest of npc list" name="extral" class="extral"
-		onClick="location.href=\'list.php?table=npcquests\'" />
-		<input type="submit" value="add mob to quest" name="extral" class="extral"
-		onClick="location.href=\'add.php?table=questmobs\'" />
-		<input type="submit" value="mob of quest list" name="extral" class="extral"
-		onClick="location.href=\'list.php?table=questmobs\'" /></p>
-		<p><input type="submit" value="add item to quest" name="extral" class="extral"
-		onClick="location.href=\'add.php?table=questitems\'" />
-		<input type="submit" value="item of quest list" name="extral" class="extral"
-		onClick="location.href=\'list.php?table=questitems\'" /></p>
-
-		<!-- Character Quests -->
-
-		<p><input type="submit" value="add quest to char" name="extral" class="extral"
+		<p><input type="submit" value="add charquest" name="extral" class="extral"
 		onClick="location.href=\'add.php?table=charquests\'" />
-		<input type="submit" value="quest of char list" name="extral" class="extral"
+		<input type="submit" value="charquest list" name="extral" class="extral"
 		onClick="location.href=\'list.php?table=charquests\'" /></p>
-		<p><input type="submit" value="add questmob to char" name="extral" class="extral"
-		onClick="location.href=\'add.php?table=charquestmobs\'" />
-		<input type="submit" value="questmob of char list" name="extral" class="extral"
-		onClick="location.href=\'list.php?table=charquestmobs\'" /></p>
-		<p><input type="submit" value="add completequest to char" name="extral" class="extral"
+		<p><input type="submit" value="add completequest" name="extral" class="extral"
 		onClick="location.href=\'add.php?table=completequests\'" />
 		<input type="submit" value="completequest list" name="extral" class="extral"
 		onClick="location.href=\'list.php?table=completequests\'" /></p>

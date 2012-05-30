@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 30-05-2012 a las 10:14:27
+-- Tiempo de generación: 30-05-2012 a las 12:40:06
 -- Versión del servidor: 5.5.22
 -- Versión de PHP: 5.3.10-1ubuntu3.1
 
@@ -85,6 +85,15 @@ CREATE TRIGGER `maxhpinsert` BEFORE INSERT ON `characters`
  FOR EACH ROW begin if new.hp > 100 then set new.hp = 100; end if; end
 //
 DELIMITER ;
+DROP TRIGGER IF EXISTS `startspells`;
+DELIMITER //
+CREATE TRIGGER `startspells` AFTER INSERT ON `characters`
+ FOR EACH ROW begin
+INSERT INTO charspells SET charid = (SELECT id FROM characters WHERE name = new.name),
+spell = (SELECT startspell FROM races WHERE id = new.race);
+end
+//
+DELIMITER ;
 DROP TRIGGER IF EXISTS `maxhp`;
 DELIMITER //
 CREATE TRIGGER `maxhp` BEFORE UPDATE ON `characters`
@@ -126,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `charquestmobs` (
   UNIQUE KEY `charid_2` (`charid`,`questmob`),
   KEY `charid` (`charid`),
   KEY `questmob` (`questmob`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -143,7 +152,20 @@ CREATE TABLE IF NOT EXISTS `charquests` (
   UNIQUE KEY `charid_2` (`charid`,`quest`),
   KEY `charid` (`charid`),
   KEY `quest` (`quest`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+--
+-- Disparadores `charquests`
+--
+DROP TRIGGER IF EXISTS `startquests`;
+DELIMITER //
+CREATE TRIGGER `startquests` BEFORE INSERT ON `charquests`
+ FOR EACH ROW begin
+INSERT INTO charquestmobs (charid,questmob)
+SELECT new.charid,id FROM questmobs WHERE quest = new.quest;
+end
+//
+DELIMITER ;
 
 -- --------------------------------------------------------
 

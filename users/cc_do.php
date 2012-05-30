@@ -62,11 +62,5 @@ This program is free software: you can redistribute it and/or modify it under th
 			(SELECT startalignment FROM races WHERE id = '$race'))";
 	$result = mysql_query($query) or die(mysql_error());
 
-	// Character First Spell
-
-	$query = "INSERT INTO charspells (charid,spell) 
-		VALUES((SELECT id FROM characters WHERE name = '$name'),(SELECT startspell FROM races WHERE id = '$race'))";
-	$result = mysql_query($query) or die(mysql_error());
-
 	header('Location: index.php');
 ?>

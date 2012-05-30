@@ -83,12 +83,12 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Get Quest Requirements
 
-	$qiq = "SELECT name,amount FROM questitems,items
+	$qiq = "SELECT name,amount,items.id FROM questitems,items
 		WHERE quest = $id
 		AND item = items.id";
 	$qir = mysql_query($qiq) or die(mysql_error());
 
-	$qmq = "SELECT name,amount FROM questmobs,mobs
+	$qmq = "SELECT name,amount,mobs.id FROM questmobs,mobs
 		WHERE quest = $id
 		AND mob = mobs.id";
 	$qmr = mysql_query($qmq) or die(mysql_error());
@@ -102,16 +102,35 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Show Quest Requirements
 
-	echo '<p>Requirements</p><br>';
+	if (mysql_num_rows($qipr)) echo '<p>Progress</p><br>';
+	else echo '<p>Requirements</p><br>';
 
 	if (mysql_num_rows($qir)) {
 		echo '<p>Items:</p>';
-		while ($row = mysql_fetch_array($qir)) echo '<p>- '.$row[0].' x'.$row[1].'</p>';
+		while ($row = mysql_fetch_array($qir)) {
+			if (mysql_num_rows($qipr)) {
+				$query = "SELECT amount FROM charitems
+					WHERE charid = $charid AND item = $row[2]";
+				$result = mysql_query($query) or die(mysql_error());
+				$item = mysql_fetch_array($result);
+				echo '<p>- '.$row[0].' '.$item[0].'/'.$row[1].'</p>';
+			} else echo '<p>- '.$row[0].' x'.$row[1].'</p>';
+		}
 	}
 
 	if (mysql_num_rows($qmr)) {
 		echo '<p>Mobs:</p>';
-		while ($row = mysql_fetch_array($qmr)) echo '<p>- '.$row[0].' x'.$row[1].'</p>';
+		while ($row = mysql_fetch_array($qmr)) {
+			if (mysql_num_rows($qipr)) {
+				$query = "SELECT amount FROM charquestmobs
+					WHERE charid = $charid
+					AND questmob = (SELECT id FROM questmobs
+						WHERE quest = $id AND mob = $row[2])";
+				$result = mysql_query($query) or die(mysql_error());
+				$mob = mysql_fetch_array($result);
+				echo '<p>- '.$row[0].' '.$mob[0].'/'.$row[1].'</p>';
+			} else echo '<p>- '.$row[0].' x'.$row[1].'</p>';
+		}
 	}
 
 	// Show Accept Quest if not in Progress
