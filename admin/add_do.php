@@ -23,7 +23,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Get GET Variables
 
-	$table = $_GET['table'];
+	$table = mysql_real_escape_string($_GET['table']);
 
 	// Get POST Variables
 

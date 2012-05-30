@@ -32,6 +32,15 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	$charid = $_SESSION['charid'];
 
+	// Battle Redirect
+
+	$query = "SELECT * FROM battles WHERE charid = $charid";
+	$result = mysql_query($query) or die(mysql_error());
+
+	if (mysql_num_rows($result)) {
+		header('Location: battle.php');
+	}
+
 	// Get Character Info
 		
 	$query = "SELECT c.name,r.name,m.id,m.name,hp

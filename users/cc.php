@@ -21,6 +21,23 @@ This program is free software: you can redistribute it and/or modify it under th
 		exit;
 	}
 
+	// Get session variables
+
+	$userid = $_SESSION['id'];
+
+	// Character amount verification info
+		
+	$query = "SELECT * FROM characters WHERE user = '$userid'";
+	$result = mysql_query($query) or die(mysql_error());
+
+	if(mysql_num_rows($result) >= $maxchars) {
+		echo '<script language="javascript">
+				alert("You can\'t create any more characters!");
+				window.location = ("index.php");
+			</script>';
+		exit;
+	}
+
 	// Get GET Variables
 
 	$cid = '';

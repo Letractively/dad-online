@@ -31,13 +31,6 @@ This program is free software: you can redistribute it and/or modify it under th
 	$result = mysql_query($query) or die(mysql_error());
 	$numrows = mysql_num_rows($result);
 
-	// No characters redirect
-
-	if(!$numrows) {
-		header('Location: cc.php');
-		exit;
-	}
-
 	// Load HTML5 Template
 
 	$title = '<li><a href="index.php">Home</a></li>

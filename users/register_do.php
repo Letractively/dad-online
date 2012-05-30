@@ -23,8 +23,10 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Function for validation errors
 
 	function validationError($msg) {
-		echo '<script language="javascript">alert("'.$msg.'");</script>';
-		include 'register.php';
+		echo '<script language="javascript">
+				alert("'.$msg.'");
+				window.location = ("register.php");
+			</script>';
 		exit;
 	}
 
