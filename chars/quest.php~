@@ -42,7 +42,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Verify Valid Quest
 
-	$query = "SELECT npcs.id,npcs.name,quests.name 
+	$query = "SELECT npcs.id,npcs.name,quests.name
 		FROM mapnpcs,npcs,npcquests,quests
 		WHERE map = (SELECT map FROM characters WHERE id = $charid)
 		AND mapnpcs.npc = npcs.id
@@ -63,12 +63,12 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Get Quest Requirements
 
-	$qiq = "SELECT name FROM questitems,items
+	$qiq = "SELECT name,amount FROM questitems,items
 		WHERE quest = $id
 		AND item = items.id";
 	$qir = mysql_query($qiq) or die(mysql_error());
 
-	$qmq = "SELECT name FROM questmobs,mobs
+	$qmq = "SELECT name,amount FROM questmobs,mobs
 		WHERE quest = $id
 		AND mob = mobs.id";
 	$qmr = mysql_query($qmq) or die(mysql_error());
@@ -83,10 +83,10 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Show Quest Requirements
 
 	echo '<p>Items:</p>';
-	while ($row = mysql_fetch_array($qir)) echo '<p>- '.$row[0].'</p>';
+	while ($row = mysql_fetch_array($qir)) echo '<p>- '.$row[0].' x'.$row[1].'</p>';
 
 	echo '<p>Mobs:</p>';
-	while ($row = mysql_fetch_array($qmr)) echo '<p>- '.$row[0].'</p>';
+	while ($row = mysql_fetch_array($qmr)) echo '<p>- '.$row[0].' x'.$row[1].'</p>';
 
 	// Load HTML5 Template
 

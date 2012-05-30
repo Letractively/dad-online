@@ -112,10 +112,14 @@ This program is free software: you can redistribute it and/or modify it under th
 		onClick="location.href=\'add.php?table=charquests\'" />
 		<input type="submit" value="quest of char list" name="extral" class="extral"
 		onClick="location.href=\'list.php?table=charquests\'" /></p>
-		<p><input type="submit" value="add questitem to char" name="extral" class="extral"
-		onClick="location.href=\'add.php?table=charquestitems\'" />
-		<input type="submit" value="questitem of char list" name="extral" class="extral"
-		onClick="location.href=\'list.php?table=charquestitems\'" /></p>
+		<p><input type="submit" value="add questmob to char" name="extral" class="extral"
+		onClick="location.href=\'add.php?table=charquestmobs\'" />
+		<input type="submit" value="questmob of char list" name="extral" class="extral"
+		onClick="location.href=\'list.php?table=charquestmobs\'" /></p>
+		<p><input type="submit" value="add completequest to char" name="extral" class="extral"
+		onClick="location.href=\'add.php?table=completequests\'" />
+		<input type="submit" value="completequest list" name="extral" class="extral"
+		onClick="location.href=\'list.php?table=completequests\'" /></p>
 
 		<!-- Options -->
 

@@ -34,7 +34,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Get Character Info
 		
-	$query = "SELECT c.name,r.name,m.name
+	$query = "SELECT c.name,r.name,m.name,hp
 		FROM characters AS c,races AS r,maps AS m
 		WHERE c.id = '$charid'
 			AND c.race = r.id
@@ -50,7 +50,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Get Items
 
-	$itemq = "SELECT name FROM charitems,items 
+	$itemq = "SELECT name,amount FROM charitems,items 
 		WHERE charid = $charid AND item = items.id";
 	$itemr = mysql_query($itemq) or die(mysql_error());
 
@@ -66,6 +66,10 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	echo '<p><img name="pic" src="images/'.$row[1].'.gif" border="0"></p>';
 
+	// Show Character HP
+
+	echo 'HP: '.$row[3].'/100';
+
 	// Show Character Spells
 
 	echo '<p>Spells:</p>';
@@ -74,7 +78,7 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Character Items
 
 	echo '<p>Items:</p>';
-	while ($row = mysql_fetch_array($itemr)) echo '<p>'.$row[0].'</p>';
+	while ($row = mysql_fetch_array($itemr)) echo '<p>'.$row[0].' x'.$row[1].'</p>';
 
 	// Load HTML5 Template
 

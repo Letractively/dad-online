@@ -34,7 +34,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Get Character Info
 		
-	$query = "SELECT c.name,r.name,m.id,m.name
+	$query = "SELECT c.name,r.name,m.id,m.name,hp
 		FROM characters AS c,races AS r,maps AS m
 		WHERE c.id = '$charid'
 			AND c.race = r.id
@@ -53,7 +53,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Get Mobs
 
-	$mobq = "SELECT name FROM mapmobs,mobs 
+	$mobq = "SELECT name,rate FROM mapmobs,mobs 
 		WHERE map = $mid AND mob = mobs.id";
 	$mobr = mysql_query($mobq) or die(mysql_error());
 
@@ -75,6 +75,10 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	echo '<p><img name="pic" src="images/'.$row[1].'.gif" border="0"></p>';
 
+	// Show Character HP
+
+	echo 'HP: '.$row[4].'/100';
+
 	// Show NPCs
 
 	echo '<p>NPCs:</p>';
@@ -88,7 +92,7 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Show Mobs
 
 	echo '<p>Mobs:</p>';
-	while ($row = mysql_fetch_array($mobr)) echo '<p>'.$row[0].'</p>';
+	while ($row = mysql_fetch_array($mobr)) echo '<p>'.$row[0].' with rate = '.$row[1].'</p>';
 
 	// Load HTML5 Template
 
