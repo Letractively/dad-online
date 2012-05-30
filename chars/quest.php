@@ -40,6 +40,20 @@ This program is free software: you can redistribute it and/or modify it under th
 	}
 	$id = mysql_real_escape_string($_GET['id']);
 
+	// Verify Already Completed Quest
+
+	$query = "SELECT * FROM completequests
+		WHERE charid = $charid AND quest = $id";
+	$result = mysql_query($query) or die(mysql_error());
+
+	if (mysql_num_rows($result)) {
+		echo '<script language="javascript">
+			alert("You already did this quest!!!");
+			window.location = ("map.php");
+		</script>';
+		exit;
+	}
+
 	// Verify Valid Quest
 
 	$query = "SELECT npcs.id,npcs.name,quests.name
@@ -60,6 +74,12 @@ This program is free software: you can redistribute it and/or modify it under th
 	}
 
 	$row = mysql_fetch_array($result);
+
+	// Verify Quest in Progress
+
+	$qipq = "SELECT * FROM charquests
+		WHERE charid = $charid AND quest = $id";
+	$qipr = mysql_query($qipq) or die(mysql_error());
 
 	// Get Quest Requirements
 
@@ -82,11 +102,24 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Show Quest Requirements
 
-	echo '<p>Items:</p>';
-	while ($row = mysql_fetch_array($qir)) echo '<p>- '.$row[0].' x'.$row[1].'</p>';
+	echo '<p>Requirements</p><br>';
 
-	echo '<p>Mobs:</p>';
-	while ($row = mysql_fetch_array($qmr)) echo '<p>- '.$row[0].' x'.$row[1].'</p>';
+	if (mysql_num_rows($qir)) {
+		echo '<p>Items:</p>';
+		while ($row = mysql_fetch_array($qir)) echo '<p>- '.$row[0].' x'.$row[1].'</p>';
+	}
+
+	if (mysql_num_rows($qmr)) {
+		echo '<p>Mobs:</p>';
+		while ($row = mysql_fetch_array($qmr)) echo '<p>- '.$row[0].' x'.$row[1].'</p>';
+	}
+
+	// Show Accept Quest if not in Progress
+
+	if (!mysql_num_rows($qipr)) {
+		echo '<p><input type="submit" value="accept quest" name="extral" class="extral"
+		onClick="location.href=\'quest_take.php?id='.$id.'\'" /></p>';
+	}
 
 	// Load HTML5 Template
 
