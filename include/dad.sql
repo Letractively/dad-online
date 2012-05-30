@@ -153,7 +153,7 @@ CREATE TABLE IF NOT EXISTS `completequests` (
   `charid` int(11) NOT NULL,
   `quest` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `charid` (`charid`,`quest`),
+  UNIQUE KEY `charid_2` (`charid`,`quest`),
   KEY `charid` (`charid`),
   KEY `quest` (`quest`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
