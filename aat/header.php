@@ -28,7 +28,7 @@ This program is free software: you can redistribute it and/or modify it under th
 		<html lang="en">
 		<head>
 		<meta charset="utf-8" />
-		<title>DAD Online</title>
+		<title>DAD Online - Engine</title>
 		<link rel="stylesheet" type="text/css" href="'.$depth.'styles.css" media="screen" />
 		<script type="text/javascript"
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
@@ -77,7 +77,7 @@ ul#navigationR .shortcodes a      {
 		echo '<div id="wrapper"><!-- #wrapper -->
 
 		<header><!-- header -->
-		<h1><a href="#">DAD Online</a></h1>
+		<h1><a href="#">DAD Online - Engine</a></h1>
 		</header><!-- end of header -->
 
 		<nav><!-- top nav -->
