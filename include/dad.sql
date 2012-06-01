@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 01-06-2012 a las 12:13:06
+-- Tiempo de generación: 01-06-2012 a las 13:59:28
 -- Versión del servidor: 5.5.22
 -- Versión de PHP: 5.3.10-1ubuntu3.1
 
@@ -19,6 +19,39 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `dad`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `battlenpcs`
+--
+
+DROP TABLE IF EXISTS `battlenpcs`;
+CREATE TABLE IF NOT EXISTS `battlenpcs` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `charid` int(10) unsigned NOT NULL,
+  `npc` int(10) unsigned NOT NULL,
+  `hp` tinyint(3) unsigned NOT NULL DEFAULT '100',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `charid` (`charid`),
+  KEY `npc` (`npc`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Disparadores `battlenpcs`
+--
+DROP TRIGGER IF EXISTS `npcmaxhpinsert`;
+DELIMITER //
+CREATE TRIGGER `npcmaxhpinsert` BEFORE INSERT ON `battlenpcs`
+ FOR EACH ROW begin if new.hp > 100 then set new.hp = 100; end if; end
+//
+DELIMITER ;
+DROP TRIGGER IF EXISTS `npcmaxhp`;
+DELIMITER //
+CREATE TRIGGER `npcmaxhp` BEFORE UPDATE ON `battlenpcs`
+ FOR EACH ROW begin if new.hp > 100 then set new.hp = 100; end if; end
+//
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -337,6 +370,19 @@ CREATE TABLE IF NOT EXISTS `mobs` (
   KEY `type` (`type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Disparadores `mobs`
+--
+DROP TRIGGER IF EXISTS `mobstartspells`;
+DELIMITER //
+CREATE TRIGGER `mobstartspells` AFTER INSERT ON `mobs`
+ FOR EACH ROW begin
+INSERT INTO mobspells SET mob = (SELECT id FROM mobs WHERE name = new.name),
+spell = (SELECT startspell FROM mobtypes WHERE id = new.type);
+end
+//
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -397,8 +443,44 @@ DROP TABLE IF EXISTS `npcs`;
 CREATE TABLE IF NOT EXISTS `npcs` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(16) NOT NULL,
+  `race` int(10) unsigned NOT NULL,
+  `alignment` tinyint(4) NOT NULL,
+  `str` smallint(5) unsigned NOT NULL,
+  `int` smallint(5) unsigned NOT NULL,
+  `agi` smallint(5) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
+  UNIQUE KEY `name` (`name`),
+  KEY `race` (`race`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Disparadores `npcs`
+--
+DROP TRIGGER IF EXISTS `npcstartspells`;
+DELIMITER //
+CREATE TRIGGER `npcstartspells` AFTER INSERT ON `npcs`
+ FOR EACH ROW begin
+INSERT INTO npcspells SET npc = (SELECT id FROM npcs WHERE name = new.name),
+spell = (SELECT startspell FROM races WHERE id = new.race);
+end
+//
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `npcspells`
+--
+
+DROP TABLE IF EXISTS `npcspells`;
+CREATE TABLE IF NOT EXISTS `npcspells` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `npc` int(10) unsigned NOT NULL,
+  `spell` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `npc_2` (`npc`,`spell`),
+  KEY `npc` (`npc`),
+  KEY `spell` (`spell`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -447,6 +529,7 @@ DROP TABLE IF EXISTS `quests`;
 CREATE TABLE IF NOT EXISTS `quests` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
+  `changealignment` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -492,6 +575,23 @@ CREATE TABLE IF NOT EXISTS `rewards` (
   KEY `quest` (`quest`),
   KEY `item` (`item`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `routerequirements`
+--
+
+DROP TABLE IF EXISTS `routerequirements`;
+CREATE TABLE IF NOT EXISTS `routerequirements` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `route` int(10) unsigned NOT NULL,
+  `quest` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `route_2` (`route`,`quest`),
+  KEY `charid` (`route`),
+  KEY `questmob` (`quest`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -546,6 +646,13 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `battlenpcs`
+--
+ALTER TABLE `battlenpcs`
+  ADD CONSTRAINT `battlenpcs_ibfk_1` FOREIGN KEY (`charid`) REFERENCES `characters` (`id`),
+  ADD CONSTRAINT `battlenpcs_ibfk_2` FOREIGN KEY (`npc`) REFERENCES `npcs` (`id`);
 
 --
 -- Filtros para la tabla `battles`
@@ -645,6 +752,19 @@ ALTER TABLE `npcquests`
   ADD CONSTRAINT `npcquests_ibfk_2` FOREIGN KEY (`quest`) REFERENCES `quests` (`id`);
 
 --
+-- Filtros para la tabla `npcs`
+--
+ALTER TABLE `npcs`
+  ADD CONSTRAINT `npcs_ibfk_1` FOREIGN KEY (`race`) REFERENCES `races` (`id`);
+
+--
+-- Filtros para la tabla `npcspells`
+--
+ALTER TABLE `npcspells`
+  ADD CONSTRAINT `npcspells_ibfk_1` FOREIGN KEY (`npc`) REFERENCES `npcs` (`id`),
+  ADD CONSTRAINT `npcspells_ibfk_2` FOREIGN KEY (`spell`) REFERENCES `spells` (`id`);
+
+--
 -- Filtros para la tabla `questitems`
 --
 ALTER TABLE `questitems`
@@ -672,6 +792,13 @@ ALTER TABLE `races`
 ALTER TABLE `rewards`
   ADD CONSTRAINT `rewards_ibfk_1` FOREIGN KEY (`quest`) REFERENCES `quests` (`id`),
   ADD CONSTRAINT `rewards_ibfk_2` FOREIGN KEY (`item`) REFERENCES `items` (`id`);
+
+--
+-- Filtros para la tabla `routerequirements`
+--
+ALTER TABLE `routerequirements`
+  ADD CONSTRAINT `routerequirements_ibfk_1` FOREIGN KEY (`route`) REFERENCES `routes` (`id`),
+  ADD CONSTRAINT `routerequirements_ibfk_2` FOREIGN KEY (`quest`) REFERENCES `quests` (`id`);
 
 --
 -- Filtros para la tabla `routes`
