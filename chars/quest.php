@@ -109,7 +109,7 @@ This program is free software: you can redistribute it and/or modify it under th
 		<li><a href="../users/logout.php">Logout</a></li>';
 	$depth = "../aat/"; include_once '../aat/header.php';
 
-	// Show Quest Requirements
+	// Show Quest Requirements / Progress
 
 	if (mysql_num_rows($qipr)) echo '<p>Progress</p><br>';
 	else echo '<p>Requirements</p><br>';
@@ -121,8 +121,10 @@ This program is free software: you can redistribute it and/or modify it under th
 				$query = "SELECT amount FROM charitems
 					WHERE charid = $charid AND item = $row[2]";
 				$result = mysql_query($query) or die(mysql_error());
-				$item = mysql_fetch_array($result);
-				echo '<p>- '.$row[0].' '.$item[0].'/'.$row[1].'</p>';
+				if (mysql_num_rows($result)) {
+					$item = mysql_fetch_array($result);
+					echo '<p>- '.$row[0].' '.$item[0].'/'.$row[1].'</p>';
+				} else echo '<p>- '.$row[0].' 0/'.$row[1].'</p>';
 			} else echo '<p>- '.$row[0].' x'.$row[1].'</p>';
 		}
 	}

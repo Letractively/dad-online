@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 30-05-2012 a las 12:40:06
+-- Tiempo de generación: 01-06-2012 a las 11:15:16
 -- Versión del servidor: 5.5.22
 -- Versión de PHP: 5.3.10-1ubuntu3.1
 
@@ -28,13 +28,12 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `battles`;
 CREATE TABLE IF NOT EXISTS `battles` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `charid` int(11) NOT NULL,
-  `mob` int(11) NOT NULL,
-  `hp` tinyint(3) unsigned NOT NULL DEFAULT '100',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `charid` int unsigned NOT NULL,
+  `mob` int unsigned NOT NULL,
+  `hp` tinyint unsigned NOT NULL DEFAULT '100',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `charid_2` (`charid`,`mob`),
-  KEY `charid` (`charid`),
+  UNIQUE KEY `charid` (`charid`),
   KEY `mob` (`mob`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -62,19 +61,22 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS `characters`;
 CREATE TABLE IF NOT EXISTS `characters` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(8) NOT NULL,
-  `user` int(11) NOT NULL,
-  `race` int(11) NOT NULL,
-  `map` int(11) NOT NULL,
+  `user` int unsigned NOT NULL,
+  `race` int unsigned NOT NULL,
+  `map` int unsigned NOT NULL,
   `hp` tinyint(3) unsigned NOT NULL DEFAULT '100',
-  `alignment` tinyint(3) unsigned NOT NULL,
+  `alignment` tinyint NOT NULL,
+  `str` smallint(5) unsigned NOT NULL,
+  `int` smallint(5) unsigned NOT NULL,
+  `agi` smallint(5) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `user` (`user`),
   KEY `race` (`race`),
   KEY `map` (`map`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Disparadores `characters`
@@ -109,15 +111,15 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS `charitems`;
 CREATE TABLE IF NOT EXISTS `charitems` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `charid` int(11) NOT NULL,
-  `item` int(11) NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `charid` int unsigned NOT NULL,
+  `item` int unsigned NOT NULL,
   `amount` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `charid_2` (`charid`,`item`),
   KEY `charid` (`charid`),
   KEY `item` (`item`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -127,15 +129,15 @@ CREATE TABLE IF NOT EXISTS `charitems` (
 
 DROP TABLE IF EXISTS `charquestmobs`;
 CREATE TABLE IF NOT EXISTS `charquestmobs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `charid` int(11) NOT NULL,
-  `questmob` int(11) NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `charid` int unsigned NOT NULL,
+  `questmob` int unsigned NOT NULL,
   `amount` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `charid_2` (`charid`,`questmob`),
   KEY `charid` (`charid`),
   KEY `questmob` (`questmob`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -145,14 +147,14 @@ CREATE TABLE IF NOT EXISTS `charquestmobs` (
 
 DROP TABLE IF EXISTS `charquests`;
 CREATE TABLE IF NOT EXISTS `charquests` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `charid` int(11) NOT NULL,
-  `quest` int(11) NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `charid` int unsigned NOT NULL,
+  `quest` int unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `charid_2` (`charid`,`quest`),
   KEY `charid` (`charid`),
   KEY `quest` (`quest`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Disparadores `charquests`
@@ -175,14 +177,14 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS `charspells`;
 CREATE TABLE IF NOT EXISTS `charspells` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `charid` int(11) NOT NULL,
-  `spell` int(11) NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `charid` int unsigned NOT NULL,
+  `spell` int unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `charid_2` (`charid`,`spell`),
   KEY `charid` (`charid`),
   KEY `spell` (`spell`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -192,11 +194,11 @@ CREATE TABLE IF NOT EXISTS `charspells` (
 
 DROP TABLE IF EXISTS `classes`;
 CREATE TABLE IF NOT EXISTS `classes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(16) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -206,14 +208,14 @@ CREATE TABLE IF NOT EXISTS `classes` (
 
 DROP TABLE IF EXISTS `completequests`;
 CREATE TABLE IF NOT EXISTS `completequests` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `charid` int(11) NOT NULL,
-  `quest` int(11) NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `charid` int unsigned NOT NULL,
+  `quest` int unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `charid_2` (`charid`,`quest`),
   KEY `charid` (`charid`),
   KEY `quest` (`quest`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Disparadores `completequests`
@@ -242,16 +244,16 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS `drops`;
 CREATE TABLE IF NOT EXISTS `drops` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `mob` int(11) NOT NULL,
-  `item` int(11) NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `mob` int unsigned NOT NULL,
+  `item` int unsigned NOT NULL,
   `rate` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `max` tinyint(3) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `mob_2` (`mob`,`item`),
   KEY `mob` (`mob`),
   KEY `item` (`item`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -261,11 +263,11 @@ CREATE TABLE IF NOT EXISTS `drops` (
 
 DROP TABLE IF EXISTS `items`;
 CREATE TABLE IF NOT EXISTS `items` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -275,15 +277,15 @@ CREATE TABLE IF NOT EXISTS `items` (
 
 DROP TABLE IF EXISTS `mapmobs`;
 CREATE TABLE IF NOT EXISTS `mapmobs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `map` int(11) NOT NULL,
-  `mob` int(11) NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `map` int unsigned NOT NULL,
+  `mob` int unsigned NOT NULL,
   `rate` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `map_2` (`map`,`mob`),
   KEY `map` (`map`),
   KEY `mob` (`mob`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -293,14 +295,14 @@ CREATE TABLE IF NOT EXISTS `mapmobs` (
 
 DROP TABLE IF EXISTS `mapnpcs`;
 CREATE TABLE IF NOT EXISTS `mapnpcs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `map` int(11) NOT NULL,
-  `npc` int(11) NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `map` int unsigned NOT NULL,
+  `npc` int unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `map_2` (`map`,`npc`),
   KEY `map` (`map`),
   KEY `npc` (`npc`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -310,11 +312,11 @@ CREATE TABLE IF NOT EXISTS `mapnpcs` (
 
 DROP TABLE IF EXISTS `maps`;
 CREATE TABLE IF NOT EXISTS `maps` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(16) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -324,11 +326,11 @@ CREATE TABLE IF NOT EXISTS `maps` (
 
 DROP TABLE IF EXISTS `mobs`;
 CREATE TABLE IF NOT EXISTS `mobs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(16) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -338,14 +340,14 @@ CREATE TABLE IF NOT EXISTS `mobs` (
 
 DROP TABLE IF EXISTS `npcquests`;
 CREATE TABLE IF NOT EXISTS `npcquests` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `npc` int(11) NOT NULL,
-  `quest` int(11) NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `npc` int unsigned NOT NULL,
+  `quest` int unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `npc_2` (`npc`,`quest`),
   KEY `npc` (`npc`),
   KEY `quest` (`quest`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -355,11 +357,11 @@ CREATE TABLE IF NOT EXISTS `npcquests` (
 
 DROP TABLE IF EXISTS `npcs`;
 CREATE TABLE IF NOT EXISTS `npcs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(16) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -369,15 +371,15 @@ CREATE TABLE IF NOT EXISTS `npcs` (
 
 DROP TABLE IF EXISTS `questitems`;
 CREATE TABLE IF NOT EXISTS `questitems` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `quest` int(11) NOT NULL,
-  `item` int(11) NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `quest` int unsigned NOT NULL,
+  `item` int unsigned NOT NULL,
   `amount` tinyint(3) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `quest_2` (`quest`,`item`),
   KEY `quest` (`quest`),
   KEY `item` (`item`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -387,15 +389,15 @@ CREATE TABLE IF NOT EXISTS `questitems` (
 
 DROP TABLE IF EXISTS `questmobs`;
 CREATE TABLE IF NOT EXISTS `questmobs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `quest` int(11) NOT NULL,
-  `mob` int(11) NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `quest` int unsigned NOT NULL,
+  `mob` int unsigned NOT NULL,
   `amount` tinyint(3) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `quest_2` (`quest`,`mob`),
   KEY `quest` (`quest`),
   KEY `mob` (`mob`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -405,11 +407,11 @@ CREATE TABLE IF NOT EXISTS `questmobs` (
 
 DROP TABLE IF EXISTS `quests`;
 CREATE TABLE IF NOT EXISTS `quests` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -419,18 +421,21 @@ CREATE TABLE IF NOT EXISTS `quests` (
 
 DROP TABLE IF EXISTS `races`;
 CREATE TABLE IF NOT EXISTS `races` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(16) NOT NULL,
-  `class` int(11) NOT NULL,
-  `startmap` int(11) NOT NULL,
-  `startspell` int(11) NOT NULL,
-  `startalignment` tinyint(3) unsigned NOT NULL,
+  `class` int unsigned NOT NULL,
+  `startmap` int unsigned NOT NULL,
+  `startspell` int unsigned NOT NULL,
+  `startalignment` tinyint NOT NULL,
+  `startstr` smallint(5) unsigned NOT NULL,
+  `startint` smallint(5) unsigned NOT NULL,
+  `startagi` smallint(5) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `startmap` (`startmap`),
   KEY `startspell` (`startspell`),
   KEY `class` (`class`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -440,14 +445,14 @@ CREATE TABLE IF NOT EXISTS `races` (
 
 DROP TABLE IF EXISTS `routes`;
 CREATE TABLE IF NOT EXISTS `routes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `start` int(11) NOT NULL,
-  `end` int(11) NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `start` int unsigned NOT NULL,
+  `end` int unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `start_2` (`start`,`end`),
   KEY `start` (`start`),
   KEY `end` (`end`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -457,11 +462,11 @@ CREATE TABLE IF NOT EXISTS `routes` (
 
 DROP TABLE IF EXISTS `spells`;
 CREATE TABLE IF NOT EXISTS `spells` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(16) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -471,13 +476,13 @@ CREATE TABLE IF NOT EXISTS `spells` (
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(64) NOT NULL,
   `password` varchar(256) NOT NULL,
   `accesslevel` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Restricciones para tablas volcadas
