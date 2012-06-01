@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 01-06-2012 a las 13:59:28
+-- Tiempo de generación: 01-06-2012 a las 17:06:41
 -- Versión del servidor: 5.5.22
 -- Versión de PHP: 5.3.10-1ubuntu3.1
 
@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
   KEY `user` (`user`),
   KEY `race` (`race`),
   KEY `map` (`map`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 --
 -- Disparadores `characters`
@@ -170,7 +170,7 @@ CREATE TABLE IF NOT EXISTS `charquestmobs` (
   UNIQUE KEY `charid_2` (`charid`,`questmob`),
   KEY `charid` (`charid`),
   KEY `questmob` (`questmob`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -187,7 +187,7 @@ CREATE TABLE IF NOT EXISTS `charquests` (
   UNIQUE KEY `charid_2` (`charid`,`quest`),
   KEY `charid` (`charid`),
   KEY `quest` (`quest`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 --
 -- Disparadores `charquests`
@@ -217,7 +217,7 @@ CREATE TABLE IF NOT EXISTS `charspells` (
   UNIQUE KEY `charid_2` (`charid`,`spell`),
   KEY `charid` (`charid`),
   KEY `spell` (`spell`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -231,7 +231,7 @@ CREATE TABLE IF NOT EXISTS `classes` (
   `name` varchar(16) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -286,7 +286,23 @@ CREATE TABLE IF NOT EXISTS `drops` (
   UNIQUE KEY `mob_2` (`mob`,`item`),
   KEY `mob` (`mob`),
   KEY `item` (`item`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+
+--
+-- Disparadores `drops`
+--
+DROP TRIGGER IF EXISTS `maxrateinsert`;
+DELIMITER //
+CREATE TRIGGER `maxrateinsert` BEFORE INSERT ON `drops`
+ FOR EACH ROW begin if new.rate > 100 then set new.rate = 100; end if; end
+//
+DELIMITER ;
+DROP TRIGGER IF EXISTS `maxrate`;
+DELIMITER //
+CREATE TRIGGER `maxrate` BEFORE UPDATE ON `drops`
+ FOR EACH ROW begin if new.rate > 100 then set new.rate = 100; end if; end
+//
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -300,7 +316,7 @@ CREATE TABLE IF NOT EXISTS `items` (
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -318,7 +334,7 @@ CREATE TABLE IF NOT EXISTS `mapmobs` (
   UNIQUE KEY `map_2` (`map`,`mob`),
   KEY `map` (`map`),
   KEY `mob` (`mob`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -335,7 +351,7 @@ CREATE TABLE IF NOT EXISTS `mapnpcs` (
   UNIQUE KEY `map_2` (`map`,`npc`),
   KEY `map` (`map`),
   KEY `npc` (`npc`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -349,7 +365,7 @@ CREATE TABLE IF NOT EXISTS `maps` (
   `name` varchar(16) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -368,7 +384,7 @@ CREATE TABLE IF NOT EXISTS `mobs` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `type` (`type`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 --
 -- Disparadores `mobs`
@@ -398,7 +414,7 @@ CREATE TABLE IF NOT EXISTS `mobspells` (
   UNIQUE KEY `mob_2` (`mob`,`spell`),
   KEY `mob` (`mob`),
   KEY `spell` (`spell`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -414,7 +430,7 @@ CREATE TABLE IF NOT EXISTS `mobtypes` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `startspell` (`startspell`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -431,7 +447,7 @@ CREATE TABLE IF NOT EXISTS `npcquests` (
   UNIQUE KEY `npc_2` (`npc`,`quest`),
   KEY `npc` (`npc`),
   KEY `quest` (`quest`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -451,7 +467,7 @@ CREATE TABLE IF NOT EXISTS `npcs` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `race` (`race`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 --
 -- Disparadores `npcs`
@@ -481,7 +497,7 @@ CREATE TABLE IF NOT EXISTS `npcspells` (
   UNIQUE KEY `npc_2` (`npc`,`spell`),
   KEY `npc` (`npc`),
   KEY `spell` (`spell`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -499,7 +515,7 @@ CREATE TABLE IF NOT EXISTS `questitems` (
   UNIQUE KEY `quest_2` (`quest`,`item`),
   KEY `quest` (`quest`),
   KEY `item` (`item`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -517,7 +533,7 @@ CREATE TABLE IF NOT EXISTS `questmobs` (
   UNIQUE KEY `quest_2` (`quest`,`mob`),
   KEY `quest` (`quest`),
   KEY `mob` (`mob`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -532,7 +548,7 @@ CREATE TABLE IF NOT EXISTS `quests` (
   `changealignment` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -556,7 +572,7 @@ CREATE TABLE IF NOT EXISTS `races` (
   KEY `startmap` (`startmap`),
   KEY `startspell` (`startspell`),
   KEY `class` (`class`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -608,7 +624,7 @@ CREATE TABLE IF NOT EXISTS `routes` (
   UNIQUE KEY `start_2` (`start`,`end`),
   KEY `start` (`start`),
   KEY `end` (`end`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -620,12 +636,12 @@ DROP TABLE IF EXISTS `spells`;
 CREATE TABLE IF NOT EXISTS `spells` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(16) NOT NULL,
-  `str` tinyint(4) NOT NULL DEFAULT '0',
-  `int` tinyint(4) NOT NULL DEFAULT '0',
-  `agi` tinyint(4) NOT NULL DEFAULT '0',
+  `str` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `int` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `agi` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -641,7 +657,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `accesslevel` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 --
 -- Restricciones para tablas volcadas
