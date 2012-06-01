@@ -91,17 +91,17 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Show NPCs
 
 	echo '<p>NPCs:</p>';
-	while ($row = mysql_fetch_array($npcr)) echo '<p><a href="npc.php?id='.$row[0].'">'.$row[1].'</a></p>';
+	while ($row = mysql_fetch_array($npcr)) echo '<p><a href="npc.php?id='.$row[0].'">- '.$row[1].'</a></p>';
 
 	// Show Routes
 
 	echo '<p>Routes:</p>';
-	while ($row = mysql_fetch_array($router)) echo '<p><a href="cm.php?id='.$row[0].'">'.$row[1].'</a></p>';
+	while ($row = mysql_fetch_array($router)) echo '<p><a href="cm.php?id='.$row[0].'">- '.$row[1].'</a></p>';
 
 	// Show Mobs
 
 	echo '<p>Mobs:</p>';
-	while ($row = mysql_fetch_array($mobr)) echo '<p>'.$row[0].' with rate = '.$row[1].'</p>';
+	while ($row = mysql_fetch_array($mobr)) echo '<p>- '.$row[0].' with rate = '.$row[1].'</p>';
 
 	// Load HTML5 Template
 

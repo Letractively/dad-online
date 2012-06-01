@@ -82,12 +82,12 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Show Character Spells
 
 	echo '<p>Spells:</p>';
-	while ($row = mysql_fetch_array($spellr)) echo '<p>'.$row[0].'</p>';
+	while ($row = mysql_fetch_array($spellr)) echo '<p>- '.$row[0].'</p>';
 
 	// Character Items
 
 	echo '<p>Items:</p>';
-	while ($row = mysql_fetch_array($itemr)) echo '<p>'.$row[0].' x'.$row[1].'</p>';
+	while ($row = mysql_fetch_array($itemr)) echo '<p>- '.$row[0].' x'.$row[1].'</p>';
 
 	// Load HTML5 Template
 

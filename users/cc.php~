@@ -58,6 +58,9 @@ This program is free software: you can redistribute it and/or modify it under th
 		$result2 = mysql_query($query2) or die(mysql_error());
 	}
 
+	$name = '';
+	if (isset($_GET['name'])) $name = mysql_real_escape_string($_GET['name']);
+
 	// Get classes list
 
 	$query = "SELECT id,name FROM classes";
@@ -75,9 +78,10 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	echo '<script language=javascript>
 			function reload(form) {
-			var val=form.class.options[form.class.options.selectedIndex].value;
-			self.location="cc.php?class=" + val;
-		}
+				var val=form.class.options[form.class.options.selectedIndex].value;
+				var name=form.name.value;
+				self.location="cc.php?class=" + val + "&name=" + name;
+			}
 		</script>';
 
 	// Characer Creation Form
@@ -87,7 +91,7 @@ This program is free software: you can redistribute it and/or modify it under th
 		<form id="cc" name="cc" action="cc_do.php" method="post" accept-charset="UTF-8">
 			<legend>Character Creation</legend>
 			<label for="name">Name:</label>
-			<input type="text" id="name" name="name" maxlength="16" required/><br/>
+			<input type="text" id="name" name="name" maxlength="16" value="'..'" required/><br/>
 			<p><label for="class">Class:</label>
 			<select name="class" onChange="reload(this.form)" required>
 			<option value="'.$cid.'">'.$classtext.'</option>';

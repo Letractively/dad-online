@@ -56,10 +56,13 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Character Creation
 
-	$query = "INSERT INTO characters (name,user,race,map,alignment) 
+	$query = "INSERT INTO characters (name,user,race,map,alignment,str,int,agi) 
 		VALUES('$name','$userid','$race',
 			(SELECT startmap FROM races WHERE id = '$race'),
-			(SELECT startalignment FROM races WHERE id = '$race'))";
+			(SELECT startalignment FROM races WHERE id = '$race'),
+			(SELECT startstr FROM races WHERE id = '$race'),
+			(SELECT startint FROM races WHERE id = '$race'),
+			(SELECT startagi FROM races WHERE id = '$race'))";
 	$result = mysql_query($query) or die(mysql_error());
 
 	header('Location: index.php');

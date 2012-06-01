@@ -40,13 +40,24 @@ This program is free software: you can redistribute it and/or modify it under th
 		<input type="submit" value="item list" name="extra" class="extra"
 		onClick="location.href=\'list.php?table=items\'" /></p>
 
+		Spells
+
+		<p><input type="submit" value="add spell" name="extra" class="extra"
+		onClick="location.href=\'add.php?table=spells\'" />
+		<input type="submit" value="spell list" name="extra" class="extra"
+		onClick="location.href=\'list.php?table=spells\'" /></p>
+
 		Mobs
 
-		<p><input type="submit" value="add mob" name="extra" class="extra"
+		<p><input type="submit" value="add mobtype" name="extral" class="extral"
+		onClick="location.href=\'add.php?table=mobtypes\'" />
+		<input type="submit" value="mobtype list" name="extral" class="extral"
+		onClick="location.href=\'list.php?table=mobtypes\'" />
+		<input type="submit" value="add mob" name="extra" class="extra"
 		onClick="location.href=\'add.php?table=mobs\'" />
 		<input type="submit" value="mob list" name="extra" class="extra"
-		onClick="location.href=\'list.php?table=mobs\'" />
-		<input type="submit" value="add drop" name="extra" class="extra"
+		onClick="location.href=\'list.php?table=mobs\'" /></p>
+		<p><input type="submit" value="add drop" name="extra" class="extra"
 		onClick="location.href=\'add.php?table=drops\'" />
 		<input type="submit" value="drop list" name="extra" class="extra"
 		onClick="location.href=\'list.php?table=drops\'" /></p>
@@ -56,8 +67,8 @@ This program is free software: you can redistribute it and/or modify it under th
 		<p><input type="submit" value="add quest" name="extra" class="extra"
 		onClick="location.href=\'add.php?table=quests\'" />
 		<input type="submit" value="quest list" name="extra" class="extra"
-		onClick="location.href=\'list.php?table=quests\'" /></p>
-		<p><input type="submit" value="add questmob" name="extral" class="extral"
+		onClick="location.href=\'list.php?table=quests\'" />
+		<input type="submit" value="add questmob" name="extral" class="extral"
 		onClick="location.href=\'add.php?table=questmobs\'" />
 		<input type="submit" value="questmob list" name="extral" class="extral"
 		onClick="location.href=\'list.php?table=questmobs\'" /></p>
@@ -65,17 +76,6 @@ This program is free software: you can redistribute it and/or modify it under th
 		onClick="location.href=\'add.php?table=questitems\'" />
 		<input type="submit" value="questitem list" name="extral" class="extral"
 		onClick="location.href=\'list.php?table=questitems\'" /></p>
-
-		NPCs
-
-		<p><input type="submit" value="add npc" name="extra" class="extra"
-		onClick="location.href=\'add.php?table=npcs\'" />
-		<input type="submit" value="npc list" name="extra" class="extra"
-		onClick="location.href=\'list.php?table=npcs\'" /></p>
-		<p><input type="submit" value="add npcquest" name="extral" class="extral"
-		onClick="location.href=\'add.php?table=npcquests\'" />
-		<input type="submit" value="npcquest list" name="extral" class="extral"
-		onClick="location.href=\'list.php?table=npcquests\'" /></p>
 
 		Maps
 
@@ -87,21 +87,10 @@ This program is free software: you can redistribute it and/or modify it under th
 		onClick="location.href=\'add.php?table=routes\'" />
 		<input type="submit" value="route list" name="extra" class="extra"
 		onClick="location.href=\'list.php?table=routes\'" />
-		<input type="submit" value="add mapnpc" name="extra" class="extra"
-		onClick="location.href=\'add.php?table=mapnpcs\'" />
-		<input type="submit" value="mapnpc list" name="extra" class="extra"
-		onClick="location.href=\'list.php?table=mapnpcs\'" /></p>
-		<p><input type="submit" value="add mapmob" name="extra" class="extra"
+		<input type="submit" value="add mapmob" name="extra" class="extra"
 		onClick="location.href=\'add.php?table=mapmobs\'" />
 		<input type="submit" value="mapmob list" name="extra" class="extra"
 		onClick="location.href=\'list.php?table=mapmobs\'" /></p>
-
-		Spells
-
-		<p><input type="submit" value="add spell" name="extra" class="extra"
-		onClick="location.href=\'add.php?table=spells\'" />
-		<input type="submit" value="spell list" name="extra" class="extra"
-		onClick="location.href=\'list.php?table=spells\'" /></p>
 
 		Classes & Races
 
@@ -113,6 +102,21 @@ This program is free software: you can redistribute it and/or modify it under th
 		onClick="location.href=\'add.php?table=races\'" />
 		<input type="submit" value="race list" name="extra" class="extra"
 		onClick="location.href=\'list.php?table=races\'" /></p>
+
+		NPCs
+
+		<p><input type="submit" value="add npc" name="extra" class="extra"
+		onClick="location.href=\'add.php?table=npcs\'" />
+		<input type="submit" value="npc list" name="extra" class="extra"
+		onClick="location.href=\'list.php?table=npcs\'" /></p>
+		<p><input type="submit" value="add npcquest" name="extral" class="extral"
+		onClick="location.href=\'add.php?table=npcquests\'" />
+		<input type="submit" value="npcquest list" name="extral" class="extral"
+		onClick="location.href=\'list.php?table=npcquests\'" /></p>
+		<p><input type="submit" value="add mapnpc" name="extra" class="extra"
+		onClick="location.href=\'add.php?table=mapnpcs\'" />
+		<input type="submit" value="mapnpc list" name="extra" class="extra"
+		onClick="location.href=\'list.php?table=mapnpcs\'" /></p>
 
 		Characters
 

@@ -91,6 +91,12 @@ article {
 	color: #FFFFFF;
 }
 
+article a:link, a:visited {
+text-decoration: underline;
+color: #FF0000;
+text-shadow: 1px 3px 4px #333;
+}
+
 /* Header */
 
 header h1 { 	

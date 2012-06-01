@@ -29,7 +29,7 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Get POST Variables
 
 	$arraypost=array();
-	foreach($_POST as $key => $value) if ($key != "submit") $arraypost[]="$key='$value'";
+	foreach($_POST as $key => $value) if ($key != "submit") $arraypost[]="`$key`='$value'";
 
 	// Update
 
