@@ -59,4 +59,31 @@ This program is free software: you can redistribute it and/or modify it under th
 
 		return "";
 	}
+
+	// Enemy Picker
+
+	function pick_enemy($id,$rate) {
+
+		// Get total rate from mobs in the map
+
+		$totalrate = 0;
+		for ($i = 0; $i < sizeof($rate); $i++) $totalrate = $totalrate + $rate[$i];
+
+		// Randomly pick a mob
+
+		$magicnumber = mt_rand(1,$totalrate);
+
+		// Calculate mob id
+
+		$i = 0;
+		while ($magicnumber > 0) {
+			$magicnumber = $magicnumber - $rate[$i];
+			$i++;
+		}
+		$i--;
+
+		// Return mob id
+
+		return $id[$i];
+	}
 ?>

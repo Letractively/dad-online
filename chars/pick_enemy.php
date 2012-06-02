@@ -32,7 +32,6 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	$charid = $_SESSION['charid'];
 	$map = $_SESSION['map'];
-	$charname = $_SESSION['charname'];
 
 	// Battle Redirect
 
@@ -46,34 +45,30 @@ This program is free software: you can redistribute it and/or modify it under th
 		exit;
 	}
 
-	// Get Map Name
-		
-	$query = "SELECT name FROM maps WHERE id = $map";
-	$result = mysql_query($query) or die(mysql_error());
-	$row = mysql_fetch_array($result);
-	$mapname = $row[0];
-
 	// Get Mobs
 
-	$query = "SELECT name,rate FROM mapmobs,mobs 
-		WHERE map = $map AND mob = mobs.id";
-	$mobr = mysql_query($query) or die(mysql_error());
-	$nummobs = mysql_num_rows($mobr);
+	$query = "SELECT mob,rate FROM mapmobs WHERE map = $map";
+	$result = mysql_query($query) or die(mysql_error());
+	$nummobs = mysql_num_rows($result);
 
-	// Load HTML5 Template
+	if (!$nummobs) {
+		echo '<script language="javascript">
+				alert("There are no mobs here!!!");
+				window.location = ("map.php");
+			</script>';
+		exit;
+	}
 
-	$title = '<li><a href="index.php">'.$charname.'</a></li>
-		<li><a href="map.php">'.$mapname.'</a></li>
-		<li><a href="../users/">Change Character</a></li>
-		<li><a href="../users/logout.php">Logout</a></li>';
-	$depth = "../aat/"; include_once '../aat/header.php';
+	$i = 0;
+	while ($row = mysql_fetch_row($result)) {
+		$mobid[$i] = $row[0];
+		$mobrate[$i] = $row[1];
+		$i++;
+	}
 
-	// Show Mobs
+	$chosen = pick_enemy($mobid,$mobrate);
+	$query = "INSERT INTO battles SET charid=$charid, mob=$chosen";
+	$result = mysql_query($query) or die(mysql_error());
 
-	echo '<p>Mobs:</p>';
-	while ($row = mysql_fetch_array($mobr)) echo $row[0].' with rate '.$row[1];
-
-	// Load HTML5 Template
-
-	include_once '../aat/footer.php';
+	header('Location: battle.php');
 ?>
