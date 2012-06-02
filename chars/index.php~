@@ -53,15 +53,16 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Get Spells
 
-	$spellq = "SELECT name FROM charspells,spells 
+	$query = "SELECT name FROM charspells,spells 
 		WHERE charid = $charid AND spell = spells.id";
-	$spellr = mysql_query($spellq) or die(mysql_error());
+	$spellr = mysql_query($query) or die(mysql_error());
 
 	// Get Items
 
-	$itemq = "SELECT name,amount FROM charitems,items 
+	$query = "SELECT name,amount FROM charitems,items 
 		WHERE charid = $charid AND item = items.id";
-	$itemr = mysql_query($itemq) or die(mysql_error());
+	$itemr = mysql_query($query) or die(mysql_error());
+	$numitems = mysql_num_rows($itemr);
 
 	// Load HTML5 Template
 
@@ -86,8 +87,10 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Character Items
 
-	echo '<p>Items:</p>';
-	while ($row = mysql_fetch_array($itemr)) echo '<p>'- .$row[0].' x'.$row[1].'</p>';
+	if ($numitems) {
+		echo '<p>Items:</p>';
+		while ($row = mysql_fetch_array($itemr)) echo '<p>- '.$row[0].' x'.$row[1].'</p>';
+	}
 
 	// Load HTML5 Template
 

@@ -57,20 +57,22 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Get Routes
 
-	$routeq = "SELECT end,name FROM routes,maps WHERE start = $mid AND end = maps.id";
-	$router = mysql_query($routeq) or die(mysql_error());
+	$query = "SELECT end,name FROM routes,maps WHERE start = $mid AND end = maps.id";
+	$router = mysql_query($query) or die(mysql_error());
 
 	// Get Mobs
 
-	$mobq = "SELECT name,rate FROM mapmobs,mobs 
+	$query = "SELECT name,rate FROM mapmobs,mobs 
 		WHERE map = $mid AND mob = mobs.id";
-	$mobr = mysql_query($mobq) or die(mysql_error());
+	$mobr = mysql_query($query) or die(mysql_error());
+	$nummobs = mysql_num_rows($mobr);
 
 	// Get NPCs
 
-	$npcq = "SELECT npcs.id,name FROM mapnpcs,npcs 
-		WHERE map = $mid AND npc = npcs.id";
+	$query = "SELECT npcs.id,name FROM mapnpcs,npcs 
+		WHERE map = $query AND npc = npcs.id";
 	$npcr = mysql_query($npcq) or die(mysql_error());
+	$numnpcs = mysql_num_rows($npcr);
 
 	// Load HTML5 Template
 
@@ -90,18 +92,21 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Show NPCs
 
-	echo '<p>NPCs:</p>';
-	while ($row = mysql_fetch_array($npcr)) echo '<p><a href="npc.php?id='.$row[0].'">- '.$row[1].'</a></p>';
+	if ($numnpcs) {
+		echo '<p>NPCs:</p>';
+		while ($row = mysql_fetch_array($npcr))
+			echo '<p><a href="npc.php?id='.$row[0].'">- '.$row[1].'</a></p>';
+	}
 
 	// Show Routes
 
 	echo '<p>Routes:</p>';
-	while ($row = mysql_fetch_array($router)) echo '<p><a href="cm.php?id='.$row[0].'">- '.$row[1].'</a></p>';
+	while ($row = mysql_fetch_array($router))
+		echo '<p><a href="cm.php?id='.$row[0].'">- '.$row[1].'</a></p>';
 
 	// Show Mobs
 
-	echo '<p>Mobs:</p>';
-	while ($row = mysql_fetch_array($mobr)) echo '<p>- '.$row[0].' with rate = '.$row[1].'</p>';
+	if ($nummobs) echo '<p><a href="pick_enemy.php">Search for monsters!</a></p>';
 
 	// Load HTML5 Template
 
