@@ -31,6 +31,10 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Get Session Variables
 
 	$charid = $_SESSION['charid'];
+	$map = $_SESSION['map'];
+	$charname = $_SESSION['charname'];
+	$racename = $_SESSION['racename'];
+	$hp = $_SESSION['hp'];
 
 	// Battle Redirect
 
@@ -41,13 +45,9 @@ This program is free software: you can redistribute it and/or modify it under th
 		header('Location: battle.php');
 	}
 
-	// Get Character Info
+	// Get Map Info
 		
-	$query = "SELECT c.name,r.name,m.name,hp
-		FROM characters AS c,races AS r,maps AS m
-		WHERE c.id = '$charid'
-			AND c.race = r.id
-			AND c.map = m.id";
+	$query = "SELECT name FROM maps WHERE id = $map";
 	$result = mysql_query($query) or die(mysql_error());
 	$row = mysql_fetch_array($result);
 
@@ -66,19 +66,19 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Load HTML5 Template
 
-	$title = '<li><a href="index.php">'.$row[0].'</a></li>
-		<li><a href="map.php">'.$row[2].'</a></li>
+	$title = '<li><a href="index.php">'.$charname.'</a></li>
+		<li><a href="map.php">'.$row[0].'</a></li>
 		<li><a href="../users/">Change Character</a></li>
 		<li><a href="../users/logout.php">Logout</a></li>';
 	$depth = "../aat/"; include_once '../aat/header.php';
 
 	// Show Character Picture
 
-	echo '<p><img name="pic" src="images/'.$row[1].'.gif" border="0"></p>';
+	echo '<p><img name="pic" src="images/'.$racename.'.gif" border="0"></p>';
 
 	// Show Character HP
 
-	echo 'HP: '.$row[3].'/100';
+	echo 'HP: '.$hp.'/100';
 
 	// Show Character Spells
 

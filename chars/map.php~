@@ -31,6 +31,8 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Get Session Variables
 
 	$charid = $_SESSION['charid'];
+	$map = $_SESSION['map'];
+	$charname = $_SESSION['charname'];
 
 	// Battle Redirect
 
@@ -41,54 +43,38 @@ This program is free software: you can redistribute it and/or modify it under th
 		header('Location: battle.php');
 	}
 
-	// Get Character Info
+	// Get Map Info
 		
-	$query = "SELECT c.name,r.name,m.id,m.name,hp
-		FROM characters AS c,races AS r,maps AS m
-		WHERE c.id = '$charid'
-			AND c.race = r.id
-			AND c.map = m.id";
+	$query = "SELECT name FROM maps WHERE id = $map";
 	$result = mysql_query($query) or die(mysql_error());
 	$row = mysql_fetch_array($result);
 
-	// Save Map id
-
-	$mid = $row[2];
-
 	// Get Routes
 
-	$query = "SELECT end,name FROM routes,maps WHERE start = $mid AND end = maps.id";
+	$query = "SELECT end,name FROM routes,maps WHERE start = $map AND end = maps.id";
 	$router = mysql_query($query) or die(mysql_error());
 
 	// Get Mobs
 
 	$query = "SELECT name,rate FROM mapmobs,mobs 
-		WHERE map = $mid AND mob = mobs.id";
+		WHERE map = $map AND mob = mobs.id";
 	$mobr = mysql_query($query) or die(mysql_error());
 	$nummobs = mysql_num_rows($mobr);
 
 	// Get NPCs
 
 	$query = "SELECT npcs.id,name FROM mapnpcs,npcs 
-		WHERE map = $query AND npc = npcs.id";
-	$npcr = mysql_query($npcq) or die(mysql_error());
+		WHERE map = $map AND npc = npcs.id";
+	$npcr = mysql_query($query) or die(mysql_error());
 	$numnpcs = mysql_num_rows($npcr);
 
 	// Load HTML5 Template
 
-	$title = '<li><a href="index.php">'.$row[0].'</a></li>
-		<li><a href="map.php">'.$row[3].'</a></li>
+	$title = '<li><a href="index.php">'.$charname.'</a></li>
+		<li><a href="map.php">'.$row[0].'</a></li>
 		<li><a href="../users/">Change Character</a></li>
 		<li><a href="../users/logout.php">Logout</a></li>';
 	$depth = "../aat/"; include_once '../aat/header.php';
-
-	// Show Character Picture
-
-	echo '<p><img name="pic" src="images/'.$row[1].'.gif" border="0"></p>';
-
-	// Show Character HP
-
-	echo 'HP: '.$row[4].'/100';
 
 	// Show NPCs
 

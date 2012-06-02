@@ -24,6 +24,7 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Get session variables
 
 	$userid = $_SESSION['id'];
+	$accesslevel = $_SESSION['accesslevel'];
 
 	// Character amount verification info
 		
@@ -63,7 +64,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Get classes list
 
-	$query = "SELECT id,name FROM classes";
+	$query = "SELECT id,name,accesslevel FROM classes";
 	$result = mysql_query($query) or die(mysql_error());
 
 	// Load HTML5 Template
@@ -99,7 +100,8 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Fill selection with available classes
 
 	while($row = mysql_fetch_array($result)) {
-		if ($row[0] != $cid) echo '<option value="'.$row[0].'">'.$row[1].'</option>';
+		if (($row[0] != $cid) && ($accesslevel >= $row[2])) 
+			echo '<option value="'.$row[0].'">'.$row[1].'</option>';
 	}
 
 	echo '</select></p>

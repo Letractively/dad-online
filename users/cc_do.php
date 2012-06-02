@@ -24,10 +24,12 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Get session variables
 
 	$userid = $_SESSION['id'];
+	$accesslevel = $_SESSION['accesslevel'];
 
 	// Get form variables
 
 	$name = mysql_real_escape_string($_POST['name']);
+	$class = mysql_real_escape_string($_POST['class']);
 	$race = mysql_real_escape_string($_POST['race']);
 
 	// Character amount verification info
@@ -49,9 +51,34 @@ This program is free software: you can redistribute it and/or modify it under th
 	$result = mysql_query($query) or die(mysql_error());
 
 	if(mysql_num_rows($result)) {
-		echo '<script language="javascript">alert("Character name is already being used!");</script>';
-		include 'cc.php';
+		echo '<script language="javascript">
+				alert("Character name is already being used!");
+				window.location = ("cc.php?class='.$class.'");
+			</script>';
 		exit;
+	}
+
+	// Valid race/class & accesslevel for class
+
+	$query = "SELECT accesslevel FROM classes,races
+		WHERE classes.id = class
+		AND races.id = $race
+		AND classes.id = $class";
+	$result = mysql_query($query) or die(mysql_error());
+
+	if(!mysql_num_rows($result)) {
+		echo '<script language="javascript">
+				alert("No decent way for you to be here... Bye! :)");
+				window.location = ("logout.php");
+			</script>';
+		exit;
+	} else {
+		$row = mysql_fetch_array($result);
+		if ($accesslevel < $row[0])
+			echo '<script language="javascript">
+					alert("How did you get here? Nice try! :)");
+					window.location = ("logout.php");
+				</script>';
 	}
 
 	// Character Creation

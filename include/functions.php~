@@ -8,12 +8,11 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Login Validation
 
 	function session_validate() {
-		if(!isset($_SESSION['id']) || !isset($_SESSION['email']) || !isset($_SESSION['accesslevel'])) {
+		if(!isset($_SESSION['id']) || !isset($_SESSION['email']) ||
+		!isset($_SESSION['accesslevel'])) {
 			session_destroy();
 			return false;
 		} else {
-			$userid = $_SESSION['id'];
-			$email = $_SESSION['email'];
 			return true;
 		}
 	}
@@ -21,7 +20,8 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Admin Login Validation
 
 	function admin_session_validate() {
-		if(!isset($_SESSION['id']) || !isset($_SESSION['email']) || !isset($_SESSION['accesslevel'])) {
+		if(!isset($_SESSION['id']) || !isset($_SESSION['email']) ||
+		!isset($_SESSION['accesslevel'])) {
 			session_destroy();
 			return false;
 		} else {
@@ -29,8 +29,6 @@ This program is free software: you can redistribute it and/or modify it under th
 				session_destroy();
 				return false;
 			} else {
-				$userid = $_SESSION['id'];
-				$email = $_SESSION['email'];
 				return true;
 			}
 		}
@@ -39,7 +37,9 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Selected Char Validation
 
 	function char_selected() {
-		if(!isset($_SESSION['charid'])) {
+		if(!isset($_SESSION['charid']) || !isset($_SESSION['charname']) ||
+		!isset($_SESSION['race']) || !isset($_SESSION['map']) ||
+		!isset($_SESSION['hp']) || !isset($_SESSION['racename'])) {
 			return false;
 		} else {
 			return true;

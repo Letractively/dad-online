@@ -27,7 +27,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Get List
 		
-	$query = "SELECT * FROM $table";
+	$query = "SELECT * FROM $table ORDER BY id";
 	$result = mysql_query($query) or die(mysql_error());
 
 	$fields = mysql_num_fields($result);

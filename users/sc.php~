@@ -36,7 +36,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Verify User owns Character
 
-	$query = "SELECT * FROM characters WHERE id=$id AND user=$userid";
+	$query = "SELECT name,race,map,hp FROM characters WHERE id=$id AND user=$userid";
 	$result = mysql_query($query) or die(mysql_error());
 
 	if (!mysql_num_rows($result)) {
@@ -44,8 +44,21 @@ This program is free software: you can redistribute it and/or modify it under th
 		exit;
 	}
 
+	$row = mysql_fetch_array($result);
+
+	// Get Race Name
+
+	$query = "SELECT name FROM races WHERE id=$row[1]";
+	$result = mysql_query($query) or die(mysql_error());
+	$race = mysql_fetch_array($result);
+
 	// Save session and redirect
 
 	$_SESSION['charid'] = htmlspecialchars($id);
+	$_SESSION['charname'] = htmlspecialchars($row[0]);
+	$_SESSION['race'] = htmlspecialchars($row[1]);
+	$_SESSION['map'] = htmlspecialchars($row[2]);
+	$_SESSION['hp'] = htmlspecialchars($row[3]);
+	$_SESSION['racename'] = htmlspecialchars($race[0]);
 	header('Location: ../chars/');
 ?>
