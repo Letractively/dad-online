@@ -150,6 +150,7 @@ border-bottom: 3px solid #FFFFFF;
 }
 
 nav .menu p {
+font-size: 70%;
 display: block;
 float: right;
 padding: 0 10px;

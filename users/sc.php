@@ -46,12 +46,6 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	$row = mysql_fetch_array($result);
 
-	// Get Race Name
-
-	$query = "SELECT name FROM races WHERE id=$row[1]";
-	$result = mysql_query($query) or die(mysql_error());
-	$race = mysql_fetch_array($result);
-
 	// Save session and redirect
 
 	$_SESSION['charid'] = htmlspecialchars($id);
@@ -59,6 +53,5 @@ This program is free software: you can redistribute it and/or modify it under th
 	$_SESSION['race'] = htmlspecialchars($row[1]);
 	$_SESSION['map'] = htmlspecialchars($row[2]);
 	$_SESSION['hp'] = htmlspecialchars($row[3]);
-	$_SESSION['racename'] = htmlspecialchars($race[0]);
 	header('Location: ../chars/');
 ?>

@@ -31,25 +31,36 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Get Session Variables
 
 	$charid = $_SESSION['charid'];
-	$map = $_SESSION['map'];
 	$charname = $_SESSION['charname'];
-	$racename = $_SESSION['racename'];
+	$race = $_SESSION['race'];
+	$map = $_SESSION['map'];
 	$hp = $_SESSION['hp'];
 
 	// Battle Redirect
 
-	$query = "SELECT * FROM battles WHERE charid = $charid";
-	$result = mysql_query($query) or die(mysql_error());
-
-	if (mysql_num_rows($result)) {
+	$bc = battle_check($charid);
+	if ($bc == "mob") {
 		header('Location: battle.php');
+		exit;
+	}
+	if ($bc == "npc") {
+		header('Location: battlenpc.php');
+		exit;
 	}
 
-	// Get Map Info
+	// Get Map Name
 		
 	$query = "SELECT name FROM maps WHERE id = $map";
 	$result = mysql_query($query) or die(mysql_error());
 	$row = mysql_fetch_array($result);
+	$mapname = $row[0];
+
+	// Get Race Name
+		
+	$query = "SELECT name FROM races WHERE id = $race";
+	$result = mysql_query($query) or die(mysql_error());
+	$row = mysql_fetch_array($result);
+	$racename = $row[0];
 
 	// Get Spells
 
@@ -67,7 +78,7 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Load HTML5 Template
 
 	$title = '<li><a href="index.php">'.$charname.'</a></li>
-		<li><a href="map.php">'.$row[0].'</a></li>
+		<li><a href="map.php">'.$mapname.'</a></li>
 		<li><a href="../users/">Change Character</a></li>
 		<li><a href="../users/logout.php">Logout</a></li>';
 	$depth = "../aat/"; include_once '../aat/header.php';

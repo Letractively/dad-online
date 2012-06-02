@@ -39,10 +39,24 @@ This program is free software: you can redistribute it and/or modify it under th
 	function char_selected() {
 		if(!isset($_SESSION['charid']) || !isset($_SESSION['charname']) ||
 		!isset($_SESSION['race']) || !isset($_SESSION['map']) ||
-		!isset($_SESSION['hp']) || !isset($_SESSION['racename'])) {
+		!isset($_SESSION['hp'])) {
 			return false;
 		} else {
 			return true;
 		}
+	}
+
+	// Battle Check for Characters
+
+	function battle_check($charid) {
+		$query = "SELECT * FROM battles WHERE charid = $charid";
+		$result = mysql_query($query) or die(mysql_error());
+		if (mysql_num_rows($result)) return "mob";
+
+		$query = "SELECT * FROM battlenpcs WHERE charid = $charid";
+		$result = mysql_query($query) or die(mysql_error());
+		if (mysql_num_rows($result)) return "npc";
+
+		return "";
 	}
 ?>

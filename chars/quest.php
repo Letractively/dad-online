@@ -31,14 +31,19 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Get Session Variables
 
 	$charid = $_SESSION['charid'];
+	$charname = $_SESSION['charname'];
+	$map = $_SESSION['map'];
 
 	// Battle Redirect
 
-	$query = "SELECT * FROM battles WHERE charid = $charid";
-	$result = mysql_query($query) or die(mysql_error());
-
-	if (mysql_num_rows($result)) {
+	$bc = battle_check($charid);
+	if ($bc == "mob") {
 		header('Location: battle.php');
+		exit;
+	}
+	if ($bc == "npc") {
+		header('Location: battlenpc.php');
+		exit;
 	}
 
 	// Get GET Variables
@@ -63,15 +68,16 @@ This program is free software: you can redistribute it and/or modify it under th
 		exit;
 	}
 
-	// Verify Valid Quest
+	// Verify Valid Quest / Get Map, NPC & Quest Info
 
-	$query = "SELECT npcs.id,npcs.name,quests.name
-		FROM mapnpcs,npcs,npcquests,quests
-		WHERE map = (SELECT map FROM characters WHERE id = $charid)
+	$query = "SELECT maps.name,npcs.id,npcs.name,quests.name
+		FROM maps,mapnpcs,npcs,npcquests,quests
+		WHERE maps.id = $map
+		AND maps.id = map
 		AND mapnpcs.npc = npcs.id
-		AND mapnpcs.npc = npcquests.npc
-		AND quest = $id
-		AND quest = quests.id";
+		AND npcs.id = npcquests.npc
+		AND quest = quests.id
+		AND quests.id = $id";
 	$result = mysql_query($query) or die(mysql_error());
 
 	if (!mysql_num_rows($result)) {
@@ -83,35 +89,40 @@ This program is free software: you can redistribute it and/or modify it under th
 	}
 
 	$row = mysql_fetch_array($result);
+	$mapname = $row[0];
+	$npcid = $row[1];
+	$npc = $row[2];
+	$quest = $row[3];
 
 	// Verify Quest in Progress
 
-	$qipq = "SELECT * FROM charquests
+	$query = "SELECT * FROM charquests
 		WHERE charid = $charid AND quest = $id";
-	$qipr = mysql_query($qipq) or die(mysql_error());
+	$qipr = mysql_query($query) or die(mysql_error());
 
 	// Get Quest Requirements
 
-	$qiq = "SELECT name,amount,items.id FROM questitems,items
-		WHERE quest = $id
-		AND item = items.id";
-	$qir = mysql_query($qiq) or die(mysql_error());
+	$query = "SELECT name,amount,items.id FROM questitems,items
+		WHERE quest = $id AND item = items.id";
+	$qir = mysql_query($query) or die(mysql_error());
 
-	$qmq = "SELECT name,amount,mobs.id FROM questmobs,mobs
-		WHERE quest = $id
-		AND mob = mobs.id";
-	$qmr = mysql_query($qmq) or die(mysql_error());
+	$query = "SELECT name,amount,mobs.id FROM questmobs,mobs
+		WHERE quest = $id AND mob = mobs.id";
+	$qmr = mysql_query($query) or die(mysql_error());
 
 	// Load HTML5 Template
 
-	$title = '<li><a href="quest.php?id='.$id.'">'.$row[2].'</a></li>
-		<li><a href="npc.php?id='.$row[0].'">'.$row[1].'</a></li>
+	$title = '<li><a href="index.php">'.$charname.'</a></li>
+		<li><a href="map.php">'.$mapname.'</a></li>
+		<li><a href="npc.php?id='.$npcid.'">'.$npc.'</a></li>
+		<li><a href="quest.php?id='.$id.'">'.$quest.'</a></li>
+		
 		<li><a href="../users/logout.php">Logout</a></li>';
 	$depth = "../aat/"; include_once '../aat/header.php';
 
 	// Show Quest Requirements / Progress
 
-	if (mysql_num_rows($qipr)) echo '<p>Progress</p><br>';
+	if (mysql_num_rows($qipr)) echo '<p>In Progress</p><br>';
 	else echo '<p>Requirements</p><br>';
 
 	if (mysql_num_rows($qir)) {

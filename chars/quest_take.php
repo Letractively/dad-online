@@ -31,14 +31,18 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Get Session Variables
 
 	$charid = $_SESSION['charid'];
+	$map = $_SESSION['map'];
 
 	// Battle Redirect
 
-	$query = "SELECT * FROM battles WHERE charid = $charid";
-	$result = mysql_query($query) or die(mysql_error());
-
-	if (mysql_num_rows($result)) {
+	$bc = battle_check($charid);
+	if ($bc == "mob") {
 		header('Location: battle.php');
+		exit;
+	}
+	if ($bc == "npc") {
+		header('Location: battlenpc.php');
+		exit;
 	}
 
 	// Get GET Variables
@@ -51,13 +55,10 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Verify Valid Quest
 
-	$query = "SELECT npcs.id,npcs.name,quests.name
-		FROM mapnpcs,npcs,npcquests,quests
-		WHERE map = (SELECT map FROM characters WHERE id = $charid)
-		AND mapnpcs.npc = npcs.id
+	$query = "SELECT * FROM mapnpcs,npcquests
+		WHERE map = $map
 		AND mapnpcs.npc = npcquests.npc
-		AND quest = $id
-		AND quest = quests.id";
+		AND quest = $id";
 	$result = mysql_query($query) or die(mysql_error());
 
 	if (!mysql_num_rows($result)) {

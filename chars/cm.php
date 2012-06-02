@@ -31,14 +31,18 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Get Session Variables
 
 	$charid = $_SESSION['charid'];
+	$map = $_SESSION['map'];
 
 	// Battle Redirect
 
-	$query = "SELECT * FROM battles WHERE charid = $charid";
-	$result = mysql_query($query) or die(mysql_error());
-
-	if (mysql_num_rows($result)) {
+	$bc = battle_check($charid);
+	if ($bc == "mob") {
 		header('Location: battle.php');
+		exit;
+	}
+	if ($bc == "npc") {
+		header('Location: battlenpc.php');
+		exit;
 	}
 
 	// Get GET Variables
@@ -51,9 +55,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Verify Valid Route
 
-	$query = "SELECT * FROM routes
-		WHERE start = (SELECT map FROM characters WHERE id = $charid)
-		AND end = $id";
+	$query = "SELECT * FROM routes WHERE start = $map AND end = $id";
 	$result = mysql_query($query) or die(mysql_error());
 
 	if (!mysql_num_rows($result)) {
@@ -66,10 +68,9 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Change Map and Redirect
 
-	$query = "UPDATE characters
-		SET map = $id
-		WHERE id = $charid";
+	$query = "UPDATE characters SET map = $id WHERE id = $charid";
 	$result = mysql_query($query) or die(mysql_error());
+	$_SESSION['map'] = $id;
 
 	header('Location: map.php');
 ?>
