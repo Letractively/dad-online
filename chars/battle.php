@@ -38,7 +38,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	$bc = battle_check($charid);
 	if ($bc != "mob") {
-		header('Location: battle.php');
+		header('Location: index.php');
 		exit;
 	}
 
@@ -71,7 +71,8 @@ This program is free software: you can redistribute it and/or modify it under th
 		$leftstyle .= 'ul#navigation .'.$row[1].' a {
 				background-image: url(../chars/images/spells/'.$row[1].'.png);
 			}';
-		$leftul .= '<li class="'.$row[1].'"><a href="#" title="'.$row[1].'"></a></li>';
+		$leftul .= '<li class="'.$row[1].'"><a href="attack.php?id='.$row[0].'" 
+			title="'.$row[1].'"></a></li>';
 	}
 	$leftstyle .= "</style>";
 	$leftul .= "</ul>";
