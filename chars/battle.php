@@ -14,14 +14,7 @@ This program is free software: you can redistribute it and/or modify it under th
 	require_once '../include/config.php';
 	require_once '../include/functions.php';
 
-	// Login Validation
-
-	if (!session_validate()) {
-		header('Location: ../');
-		exit;
-	}
-
-	// Character Validation
+	// Login & Character Validation
 
 	if (!char_selected()) {
 		header('Location: ../users/');
@@ -31,8 +24,6 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Get Session Variables
 
 	$charid = $_SESSION['charid'];
-	$charname = $_SESSION['charname'];
-	$hp = $_SESSION['hp'];
 
 	// No Battle Redirect
 
@@ -44,7 +35,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Get Info
 
-	$query = "SELECT battles.hp,mobs.name,mobtypes.name,races.name
+	$query = "SELECT battles.hp,mobs.name,mobtypes.name,races.name,characters.name,characters.hp
 		FROM battles,mobs,mobtypes,characters,races
 		WHERE charid = $charid
 		AND mob = mobs.id
@@ -57,6 +48,8 @@ This program is free software: you can redistribute it and/or modify it under th
 	$mob = $row[1];
 	$mobtype = $row[2];
 	$racename = $row[3];
+	$charname = $row[4];
+	$hp = $row[5];
 
 	// Get Spells
 
@@ -68,6 +61,9 @@ This program is free software: you can redistribute it and/or modify it under th
 	$leftstyle = "<style>";
 	$leftul = "<ul id=\"navigation\">";
 	while ($row = mysql_fetch_row($result)) {
+
+		// Fill Lateral Spell List
+
 		$leftstyle .= 'ul#navigation .'.$row[1].' a {
 				background-image: url(../chars/images/spells/'.$row[1].'.png);
 			}';
