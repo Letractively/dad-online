@@ -86,4 +86,26 @@ This program is free software: you can redistribute it and/or modify it under th
 
 		return $id[$i];
 	}
+
+	// Attack Result
+
+	function attack_result($cid,$chp,$cstr,$cint,$cagi,$sstr,$sint,$sagi,$mob,$mhp,$mstr,$mint,$magi) {
+
+		$dmg[0] = $cstr * $sstr;
+		$dmg[1] = $cint * $sint;
+		$dmg[2] = $cagi * $sagi;
+
+		if ($mstr) $dmg[0] = $dmg[0] / $mstr;
+		if ($mint) $dmg[1] = $dmg[1] / $mint;
+		if ($magi) $dmg[2] = $dmg[2] / $magi;
+
+		$totaldmg = $dmg[0] + $dmg[1] + $dmg[2];
+
+		$mhp = $mhp - $totaldmg;
+
+		$query = "UPDATE battles SET hp = $mhp WHERE charid = $cid";
+		$result = mysql_query($query) or die(mysql_error());
+
+		header('Location: battle.php');
+	}
 ?>

@@ -64,20 +64,20 @@ This program is free software: you can redistribute it and/or modify it under th
 	}
 
 	$row = mysql_fetch_row($result);
-	echo '<p>'.$row[0].' '.$row[1].' '.$row[2].'</p>';
 
 	// Get Character Stats
 
 	$query = "SELECT hp,str,`int`,agi FROM characters WHERE id = $charid";
 	$result = mysql_query($query) or die(mysql_error());
-	$row = mysql_fetch_row($result);
-	echo '<p>'.$row[0].' '.$row[1].' '.$row[2].' '.$row[3].'</p>';
+	$row2 = mysql_fetch_row($result);
 
 	// Get Mob HP
 
-	$query = "SELECT hp,str,`int`,agi FROM battles,mobs
+	$query = "SELECT mobs.id,hp,str,`int`,agi FROM battles,mobs
 		WHERE charid = $charid AND mob=mobs.id";
 	$result = mysql_query($query) or die(mysql_error());
-	$row = mysql_fetch_row($result);
-	echo '<p>'.$row[0].' '.$row[1].' '.$row[2].' '.$row[3].'</p>';
+	$row3 = mysql_fetch_row($result);
+
+	attack_result($charid,$row2[0],$row2[1],$row2[2],$row2[3],$row[0],$row[1],$row[2],
+		$row3[0],$row3[1],$row3[2],$row3[3],$row3[4]);
 ?>
