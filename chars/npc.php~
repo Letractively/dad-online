@@ -14,14 +14,7 @@ This program is free software: you can redistribute it and/or modify it under th
 	require_once '../include/config.php';
 	require_once '../include/functions.php';
 
-	// Login Validation
-
-	if (!session_validate()) {
-		header('Location: ../');
-		exit;
-	}
-
-	// Character Validation
+	// Login & Character Validation
 
 	if (!char_selected()) {
 		header('Location: ../users/');
@@ -31,8 +24,6 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Get Session Variables
 
 	$charid = $_SESSION['charid'];
-	$charname = $_SESSION['charname'];
-	$map = $_SESSION['map'];
 
 	// Battle Redirect
 
@@ -54,23 +45,24 @@ This program is free software: you can redistribute it and/or modify it under th
 	}
 	$id = mysql_real_escape_string($_GET['id']);
 
-	// Verify Valid NPC / Get Map & NPC Info
+	// Verify Valid NPC / Get Info
 
-	$query = "SELECT npcs.name,maps.name FROM mapnpcs,npcs,maps
-		WHERE map = $map AND npc = $id AND npc = npcs.id AND map = maps.id";
+	$query = "SELECT n.name,m.name,c.name FROM mapnpcs AS mn,npcs AS n,maps AS m,characters AS c
+		WHERE n.id = $id AND mn.npc = n.id AND mn.map = m.id AND m.id = c.map AND c.id = $charid";
 	$result = mysql_query($query) or die(mysql_error());
 
 	if (!mysql_num_rows($result)) {
 		echo '<script language="javascript">
-			alert("This NPC isn\'t here!!!");
-			window.location = ("map.php");
-		</script>';
+				alert("This NPC isn\'t here!!!");
+				window.location = ("map.php");
+			</script>';
 		exit;
 	}
 
 	$row = mysql_fetch_array($result);
 	$npc = $row[0];
-	$mapname = $row[1];
+	$map = $row[1];
+	$charname = $row[2];
 
 	// Get NPC Available Quests
 
@@ -95,7 +87,7 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Load HTML5 Template
 
 	$title = '<li><a href="index.php">'.$charname.'</a></li>
-		<li><a href="map.php">'.$mapname.'</a></li>
+		<li><a href="map.php">'.$map.'</a></li>
 		<li><a>'.$npc.'</a></li>
 		<li><a href="../users/logout.php">Logout</a></li>';
 	$depth = "../aat/"; include_once '../aat/header.php';

@@ -14,14 +14,7 @@ This program is free software: you can redistribute it and/or modify it under th
 	require_once '../include/config.php';
 	require_once '../include/functions.php';
 
-	// Login Validation
-
-	if (!session_validate()) {
-		header('Location: ../');
-		exit;
-	}
-
-	// Character Validation
+	// Login & Character Validation
 
 	if (!char_selected()) {
 		header('Location: ../users/');
@@ -31,10 +24,6 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Get Session Variables
 
 	$charid = $_SESSION['charid'];
-	$charname = $_SESSION['charname'];
-	$race = $_SESSION['race'];
-	$map = $_SESSION['map'];
-	$hp = $_SESSION['hp'];
 
 	// Battle Redirect
 
@@ -48,19 +37,16 @@ This program is free software: you can redistribute it and/or modify it under th
 		exit;
 	}
 
-	// Get Map Name
-		
-	$query = "SELECT name FROM maps WHERE id = $map";
-	$result = mysql_query($query) or die(mysql_error());
-	$row = mysql_fetch_array($result);
-	$mapname = $row[0];
+	// Get Info
 
-	// Get Race Name
-		
-	$query = "SELECT name FROM races WHERE id = $race";
+	$query = "SELECT c.name,hp,m.name,r.name FROM characters AS c,maps AS m,races AS r
+		WHERE c.id = $charid AND map = m.id AND race = r.id";
 	$result = mysql_query($query) or die(mysql_error());
 	$row = mysql_fetch_array($result);
-	$racename = $row[0];
+	$charname = $row[0];
+	$hp = $row[1];
+	$map = $row[2];
+	$race = $rows[3];
 
 	// Get Spells
 
@@ -78,14 +64,14 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Load HTML5 Template
 
 	$title = '<li><a>'.$charname.'</a></li>
-		<li><a href="map.php">'.$mapname.'</a></li>
+		<li><a href="map.php">'.$map.'</a></li>
 		<li><a href="../users/">Change Character</a></li>
 		<li><a href="../users/logout.php">Logout</a></li>';
 	$depth = "../aat/"; include_once '../aat/header.php';
 
 	// Show Character Picture
 
-	echo '<p><img name="pic" src="images/'.$racename.'.gif" border="0"></p>';
+	echo '<p><img name="pic" src="images/'.$race.'.gif" border="0"></p>';
 
 	// Show Character HP
 

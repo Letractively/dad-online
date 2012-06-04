@@ -14,14 +14,7 @@ This program is free software: you can redistribute it and/or modify it under th
 	require_once '../include/config.php';
 	require_once '../include/functions.php';
 
-	// Login Validation
-
-	if (!session_validate()) {
-		header('Location: ../');
-		exit;
-	}
-
-	// Character Validation
+	// Login & Character Validation
 
 	if (!char_selected()) {
 		header('Location: ../users/');
@@ -31,8 +24,6 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Get Session Variables
 
 	$charid = $_SESSION['charid'];
-	$map = $_SESSION['map'];
-	$charname = $_SESSION['charname'];
 
 	// Battle Redirect
 
@@ -46,12 +37,15 @@ This program is free software: you can redistribute it and/or modify it under th
 		exit;
 	}
 
-	// Get Map Name
+	// Get Info
 		
-	$query = "SELECT name FROM maps WHERE id = $map";
+	$query = "SELECT c.name,m.id,m.name FROM characters AS c,maps AS m
+		WHERE c.id = $charid AND map = m.id";
 	$result = mysql_query($query) or die(mysql_error());
 	$row = mysql_fetch_array($result);
-	$mapname = $row[0];
+	$charname = $row[0];
+	$map = $row[1];
+	$mapname = $row[2];
 
 	// Get Routes
 

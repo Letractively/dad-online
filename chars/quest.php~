@@ -14,14 +14,7 @@ This program is free software: you can redistribute it and/or modify it under th
 	require_once '../include/config.php';
 	require_once '../include/functions.php';
 
-	// Login Validation
-
-	if (!session_validate()) {
-		header('Location: ../');
-		exit;
-	}
-
-	// Character Validation
+	// Login & Character Validation
 
 	if (!char_selected()) {
 		header('Location: ../users/');
@@ -32,7 +25,6 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	$charid = $_SESSION['charid'];
 	$charname = $_SESSION['charname'];
-	$map = $_SESSION['map'];
 
 	// Battle Redirect
 
@@ -70,10 +62,11 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Verify Valid Quest / Get Map, NPC & Quest Info
 
-	$query = "SELECT maps.name,npcs.id,npcs.name,quests.name
-		FROM maps,mapnpcs,npcs,npcquests,quests
-		WHERE maps.id = $map
-		AND maps.id = map
+	$query = "SELECT maps.name,npcs.id,npcs.name,quests.name,characters.name
+		FROM maps,mapnpcs,npcs,npcquests,quests,characters
+		WHERE characters.id = $charid
+		AND maps.id = characters.map
+		AND maps.id = mapnpcs.map
 		AND mapnpcs.npc = npcs.id
 		AND npcs.id = npcquests.npc
 		AND quest = quests.id
@@ -89,10 +82,11 @@ This program is free software: you can redistribute it and/or modify it under th
 	}
 
 	$row = mysql_fetch_array($result);
-	$mapname = $row[0];
+	$map = $row[0];
 	$npcid = $row[1];
 	$npc = $row[2];
 	$quest = $row[3];
+	$charname = $row[4];
 
 	// Verify Quest in Progress
 
@@ -113,7 +107,7 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Load HTML5 Template
 
 	$title = '<li><a href="index.php">'.$charname.'</a></li>
-		<li><a href="map.php">'.$mapname.'</a></li>
+		<li><a href="map.php">'.$map.'</a></li>
 		<li><a href="npc.php?id='.$npcid.'">'.$npc.'</a></li>
 		<li><a>'.$quest.'</a></li>
 		
