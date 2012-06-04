@@ -31,7 +31,6 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Get Session Variables
 
 	$charid = $_SESSION['charid'];
-	$hp = $_SESSION['hp'];
 
 	// No Battle Redirect
 
@@ -51,11 +50,12 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Get & Validate Info
 
-	$query = "SELECT str,`int`,agi
-		FROM charspells,spells
-		WHERE charid = $charid
-		AND spell = spells.id
-		AND spells.id = $id";
+	$query = "SELECT c.name,c.hp,c.str,c.`int`,c.agi,s.str,s.`int`,s.agi,
+		m.id,m.name,b.hp,m.str,m.`int`,m.agi
+		FROM characters AS c, charspells, spells AS s, battles AS b, mobs AS m
+		WHERE c.id = $charid AND charspells.charid = c.id
+		AND spell = s.id AND s.id = $id AND b.charid = c.id
+		AND mob = m.id";
 	$result = mysql_query($query) or die(mysql_error());
 
 	if (!mysql_num_rows($result)) {
@@ -65,19 +65,6 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	$row = mysql_fetch_row($result);
 
-	// Get Character Stats
-
-	$query = "SELECT hp,str,`int`,agi FROM characters WHERE id = $charid";
-	$result = mysql_query($query) or die(mysql_error());
-	$row2 = mysql_fetch_row($result);
-
-	// Get Mob HP
-
-	$query = "SELECT mobs.id,hp,str,`int`,agi FROM battles,mobs
-		WHERE charid = $charid AND mob=mobs.id";
-	$result = mysql_query($query) or die(mysql_error());
-	$row3 = mysql_fetch_row($result);
-
-	attack_result($charid,$row2[0],$row2[1],$row2[2],$row2[3],$row[0],$row[1],$row[2],
-		$row3[0],$row3[1],$row3[2],$row3[3],$row3[4]);
+	attack_result($charid,$row[0],$row[1],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7],$row[8],
+		$row[9],$row[10],$row[11],$row[12],$row[13]);
 ?>
