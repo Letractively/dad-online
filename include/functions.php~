@@ -89,7 +89,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Attack Result
 
-	function attack_result($cid,$char,$chp,$cstr,$cint,$cagi,$sstr,$sint,$sagi,$mid,$mob,$mhp,$mstr,$mint,$magi) {
+	function attack_result($cid,$char,$cstr,$cint,$cagi,$sstr,$sint,$sagi,$mob,$mhp,$mstr,$mint,$magi) {
 
 		// Calculate Max Attack Value
 
@@ -119,9 +119,56 @@ This program is free software: you can redistribute it and/or modify it under th
 
 		// Inform User
 
-		echo '<script language="javascript">
-				alert("'.$char.' attacks '.$mob.' for '.$totaldmg.' damage!");
-				window.location = ("battle.php");
-			</script>';
+		return $char.' attacks '.$mob.' for '.$totaldmg.' damage!\n';
+	}
+
+	function defense_result($cid,$char,$chp,$cstr,$cint,$cagi,$mid,$mob,$mstr,$mint,$magi) {
+
+		// Get Spell List
+
+		$query = "SELECT name,str,`int`,agi FROM mobspells,spells WHERE mob = $mid AND spell = spells.id";
+		$result = mysql_query($query) or die(mysql_error());
+
+		// Calculate Most Damage
+
+		$maxdmg = 0;
+		$spell = "nothing";
+		while ($row = mysql_fetch_row($result)) {
+			// Calculate Max Attack Value
+
+			$dmg[0] = $mstr * $row[1];
+			$dmg[1] = $mint * $row[2];
+			$dmg[2] = $magi * $row[3];
+
+			// Damage Diminishers
+
+			if ($cstr) $dmg[0] = $dmg[0] / $cstr;
+			if ($cint) $dmg[1] = $dmg[1] / $cint;
+			if ($cagi) $dmg[2] = $dmg[2] / $cagi;
+
+			// Round up Total Damage
+
+			$totaldmg = $dmg[0] + $dmg[1] + $dmg[2];
+			$totaldmg = round($totaldmg);
+
+			if ($totaldmg > $maxdmg) {
+				$maxdmg = $totaldmg;
+				$spell = $row[0];
+			}
+		}
+
+		// Calculate Remaining HP
+
+		$chp = $chp - $maxdmg;
+
+		// Update Battle
+
+		$query = "UPDATE characters SET hp = $chp WHERE id = $cid";
+		$result = mysql_query($query) or die(mysql_error());
+		$_SESSION['hp'] = $chp;
+
+		// Inform User
+
+		return $mob.' attacks '.$char.' with '.$spell.' for '.$maxdmg.' damage!\n';
 	}
 ?>

@@ -65,6 +65,32 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	$row = mysql_fetch_row($result);
 
-	attack_result($charid,$row[0],$row[1],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7],$row[8],
-		$row[9],$row[10],$row[11],$row[12],$row[13]);
+	// Check Attack Order
+
+	if ($row[4] >= $row[13]) {
+
+		// Player Attacks First
+
+		$report = $row[0].' attacks first!\n';
+		$fr = attack_result($charid,$row[0],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7],$row[9],
+			$row[10],$row[11],$row[12],$row[13]);
+		$sr = defense_result($charid,$row[0],$row[1],$row[2],$row[3],$row[4],$row[8],$row[9],$row[11],
+			$row[12],$row[13]);
+	} else {
+
+		// Mob Attacks First
+
+		$report = $row[9].' attacks first!\n';
+		$fr = defense_result($charid,$row[0],$row[1],$row[2],$row[3],$row[4],$row[8],$row[9],$row[11],
+			$row[12],$row[13]);
+		$sr = attack_result($charid,$row[0],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7],$row[9],
+			$row[10],$row[11],$row[12],$row[13]);
+	}
+
+	// Inform User
+
+	echo '<script language="javascript">
+			alert("'.$report.''.$fr.''.$sr.'");
+			window.location = ("battle.php");
+		</script>';
 ?>
