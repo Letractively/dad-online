@@ -87,22 +87,6 @@ This program is free software: you can redistribute it and/or modify it under th
 	$quest = $row[3];
 	$charname = $row[4];
 
-	// Verify Quest in Progress
-
-	$query = "SELECT * FROM charquests
-		WHERE charid = $charid AND quest = $id";
-	$qipr = mysql_query($query) or die(mysql_error());
-
-	// Get Quest Requirements
-
-	$query = "SELECT name,amount,items.id FROM questitems,items
-		WHERE quest = $id AND item = items.id";
-	$qir = mysql_query($query) or die(mysql_error());
-
-	$query = "SELECT name,amount,mobs.id FROM questmobs,mobs
-		WHERE quest = $id AND mob = mobs.id";
-	$qmr = mysql_query($query) or die(mysql_error());
-
 	// Load HTML5 Template
 
 	$title = '<li><a href="index.php">'.$charname.'</a></li>
@@ -112,63 +96,7 @@ This program is free software: you can redistribute it and/or modify it under th
 		<li><a href="../users/logout.php">Logout</a></li>';
 	$depth = "../aat/"; include_once '../aat/header.php';
 
-	// Completable Quest Verifier
-
-	$cqv = 0;
-
-	// Show Quest Requirements / Progress
-
-	if (mysql_num_rows($qipr)) echo '<p>In Progress</p><br>';
-	else echo '<p>Requirements</p><br>';
-
-	if (mysql_num_rows($qir)) {
-		echo '<p>Items:</p>';
-		while ($row = mysql_fetch_array($qir)) {
-			if (mysql_num_rows($qipr)) {
-				$query = "SELECT amount FROM charitems
-					WHERE charid = $charid AND item = $row[2]";
-				$result = mysql_query($query) or die(mysql_error());
-				if (mysql_num_rows($result)) {
-					$item = mysql_fetch_array($result);
-					if ($item[0] < $row[1]) $cqv++;
-					echo '<p>- '.$row[0].' '.$item[0].'/'.$row[1].'</p>';
-				} else {
-					$cqv++;
-					echo '<p>- '.$row[0].' 0/'.$row[1].'</p>';
-				}
-			} else echo '<p>- '.$row[0].' x'.$row[1].'</p>';
-		}
-	}
-
-	if (mysql_num_rows($qmr)) {
-		echo '<p>Mobs:</p>';
-		while ($row = mysql_fetch_array($qmr)) {
-			if (mysql_num_rows($qipr)) {
-				$query = "SELECT amount FROM charquestmobs
-					WHERE charid = $charid
-					AND questmob = (SELECT id FROM questmobs
-						WHERE quest = $id AND mob = $row[2])";
-				$result = mysql_query($query) or die(mysql_error());
-				$mob = mysql_fetch_array($result);
-				if ($mob[0] < $row[1]) $cqv++;
-				echo '<p>- '.$row[0].' '.$mob[0].'/'.$row[1].'</p>';
-			} else echo '<p>- '.$row[0].' x'.$row[1].'</p>';
-		}
-	}
-
-	// Show Accept Quest if not in Progress
-
-	if (!mysql_num_rows($qipr)) {
-		echo '<p><input type="submit" value="accept quest" name="extral" class="extral"
-		onClick="location.href=\'quest_take.php?id='.$id.'\'" /></p>';
-	}
-
-	// Show Complete Quest if Requirements Fulfilled
-
-	if (!$cqv) {
-		echo '<p><input type="submit" value="complete quest" name="extral" class="extral"
-		onClick="location.href=\'quest_complete.php?id='.$id.'\'" /></p>';
-	}
+	echo "Not yet implemented!";
 
 	// Load HTML5 Template
 
