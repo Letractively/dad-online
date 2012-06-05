@@ -167,4 +167,24 @@ This program is free software: you can redistribute it and/or modify it under th
 
 		return $totaldmg;
 	}
+
+	// Mob Dead Verify
+
+	function mob_dead ($id) {
+		$query = "SELECT hp FROM battles WHERE charid = $id";
+		$result = mysql_query($query) or die(mysql_error());
+		$row = mysql_fetch_row($result);
+		if ($row[0]) return false;
+		else return true;
+	}
+
+	// Character Dead Verify
+
+	function char_dead ($id) {
+		$query = "SELECT hp FROM characters WHERE charid = $id";
+		$result = mysql_query($query) or die(mysql_error());
+		$row = mysql_fetch_row($result);
+		if ($row[0]) return false;
+		else return true;
+	}
 ?>
