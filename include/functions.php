@@ -181,7 +181,7 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Character Dead Verify
 
 	function char_dead($id) {
-		$query = "SELECT hp FROM characters WHERE charid = $id";
+		$query = "SELECT hp FROM characters WHERE id = $id";
 		$result = mysql_query($query) or die(mysql_error());
 		$row = mysql_fetch_row($result);
 		if ($row[0]) return false;
