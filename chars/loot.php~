@@ -38,10 +38,17 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	$mob = $row[1];
 
+	// Update QuestMobs Tracker
+
+	$query = "UPDATE charquestmobs WHERE charid = $charid";
+	$result = mysql_query($query) or die(mysql_error());
+
 	// Remove Battle
 
 	$query = "DELETE FROM battles WHERE charid = $charid";
 	$result = mysql_query($query) or die(mysql_error());
+
+	// Start Loot Message
 
 	$loot = "";
 
@@ -56,7 +63,7 @@ This program is free software: you can redistribute it and/or modify it under th
 		$max = $row[2];
 		if (mt_rand(1,100) <= $rate) {
 			$amount = mt_rand(1,$max);
-			$loot .= "You got $amount $row[3]!\n";
+			$loot .= "You got $amount $row[3]! ";
 			$amount = $amount + $row[4];
 
 			// Update New Item
@@ -78,7 +85,7 @@ This program is free software: you can redistribute it and/or modify it under th
 		$max = $row[2];
 		if (mt_rand(1,100) <= $rate) {
 			$amount = mt_rand(1,$max);
-			$loot .= "You got $amount $row[3]!\n";
+			$loot .= "You got $amount $row[3]! ";
 
 			// Insert New Item
 
@@ -86,6 +93,8 @@ This program is free software: you can redistribute it and/or modify it under th
 			$r = mysql_query($q) or die(mysql_error());
 		}
 	}
+
+	// Send Loot Message
 
 	echo '<script language="javascript">
 			alert("'.$loot.'");
