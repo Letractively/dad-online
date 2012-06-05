@@ -33,6 +33,14 @@ This program is free software: you can redistribute it and/or modify it under th
 		exit;
 	}
 
+	// Win Check
+
+	if (mob_dead($charid)) header('Location: loot.php');
+
+	// Lose Check
+
+	if (char_dead($charid)) header('Location: lose.php');
+
 	// Get Info
 
 	$query = "SELECT battles.hp,mobs.name,mobtypes.name,races.name,characters.name,characters.hp

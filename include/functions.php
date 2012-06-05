@@ -170,7 +170,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Mob Dead Verify
 
-	function mob_dead ($id) {
+	function mob_dead($id) {
 		$query = "SELECT hp FROM battles WHERE charid = $id";
 		$result = mysql_query($query) or die(mysql_error());
 		$row = mysql_fetch_row($result);
@@ -180,7 +180,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Character Dead Verify
 
-	function char_dead ($id) {
+	function char_dead($id) {
 		$query = "SELECT hp FROM characters WHERE charid = $id";
 		$result = mysql_query($query) or die(mysql_error());
 		$row = mysql_fetch_row($result);

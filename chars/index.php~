@@ -46,7 +46,7 @@ This program is free software: you can redistribute it and/or modify it under th
 	$charname = $row[0];
 	$hp = $row[1];
 	$map = $row[2];
-	$race = $rows[3];
+	$race = $row[3];
 
 	// Get Spells
 
