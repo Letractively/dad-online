@@ -73,5 +73,47 @@ This program is free software: you can redistribute it and/or modify it under th
 		exit;
 	}
 
-	// Deliver Rewards and Delete Quest in Progress
+	// Take Away Required Items
+
+	$query = "SELECT item,amount FROM questitems WHERE quest = $id";
+	$result = mysql_query($query) or die(mysql_error());
+
+	while ($row = mysql_fetch_array($result)) {
+		$q = "UPDATE charitems SET amount = amount - $row[1] WHERE charid = $charid AND item = $row[0]";
+		$r = mysql_query($q) or die(mysql_error());
+	}
+
+	// Insert Quest Complete and Deliver Rewards
+
+	$query = "INSERT INTO completequests(charid,quest) VALUES($charid,$id)";
+	$result = mysql_query($query) or die(mysql_error());
+
+	$reward = "";
+
+	$query = "SELECT item,amount,name FROM rewards,items
+		WHERE quest = $id AND item = items.id
+		AND item in (SELECT item FROM charitems WHERE charid =$charid)";
+	$result = mysql_query($query) or die(mysql_error());
+
+	while ($row = mysql_fetch_row($result)) {
+		$reward .= "You received $row[1] $row[2]! ";
+		$q = "UPDATE charitems SET amount = amount + $row[1] WHERE charid = $charid AND item = $row[0]";
+		$r = mysql_query($q) or die(mysql_error());
+	}
+
+	$query = "SELECT item,amount,name FROM rewards,items
+		WHERE quest = $id AND item = items.id
+		AND item not in (SELECT item FROM charitems WHERE charid =$charid)";
+	$result = mysql_query($query) or die(mysql_error());
+
+	while ($row = mysql_fetch_row($result)) {
+		$reward .= "You received $row[1] $row[2]! ";
+		$q = "INSERT INTO charitems SET charid = $charid, item = $row[0], amount = $row[1]";
+		$r = mysql_query($q) or die(mysql_error());
+	}
+
+	echo '<script language="javascript">
+			alert("'.$reward.'");
+			window.location = ("index.php");
+		</script>';
 ?>

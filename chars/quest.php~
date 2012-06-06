@@ -161,13 +161,14 @@ This program is free software: you can redistribute it and/or modify it under th
 	if (!mysql_num_rows($qipr)) {
 		echo '<p><input type="submit" value="accept quest" name="extral" class="extral"
 		onClick="location.href=\'quest_take.php?id='.$id.'\'" /></p>';
-	}
+	} else {
 
-	// Show Complete Quest if Requirements Fulfilled
+		// Show Complete Quest if Requirements Fulfilled
 
-	if (!$cqv) {
-		echo '<p><input type="submit" value="complete quest" name="extral" class="extral"
-		onClick="location.href=\'quest_complete.php?id='.$id.'\'" /></p>';
+		if (!$cqv) {
+			echo '<p><input type="submit" value="complete quest" name="extral" class="extral"
+			onClick="location.href=\'quest_complete.php?id='.$id.'\'" /></p>';
+		}
 	}
 
 	// Load HTML5 Template
