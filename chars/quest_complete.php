@@ -45,60 +45,33 @@ This program is free software: you can redistribute it and/or modify it under th
 	}
 	$id = mysql_real_escape_string($_GET['id']);
 
-	// Verify Already Completed Quest
+	// Verify Quest in Progress
 
-	$query = "SELECT * FROM completequests
+	$query = "SELECT * FROM charquests
 		WHERE charid = $charid AND quest = $id";
 	$result = mysql_query($query) or die(mysql_error());
 
-	if (mysql_num_rows($result)) {
-		echo '<script language="javascript">
-			alert("You already did this quest!!!");
-			window.location = ("map.php");
-		</script>';
+	if (!mysql_num_rows($result)) {
+		header('Location: ../oops.php');
 		exit;
 	}
 
-	// Verify Valid Quest / Get Map, NPC & Quest Info
+	// Verify QuestItems and QuestCharMobs
 
-	$query = "SELECT maps.name,npcs.id,npcs.name,quests.name,characters.name
-		FROM maps,mapnpcs,npcs,npcquests,quests,characters
-		WHERE characters.id = $charid
-		AND maps.id = characters.map
-		AND maps.id = mapnpcs.map
-		AND mapnpcs.npc = npcs.id
-		AND npcs.id = npcquests.npc
-		AND quest = quests.id
-		AND quests.id = $id";
+	$query = "SELECT * FROM questitems,charitems
+		WHERE quest = $id AND questitems.item = charitems.item AND charid = $charid
+		AND questitems.amount > charitems.amount";
 	$result = mysql_query($query) or die(mysql_error());
 
-	if (!mysql_num_rows($result)) {
-		echo '<script language="javascript">
-			alert("You can\'t do this quest!!!");
-			window.location = ("map.php");
-		</script>';
+	$query = "SELECT * FROM questmobs,charquestmobs
+		WHERE quest = $id AND questmobs.id = charquestmobs.questmob AND charid = $charid
+		AND questmobs.amount > charquestmobs.amount";
+	$result2 = mysql_query($query) or die(mysql_error());
+
+	if (mysql_num_rows($result) || mysql_num_rows($result2)) {
+		header('Location: ../oops.php');
 		exit;
 	}
 
-	$row = mysql_fetch_array($result);
-	$map = $row[0];
-	$npcid = $row[1];
-	$npc = $row[2];
-	$quest = $row[3];
-	$charname = $row[4];
-
-	// Load HTML5 Template
-
-	$title = '<li><a href="index.php">'.$charname.'</a></li>
-		<li><a href="map.php">'.$map.'</a></li>
-		<li><a href="npc.php?id='.$npcid.'">'.$npc.'</a></li>
-		<li><a>'.$quest.'</a></li>
-		<li><a href="../users/logout.php">Logout</a></li>';
-	$depth = "../aat/"; include_once '../aat/header.php';
-
-	echo "Not yet implemented!";
-
-	// Load HTML5 Template
-
-	include_once '../aat/footer.php';
+	// Deliver Rewards and Delete Quest in Progress
 ?>
