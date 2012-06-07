@@ -95,6 +95,10 @@ This program is free software: you can redistribute it and/or modify it under th
 		onClick="location.href=\'add.php?table=mapmobs\'" />
 		<input type="submit" value="mapmob list" name="extra" class="extra"
 		onClick="location.href=\'list.php?table=mapmobs\'" /></p>
+		<p><input type="submit" value="add routerequirement" name="extra" class="extral"
+		onClick="location.href=\'add.php?table=routerequirements\'" />
+		<input type="submit" value="routerequirement list" name="extra" class="extral"
+		onClick="location.href=\'list.php?table=routerequirements\'" /></p>
 
 		Classes & Races
 

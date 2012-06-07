@@ -54,9 +54,23 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	if (!mysql_num_rows($result)) {
 		echo '<script language="javascript">
-			alert("You can\'t go here!!!");
-			window.location = ("map.php");
-		</script>';
+				alert("You can\'t go here!!!");
+				window.location = ("map.php");
+			</script>';
+		exit;
+	}
+
+	// Verify Requirements
+
+	$query = "SELECT * FROM routerequirements WHERE quest not in
+		(SELECT quest FROM completequests WHERE charid = $charid)";
+	$result = mysql_query($query) or die(mysql_error());
+
+	if (mysql_num_rows($result)) {
+		echo '<script language="javascript">
+				alert("You don\'t meet the requirements!!!");
+				window.location = ("map.php");
+			</script>';
 		exit;
 	}
 

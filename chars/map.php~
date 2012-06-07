@@ -49,7 +49,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Get Routes
 
-	$query = "SELECT end,name FROM routes,maps WHERE start = $map AND end = maps.id";
+	$query = "SELECT routes.id,end,name FROM routes,maps WHERE start = $map AND end = maps.id";
 	$router = mysql_query($query) or die(mysql_error());
 
 	// Get Mobs
@@ -84,8 +84,13 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Show Routes
 
 	echo '<p>Routes:</p>';
-	while ($row = mysql_fetch_array($router))
-		echo '<p><a href="cm.php?id='.$row[0].'">- '.$row[1].'</a></p>';
+	while ($row = mysql_fetch_array($router)) {
+		$q = "SELECT * FROM routerequirements WHERE quest not in
+			(SELECT quest FROM completequests WHERE charid = $charid)";
+		$r = mysql_query($q) or die(mysql_error());
+		if (!mysql_num_rows($r)) echo '<p><a href="cm.php?id='.$row[1].'">- '.$row[2].'</a></p>';
+		else echo '- '.$row[2].' (Missing quest)';
+	}
 
 	// Show Mobs
 
