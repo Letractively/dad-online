@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 07, 2012 at 06:36 PM
+-- Generation Time: Jun 07, 2012 at 10:43 PM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.4.3
 
@@ -112,6 +112,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `str` smallint(5) unsigned NOT NULL,
   `int` smallint(5) unsigned NOT NULL,
   `agi` smallint(5) unsigned NOT NULL,
+  `stats` smallint(5) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `user` (`user`),
@@ -274,7 +275,7 @@ WHERE charquestmobs.charid = new.charid
 AND charquestmobs.questmob in 
 	(SELECT id FROM questmobs
 	WHERE quest = new.quest);
-UPDATE characters SET alignment = alignment + (SELECT changealignment FROM quests WHERE id = new.quest) WHERE id = new.charid;
+UPDATE characters SET alignment = alignment + (SELECT changealignment FROM quests WHERE id = new.quest), stats = stats + (SELECT stats FROM quests WHERE id = new.quest) WHERE id = new.charid;
 UPDATE users SET money = money + (SELECT money FROM quests WHERE id = new.quest) WHERE id = (SELECT user FROM characters WHERE id = new.charid);
 end
 //
@@ -558,6 +559,7 @@ CREATE TABLE IF NOT EXISTS `quests` (
   `name` varchar(32) NOT NULL,
   `changealignment` tinyint(4) NOT NULL,
   `money` int(10) unsigned NOT NULL DEFAULT '0',
+  `stats` smallint(5) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
@@ -619,7 +621,7 @@ CREATE TABLE IF NOT EXISTS `routerequirements` (
   UNIQUE KEY `route_2` (`route`,`quest`),
   KEY `charid` (`route`),
   KEY `questmob` (`quest`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -636,7 +638,7 @@ CREATE TABLE IF NOT EXISTS `routes` (
   UNIQUE KEY `start_2` (`start`,`end`),
   KEY `start` (`start`),
   KEY `end` (`end`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
