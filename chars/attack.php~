@@ -69,7 +69,7 @@ This program is free software: you can redistribute it and/or modify it under th
 			$row[10],$row[11],$row[12],$row[13]);
 		if (!mob_dead($charid)) $sr = defense_result($charid,$row[0],$row[1],$row[2],$row[3],$row[4],
 			$row[8],$row[9],$row[11],$row[12],$row[13]);
-		else $sr = "";
+		else $sr = $row[9]. " is dead!";
 	} else {
 
 		// Mob Attacks First
@@ -79,7 +79,7 @@ This program is free software: you can redistribute it and/or modify it under th
 			$row[12],$row[13]);
 		if (!char_dead($charid)) $sr = attack_result($charid,$row[0],$row[2],$row[3],$row[4],$row[5],
 			$row[6],$row[7],$row[9],$row[10],$row[11],$row[12],$row[13]);
-		else $sr = "";
+		else $sr = "You can't take any more...";
 	}
 
 	// Inform User
