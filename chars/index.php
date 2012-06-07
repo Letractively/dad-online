@@ -39,7 +39,8 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Get Info
 
-	$query = "SELECT c.name,hp,m.name,r.name FROM characters AS c,maps AS m,races AS r
+	$query = "SELECT c.name,hp,m.name,r.name,c.str,c.int,c.agi,c.stats
+		FROM characters AS c,maps AS m,races AS r
 		WHERE c.id = $charid AND map = m.id AND race = r.id";
 	$result = mysql_query($query) or die(mysql_error());
 	$row = mysql_fetch_array($result);
@@ -47,6 +48,10 @@ This program is free software: you can redistribute it and/or modify it under th
 	$hp = $row[1];
 	$map = $row[2];
 	$race = $row[3];
+	$str = $row[4];
+	$int = $row[5];
+	$agi = $row[6];
+	$stats = $row[7];
 
 	// Get Spells
 
@@ -73,9 +78,13 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	echo '<p><img name="pic" src="images/'.$race.'.gif" border="0"></p>';
 
-	// Show Character HP
+	// Show Character Info
 
-	echo 'HP: '.$hp.'/100';
+	echo '<p>HP: '.$hp.'/100 <br> STR: '.$str.' <br> INT: '.$int.' <br> AGI: '.$agi.'</p>';
+
+	// Check for Free Stat Points
+
+	if ($stats) echo "You got remaining stats!";
 
 	// Show Character Spells
 
