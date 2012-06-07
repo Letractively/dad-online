@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 06, 2012 at 08:25 PM
+-- Generation Time: Jun 07, 2012 at 06:36 PM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.4.3
 
@@ -275,6 +275,7 @@ AND charquestmobs.questmob in
 	(SELECT id FROM questmobs
 	WHERE quest = new.quest);
 UPDATE characters SET alignment = alignment + (SELECT changealignment FROM quests WHERE id = new.quest) WHERE id = new.charid;
+UPDATE users SET money = money + (SELECT money FROM quests WHERE id = new.quest) WHERE id = (SELECT user FROM characters WHERE id = new.charid);
 end
 //
 DELIMITER ;
@@ -556,6 +557,7 @@ CREATE TABLE IF NOT EXISTS `quests` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   `changealignment` tinyint(4) NOT NULL,
+  `money` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
@@ -665,6 +667,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(64) NOT NULL,
   `password` varchar(256) NOT NULL,
   `accesslevel` tinyint(4) NOT NULL DEFAULT '0',
+  `money` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
