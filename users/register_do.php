@@ -48,7 +48,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Register Validation
 
-	$query = "SELECT * FROM users WHERE email = '$email'";
+	$query = "SELECT * FROM `users`.users WHERE email = '$email'";
 	$result = mysql_query($query) or die(mysql_error());
 
 	if(mysql_num_rows($result)) {
@@ -57,7 +57,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Register
 
-	$query = "INSERT INTO users (email,password) VALUES('$email',PASSWORD('$pwd1'))";
+	$query = "INSERT INTO `users`.users (email,password) VALUES('$email',PASSWORD('$pwd1'))";
 	$result = mysql_query($query) or die(mysql_error());
 
 	echo '<script language="javascript">

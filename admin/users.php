@@ -23,7 +23,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Get Users Info
 		
-	$query = "SELECT id,email,accesslevel FROM users";
+	$query = "SELECT id,email,accesslevel FROM `users`.`users`";
 	$result = mysql_query($query) or die(mysql_error());
 
 	// Load HTML5 Template
@@ -38,8 +38,7 @@ This program is free software: you can redistribute it and/or modify it under th
 		echo ('<tr><td>'.$row[0].'</td>');
 		echo ('<td>'.$row[1].'</td>');
 		echo ('<td>'.$row[2].'</td>');
-		echo ('<td><a href=\'edit_user.php?id='.$row[0].'\'>Edit</a></td>');
-		echo ('<td><a href=\'delete.php?id='.$row[0].'&table=users\'>Delete</a></td></tr>');
+		echo ('<td><a href=\'edit_user.php?id='.$row[0].'\'>Edit</a></td></tr>');
 	}
 	echo '</table>';
 

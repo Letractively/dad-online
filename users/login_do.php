@@ -21,7 +21,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Login Validation
 	
-	$query = "SELECT id,accesslevel FROM users WHERE email = '$email' AND password = PASSWORD('$password')";
+	$query = "SELECT id,accesslevel FROM `users`.users WHERE email = '$email' AND password = PASSWORD('$password')";
 	$result = mysql_query($query) or die(mysql_error());
 
 	// Login Error
