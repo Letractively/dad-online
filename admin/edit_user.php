@@ -27,7 +27,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Get Info
 		
-	$query = "SELECT email,accesslevel FROM users WHERE id=$id";
+	$query = "SELECT email,accesslevel FROM `users`.users WHERE id=$id";
 	$result = mysql_query($query) or die(mysql_error());
 
 	$row=mysql_fetch_array($result);
@@ -40,7 +40,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Show Editable Info
 
-	echo '<form name="adminedituser" action="edit_do.php?id='.$id.'&table=users" method="post" accept-charset="UTF-8">
+	echo '<form name="adminedituser" action="edit_user_do.php?id='.$id.'" method="post" accept-charset="UTF-8">
 		<legend>Edit User</legend>';
 	$i = 0;
 	while ($i < $fields) {
