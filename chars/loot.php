@@ -1,0 +1,94 @@
+<?php
+/*
+DAD Online. Web browser MMORPG.
+Copyright(C) 2012 Aceapps Aplicaciones. 
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses
+*/
+
+	// Session Start
+
+	session_start();
+
+	// Load files
+
+	require_once '../include/config.php';
+	require_once '../include/functions.php';
+
+	// Login & Character Validation
+
+	if (!char_selected()) {
+		header('Location: ../users/');
+		exit;
+	}
+
+	// Get Session Variables
+
+	$charid = $_SESSION['charid'];
+
+	// Special No Battle Redirect
+
+	$query = "SELECT hp,mob FROM battles WHERE charid = $charid";
+	$result = mysql_query($query) or die(mysql_error());
+	$row = mysql_fetch_array($result);
+	
+	if (!mysql_num_rows($result) || $row[0]) {
+		header('Location: index.php');
+		exit;
+	}
+
+	$mob = $row[1];
+
+	// Remove Battle
+
+	$query = "DELETE FROM battles WHERE charid = $charid";
+	$result = mysql_query($query) or die(mysql_error());
+
+	$loot = "";
+
+	// Get Already Owned Items
+
+	$query = "SELECT items.id,rate,max,name,amount FROM drops,items,charitems
+		WHERE mob = $mob AND drops.item = items.id AND drops.item = charitems.item AND charid = $charid";
+	$result = mysql_query($query) or die(mysql_error());
+
+	while ($row = mysql_fetch_array($result)) {
+		$rate = $row[1];
+		$max = $row[2];
+		if (mt_rand(1,100) <= $rate) {
+			$amount = mt_rand(1,$max);
+			$loot .= "You got $amount $row[3]! ";
+			$amount = $amount + $row[4];
+
+			// Update New Item
+
+			$q = "UPDATE charitems SET amount = $amount WHERE charid = $charid AND item = $row[0]";
+			$r = mysql_query($q) or die(mysql_error());
+		}
+	}
+
+	// Get New Items
+
+	$query = "SELECT item,rate,max,name FROM drops,items
+		WHERE mob = $mob AND item = items.id AND item not in (SELECT item FROM charitems WHERE charid = $charid)";
+	$result = mysql_query($query) or die(mysql_error());
+
+
+	while ($row = mysql_fetch_array($result)) {
+		$rate = $row[1];
+		$max = $row[2];
+		if (mt_rand(1,100) <= $rate) {
+			$amount = mt_rand(1,$max);
+			$loot .= "You got $amount $row[3]! ";
+
+			// Insert New Item
+
+			$q = "INSERT INTO charitems SET charid = $charid, item = $row[0], amount = $amount";
+			$r = mysql_query($q) or die(mysql_error());
+		}
+	}
+
+	echo '<script language="javascript">
+			alert("'.$loot.'");
+			window.location = ("index.php");
+		</script>';
+?>
