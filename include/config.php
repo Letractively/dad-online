@@ -10,12 +10,11 @@ This program is free software: you can redistribute it and/or modify it under th
 	$host = 'localhost';
 	$user = 'dad';
 	$pass = 'dad';
-	$database = 'dad';
+	$database = 'users';
 
 	// Mysql Connection
 
 	mysql_connect($host, $user, $pass) or die(mysql_error());
-	mysql_select_db($database);
 
 	// Game Configurations
 

@@ -21,33 +21,21 @@ This program is free software: you can redistribute it and/or modify it under th
 		exit;
 	}
 
-	// Get Users Info
-		
-	$query = "SELECT id,email,accesslevel FROM `users`.`users`";
+	// Get GET Variables
+
+	$id = mysql_real_escape_string($_GET['id']);
+
+	// Get POST Variables
+
+	$arraypost=array();
+	foreach($_POST as $key => $value) if ($key != "submit") $arraypost[]="`$key`='$value'";
+
+	// Update
+
+	$query = "UPDATE `users`.`users` SET ".implode(', ',$arraypost)." WHERE id=".$id;
 	$result = mysql_query($query) or die(mysql_error());
 
-	// Load HTML5 Template
+	// Return to table list
 
-	$title = "<a>Users List</a>";
-    $depth = "../aat/"; include_once '../aat/header.php';
-
-	// Show Users Info
-
-	echo '<table border="1">';
-	while ($row=mysql_fetch_array($result)){
-		echo ('<tr><td>'.$row[0].'</td>');
-		echo ('<td>'.$row[1].'</td>');
-		echo ('<td>'.$row[2].'</td>');
-		echo ('<td><a href=\'edit_user.php?id='.$row[0].'\'>Edit</a></td></tr>');
-	}
-	echo '</table>';
-
-	// Cancel Button
-
-	echo '<p><input type="submit" value="cancel" name="extra" class="extra"
-		onClick="location.href=\'index.php\'" /></p>';
-
-	// Load HTML5 Template
-
-	include_once '../aat/footer.php';
+	header('Location: users.php');
 ?>
