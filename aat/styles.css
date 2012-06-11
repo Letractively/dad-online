@@ -88,7 +88,7 @@ color: #333;
 }
 
 article {
-	color: #FFFFFF;
+	color: #000000;
 }
 
 article a:link, a:visited {
@@ -272,10 +272,10 @@ form {
 
 input {
 	width: 230px;
-	background: #000000;
+	background: #909090;
 	padding: 6px;
 	margin-bottom: 10px;
-	border-top: 1px solid #ad64e0;
+	border-top: 1px solid #505050;
 	border-left: 0px;
 	border-right: 0px;
 	border-bottom: 0px;
@@ -291,7 +291,7 @@ input {
 
 input:hover {
 	-webkit-box-shadow: 0px 0px 4px #000;
-	background: #9d39e1;
+	background: #AAAAAA;
 }
 
 input.submit {
@@ -299,7 +299,7 @@ input.submit {
 	color: #000;
 	text-transform: uppercase;
 	text-shadow: #000 1px 1px;
-	border-top: 1px solid #ad64e0;
+	border-top: 1px solid #505050;
 	margin-top: 10px;
 
 	/* CSS3 Gradients */
@@ -312,7 +312,7 @@ input.register {
 	color: #000;
 	text-transform: uppercase;
 	text-shadow: #000 1px 1px;
-	border-top: 1px solid #ad64e0;
+	border-top: 1px solid #505050;
 	margin-top: 10px;
 	float:right;
 
@@ -332,7 +332,7 @@ input.extra {
 	color: #000;
 	text-transform: uppercase;
 	text-shadow: #000 1px 1px;
-	border-top: 1px solid #ad64e0;
+	border-top: 1px solid #505050;
 	margin-top: 10px;
 
 	/* CSS3 Gradients */
@@ -345,7 +345,7 @@ input.extral {
 	color: #000;
 	text-transform: uppercase;
 	text-shadow: #000 1px 1px;
-	border-top: 1px solid #ad64e0;
+	border-top: 1px solid #505050;
 	margin-top: 10px;
 
 	/* CSS3 Gradients */
