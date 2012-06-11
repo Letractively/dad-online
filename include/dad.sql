@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 08, 2012 at 03:18 PM
+-- Generation Time: Jun 11, 2012 at 01:16 PM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.4.3
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `dad`
 --
-CREATE DATABASE `dad` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `dad`;
 
 -- --------------------------------------------------------
 
@@ -82,7 +80,6 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `int` smallint(5) unsigned NOT NULL,
   `agi` smallint(5) unsigned NOT NULL,
   `stats` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `quests` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `user` (`user`),
@@ -110,7 +107,7 @@ DELIMITER //
 CREATE TRIGGER `startspells` AFTER INSERT ON `characters`
  FOR EACH ROW begin
 INSERT INTO charspells SET charid = (SELECT id FROM characters WHERE name = new.name),
-spell = (SELECT startspell FROM races WHERE id = new.race);
+spell = (SELECT spell FROM races WHERE id = new.race);
 end
 //
 DELIMITER ;
@@ -182,7 +179,7 @@ WHERE charquestmobs.charid = new.charid
 AND charquestmobs.questmob in 
 	(SELECT id FROM questmobs
 	WHERE quest = new.quest);
-UPDATE characters SET alignment = alignment + (SELECT alignment FROM quests WHERE id = new.quest), stats = stats + (SELECT stats FROM quests WHERE id = new.quest), quests = quests + 1 WHERE id = new.charid;
+UPDATE characters SET alignment = alignment + (SELECT alignment FROM quests WHERE id = new.quest), stats = stats + (SELECT stats FROM quests WHERE id = new.quest) WHERE id = new.charid;
 UPDATE users.users SET money = money + (SELECT money FROM quests WHERE id = new.quest) WHERE id = (SELECT user FROM characters WHERE id = new.charid);
 end if;
 end
@@ -288,30 +285,22 @@ DROP TABLE IF EXISTS `mobs`;
 CREATE TABLE IF NOT EXISTS `mobs` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(16) NOT NULL,
-  `type` tinyint(1) NOT NULL,
+  `race` int(10) unsigned NOT NULL,
+  `npc` tinyint(1) NOT NULL,
   `str` smallint(5) unsigned NOT NULL,
   `int` smallint(5) unsigned NOT NULL,
   `agi` smallint(5) unsigned NOT NULL,
+  `spell1` int(10) unsigned NOT NULL,
+  `spell2` int(10) unsigned NOT NULL,
+  `spell3` int(10) unsigned NOT NULL,
+  `spell4` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
-  KEY `type` (`type`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `mobspells`
---
-
-DROP TABLE IF EXISTS `mobspells`;
-CREATE TABLE IF NOT EXISTS `mobspells` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `mob` int(10) unsigned NOT NULL,
-  `spell` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `mob_2` (`mob`,`spell`),
-  KEY `mob` (`mob`),
-  KEY `spell` (`spell`)
+  KEY `race` (`race`),
+  KEY `spell1` (`spell1`),
+  KEY `spell2` (`spell2`),
+  KEY `spell3` (`spell3`),
+  KEY `spell4` (`spell4`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -360,7 +349,7 @@ DROP TABLE IF EXISTS `quests`;
 CREATE TABLE IF NOT EXISTS `quests` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
-  `alignment` tinyint(4) NOT NULL,
+  `alignment` tinyint(4) NOT NULL DEFAULT '0',
   `money` int(10) unsigned NOT NULL DEFAULT '0',
   `stats` smallint(5) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
@@ -377,18 +366,18 @@ DROP TABLE IF EXISTS `races`;
 CREATE TABLE IF NOT EXISTS `races` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(16) NOT NULL,
-  `class` int(10) unsigned NOT NULL,
-  `startmap` int(10) unsigned NOT NULL,
-  `startspell` int(10) unsigned NOT NULL,
-  `startalignment` tinyint(4) NOT NULL,
-  `startstr` smallint(5) unsigned NOT NULL,
-  `startint` smallint(5) unsigned NOT NULL,
-  `startagi` smallint(5) unsigned NOT NULL,
+  `group` varchar(16) NOT NULL,
+  `playable` tinyint(1) NOT NULL,
+  `map` int(10) unsigned NOT NULL,
+  `spell` int(10) unsigned NOT NULL,
+  `alignment` tinyint(4) NOT NULL,
+  `str` smallint(5) unsigned NOT NULL,
+  `int` smallint(5) unsigned NOT NULL,
+  `agi` smallint(5) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
-  KEY `startmap` (`startmap`),
-  KEY `startspell` (`startspell`),
-  KEY `class` (`class`)
+  KEY `map` (`map`),
+  KEY `spell` (`spell`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -517,11 +506,14 @@ ALTER TABLE `drops`
   ADD CONSTRAINT `drops_ibfk_2` FOREIGN KEY (`item`) REFERENCES `items` (`id`);
 
 --
--- Constraints for table `mobspells`
+-- Constraints for table `mobs`
 --
-ALTER TABLE `mobspells`
-  ADD CONSTRAINT `mobspells_ibfk_1` FOREIGN KEY (`mob`) REFERENCES `mobs` (`id`),
-  ADD CONSTRAINT `mobspells_ibfk_2` FOREIGN KEY (`spell`) REFERENCES `spells` (`id`);
+ALTER TABLE `mobs`
+  ADD CONSTRAINT `mobs_ibfk_1` FOREIGN KEY (`race`) REFERENCES `races` (`id`),
+  ADD CONSTRAINT `mobs_ibfk_2` FOREIGN KEY (`spell1`) REFERENCES `spells` (`id`),
+  ADD CONSTRAINT `mobs_ibfk_3` FOREIGN KEY (`spell2`) REFERENCES `spells` (`id`),
+  ADD CONSTRAINT `mobs_ibfk_4` FOREIGN KEY (`spell3`) REFERENCES `spells` (`id`),
+  ADD CONSTRAINT `mobs_ibfk_5` FOREIGN KEY (`spell4`) REFERENCES `spells` (`id`);
 
 --
 -- Constraints for table `questitems`
@@ -541,8 +533,8 @@ ALTER TABLE `questmobs`
 -- Constraints for table `races`
 --
 ALTER TABLE `races`
-  ADD CONSTRAINT `races_ibfk_1` FOREIGN KEY (`startmap`) REFERENCES `maps` (`id`),
-  ADD CONSTRAINT `races_ibfk_2` FOREIGN KEY (`startspell`) REFERENCES `spells` (`id`);
+  ADD CONSTRAINT `races_ibfk_1` FOREIGN KEY (`map`) REFERENCES `maps` (`id`),
+  ADD CONSTRAINT `races_ibfk_2` FOREIGN KEY (`spell`) REFERENCES `spells` (`id`);
 
 --
 -- Constraints for table `rewards`
@@ -564,25 +556,3 @@ ALTER TABLE `routes`
 ALTER TABLE `spawns`
   ADD CONSTRAINT `spawns_ibfk_1` FOREIGN KEY (`map`) REFERENCES `maps` (`id`),
   ADD CONSTRAINT `spawns_ibfk_2` FOREIGN KEY (`mob`) REFERENCES `mobs` (`id`);
---
--- Database: `users`
---
-CREATE DATABASE `users` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `users`;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `email` varchar(64) NOT NULL,
-  `password` varchar(256) NOT NULL,
-  `accesslevel` tinyint(4) NOT NULL DEFAULT '0',
-  `money` int(10) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
