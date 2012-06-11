@@ -10,7 +10,8 @@ This program is free software: you can redistribute it and/or modify it under th
 	$host = 'localhost';
 	$user = 'dad';
 	$pass = 'dad';
-	$database = 'users';
+	$userdb = 'users';
+	$daddb = 'dad';
 
 	// Mysql Connection
 
