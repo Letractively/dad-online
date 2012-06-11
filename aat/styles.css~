@@ -53,7 +53,7 @@ width: 750px;
 
 #main {
 width: 730px;
-background: #505050;
+background: #757575;
 overflow: hidden;
 border: 10px #505050 solid;
 }
@@ -88,7 +88,8 @@ color: #333;
 }
 
 article {
-	color: #000000;
+color: #000000;
+margin: 1px;
 }
 
 article a:link, a:visited {

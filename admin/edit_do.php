@@ -33,7 +33,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Update
 
-	$query = "UPDATE $table SET ".implode(', ',$arraypost)." WHERE id=".$id;
+	$query = "UPDATE $daddb.$table SET ".implode(', ',$arraypost)." WHERE id=".$id;
 	$result = mysql_query($query) or die(mysql_error());
 
 	// Return to table list

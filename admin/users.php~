@@ -23,7 +23,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Get Users Info
 		
-	$query = "SELECT id,email,accesslevel FROM $userdb.`users`";
+	$query = "SELECT id,email,accesslevel FROM `users`.`users`";
 	$result = mysql_query($query) or die(mysql_error());
 
 	// Load HTML5 Template
