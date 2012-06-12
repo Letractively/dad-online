@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 11, 2012 at 01:16 PM
+-- Generation Time: Jun 12, 2012 at 02:23 AM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.4.3
 
@@ -229,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `drops` (
   UNIQUE KEY `mob_2` (`mob`,`item`),
   KEY `mob` (`mob`),
   KEY `item` (`item`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 --
 -- Triggers `drops`
@@ -259,7 +259,7 @@ CREATE TABLE IF NOT EXISTS `items` (
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -273,7 +273,7 @@ CREATE TABLE IF NOT EXISTS `maps` (
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -301,7 +301,7 @@ CREATE TABLE IF NOT EXISTS `mobs` (
   KEY `spell2` (`spell2`),
   KEY `spell3` (`spell3`),
   KEY `spell4` (`spell4`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -349,12 +349,14 @@ DROP TABLE IF EXISTS `quests`;
 CREATE TABLE IF NOT EXISTS `quests` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
+  `npc` int(10) unsigned NOT NULL,
   `alignment` tinyint(4) NOT NULL DEFAULT '0',
   `money` int(10) unsigned NOT NULL DEFAULT '0',
   `stats` smallint(5) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  UNIQUE KEY `name` (`name`),
+  KEY `npc` (`npc`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -368,6 +370,7 @@ CREATE TABLE IF NOT EXISTS `races` (
   `name` varchar(16) NOT NULL,
   `group` varchar(16) NOT NULL,
   `playable` tinyint(1) NOT NULL,
+  `accesslevel` tinyint(4) NOT NULL DEFAULT '0',
   `map` int(10) unsigned NOT NULL,
   `spell` int(10) unsigned NOT NULL,
   `alignment` tinyint(4) NOT NULL,
@@ -378,7 +381,7 @@ CREATE TABLE IF NOT EXISTS `races` (
   UNIQUE KEY `name` (`name`),
   KEY `map` (`map`),
   KEY `spell` (`spell`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -414,7 +417,7 @@ CREATE TABLE IF NOT EXISTS `routes` (
   UNIQUE KEY `start_2` (`start`,`end`),
   KEY `start` (`start`),
   KEY `end` (`end`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -432,7 +435,7 @@ CREATE TABLE IF NOT EXISTS `spawns` (
   UNIQUE KEY `map_2` (`map`,`mob`),
   KEY `map` (`map`),
   KEY `mob` (`mob`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -449,7 +452,7 @@ CREATE TABLE IF NOT EXISTS `spells` (
   `agi` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 --
 -- Constraints for dumped tables
@@ -528,6 +531,12 @@ ALTER TABLE `questitems`
 ALTER TABLE `questmobs`
   ADD CONSTRAINT `questmobs_ibfk_1` FOREIGN KEY (`quest`) REFERENCES `quests` (`id`),
   ADD CONSTRAINT `questmobs_ibfk_2` FOREIGN KEY (`mob`) REFERENCES `mobs` (`id`);
+
+--
+-- Constraints for table `quests`
+--
+ALTER TABLE `quests`
+  ADD CONSTRAINT `quests_ibfk_1` FOREIGN KEY (`npc`) REFERENCES `mobs` (`id`);
 
 --
 -- Constraints for table `races`
