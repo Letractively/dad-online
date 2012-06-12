@@ -16,6 +16,7 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Mysql Connection
 
 	mysql_connect($host, $user, $pass) or die(mysql_error());
+	mysql_select_db($daddb);
 
 	// Game Configurations
 

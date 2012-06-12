@@ -45,13 +45,8 @@ This program is free software: you can redistribute it and/or modify it under th
 	function battle_check($charid) {
 		$query = "SELECT * FROM battles WHERE charid = $charid";
 		$result = mysql_query($query) or die(mysql_error());
-		if (mysql_num_rows($result)) return "mob";
-
-		$query = "SELECT * FROM battlenpcs WHERE charid = $charid";
-		$result = mysql_query($query) or die(mysql_error());
-		if (mysql_num_rows($result)) return "npc";
-
-		return "";
+		if (mysql_num_rows($result)) return true;
+		return false;
 	}
 
 	// Enemy Picker

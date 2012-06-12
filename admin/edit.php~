@@ -60,7 +60,8 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Show Editable Info
 
-	echo '<form name="adminedit" action="edit_do.php?id='.$id.'&table='.$table.'" method="post" accept-charset="UTF-8">
+	echo '<form name="adminedit" action="edit_do.php?id='.$id.'&table='.$table.'" method="post"
+		accept-charset="UTF-8">
 		<legend>Edit '.$table.'</legend>';
 	$i = 1;
 	while ($i < $fields) {
@@ -72,12 +73,14 @@ This program is free software: you can redistribute it and/or modify it under th
 
 			$fkindex = array_search($meta->name, $fknames);
 
-			$fkquery2 = "SELECT * FROM $fktables[$fkindex]";
+			$fkquery2 = "SELECT * FROM $daddb.$fktables[$fkindex]";
 			$fkresult2 = mysql_query($fkquery2) or die(mysql_error());
 
-			$original = mysql_fetch_array(mysql_query("SELECT name FROM $fktables[$fkindex] WHERE id=$row[$i]"));
+			$original = mysql_fetch_array(mysql_query("SELECT name FROM $daddb.$fktables[$fkindex]
+				WHERE id=$row[$i]"));
 
-			if ($meta->name == "user") $original = mysql_fetch_array(mysql_query("SELECT email FROM $fktables[$fkindex] WHERE id=$row[$i]"));
+			if ($meta->name == "user") $original = mysql_fetch_array(mysql_query("SELECT email
+				FROM $userdb.$fktables[$fkindex] WHERE id=$row[$i]"));
 
 			// Fill Foreign Keys Info
 
@@ -87,7 +90,6 @@ This program is free software: you can redistribute it and/or modify it under th
 				if ($fkrow2[0] != $row[$i]) echo '<option value="'.$fkrow2[0].'">'.$fkrow2[1].'</option>';
 			}
 			echo '</select></p>';
-
 		} else {
 			echo '<input type="text" name="'.$meta->name.'" class="email" value="'.$row[$i].'" />';
 		}
