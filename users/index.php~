@@ -58,7 +58,7 @@ This program is free software: you can redistribute it and/or modify it under th
 	echo '<table>';
 	while ($row = mysql_fetch_array($result)) {
 		echo '<tr><td>'.$row[1].'</td>
-			<td><img name="pic" src="images/'.$row[2].'.gif" border="0"></td>
+			<td><img name="pic" src="images/'.$row[2].'.png" border="0"></td>
 			<td>@ '.$row[3].'</td>
 			<td><input type="submit" value="play!" name="extra" class="extra" 
 				onClick="location.href=\'sc.php?id='.$row[0].'\'" /></td></tr>';			
