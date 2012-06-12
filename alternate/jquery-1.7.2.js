@@ -1,0 +1,1 @@
+/home/marcos/Documentos/Proyectos/jQuery library/jquery-1.7.2.js
