@@ -33,6 +33,6 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	echo '<script language="javascript">
 			alert("Delete successful!!!");
-			window.location = ("index.php");
+			window.location = ("list.php?table='.$table.'");
 		</script>';
 ?>

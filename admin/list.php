@@ -89,9 +89,11 @@ This program is free software: you can redistribute it and/or modify it under th
 	}
 	echo '</table>';
 
-	// Cancel Button
+	// Add/Cancel Button
 
-	echo '<p><input type="submit" value="cancel" name="extra" class="extra"
+	echo '<p><input type="submit" value="add '.$table.'" name="extra" class="extra"
+		onClick="location.href=\'add.php?table='.$table.'\'" />
+		<input type="submit" value="cancel" name="extra" class="extra"
 		onClick="location.href=\'index.php\'" /></p>';
 
 	// Load HTML5 Template
