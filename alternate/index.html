@@ -7,8 +7,8 @@ Foundation, either version 3 of the License, or (at your option) any later
 version. This program is distributed in the hope that it will be useful, but 
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
 FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
-details. You should have received a copy of the GNU General Public License along
-with this program. If not, see <http://www.gnu.org/licenses
+details. You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses
 *this* source code originaly commited by Sunsoft Servicios.
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -16,6 +16,8 @@ with this program. If not, see <http://www.gnu.org/licenses
     <head>
         <title>DAD Online - Alternate loging/register</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="jquery-1.7.2.js"></script>
+        <script type="text/javascript" src="functions.js"></script>
     </head>
     <body>
         <?php
@@ -23,15 +25,23 @@ with this program. If not, see <http://www.gnu.org/licenses
         session_start();
         session_destroy();
         ?>
-        <form id="form1" name="lrform" action="users/login_do.php" method="post" accept-charset="UTF-8">
-            <legend>Login</legend>
-            <label>Email:</label>
-            <input type="text" id="input1" name="email" class="email" maxlength="64" required />
-            <label>Password:</label>
-            <input type="password" id="input2" name="password" class="password" required />
-            <input type="submit" id="input3" value="login" name="submit" class="submit" />
-            <input type="button" id="input4" value="register" name="register" class="register" onClick="location.href=\'users/register.php\'" />
+        <form id="form1" class="forms" method="post" action="users/login_do.php" 
+              accept-charset="UTF-8">
+            <fieldset id="fieldset1" class="fieldsets">
+                <legend id="legend1">Login</legend>
+                <label id="label1" class="labels" for="input1">Email:</label>
+                <input id="input1" class="email" name="email" type="text"   
+                       maxlength="64" required />
+                <br />
+                <label id="label2" class="labels" for="input2">Password:</label>
+                <input id="input2" class="password" name="password" 
+                       type="password" required />
+                <br />
+                <input id="input3" class="submit" name="submit" type="submit" 
+                       value="login" />
+                <input id="input4" class="register" name="register" 
+                       type="button" value="register" />
+            </fieldset>
         </form>
-        <div>TODO write content</div>
     </body>
 </html>
