@@ -104,24 +104,30 @@ This program is free software: you can redistribute it and/or modify it under th
 
 		// Get Spell List
 
-		$query = "SELECT name,str,`int`,agi FROM mobspells,spells WHERE mob = $mid AND spell = spells.id";
+		$query = "SELECT spell1,spell2,spell3,spell4 FROM mobs WHERE id = $mid";
 		$result = mysql_query($query) or die(mysql_error());
+		$row = mysql_fetch_row($result);
+		$sl[0] = $row[0]; $sl[1] = $row[1]; $sl[2] = $row[2]; $sl[3] = $row[3];
 
 		// Calculate Most Damage
 
 		$maxdmg = 0;
 		$spell = "nothing";
-		while ($row = mysql_fetch_row($result)) {
+		for ($i = 0 ; $i < 4 ; $i++) {
+
+			$q = "SELECT `str`,`int`,`agi`,`name` FROM spells WHERE id = $sl[$i]";
+			$r = mysql_query($q) or die(mysql_error());
+			$sr = mysql_fetch_row($r);
 
 			// Get Total Damage
 
-			$totaldmg = damage_calc($mstr,$mint,$magi,$row[1],$row[2],$row[3],$cstr,$cint,$cagi);
+			$totaldmg = damage_calc($mstr,$mint,$magi,$sr[0],$sr[1],$sr[2],$cstr,$cint,$cagi);
 
 			// Choose Higher Damage
 
 			if ($totaldmg > $maxdmg) {
 				$maxdmg = $totaldmg;
-				$spell = $row[0];
+				$spell = $sr[3];
 			}
 		}
 

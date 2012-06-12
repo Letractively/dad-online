@@ -36,7 +36,7 @@ This program is free software: you can redistribute it and/or modify it under th
 		
 	$query = "SELECT c.name,m.id,m.name,count(cq.id)
 		FROM characters AS c,maps AS m, charquests AS cq
-		WHERE c.id = $charid AND map = m.id AND charid = c.id";
+		WHERE c.id = $charid AND map = m.id AND charid = c.id AND complete = true";
 	$result = mysql_query($query) or die(mysql_error());
 	$row = mysql_fetch_array($result);
 	$charname = $row[0];
@@ -46,7 +46,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Get Routes
 
-	$query = "SELECT routes.id,end,name,quests FROM routes,maps WHERE start = $map AND end = maps.id";
+	$query = "SELECT end,name,quests FROM routes,maps WHERE start = $map AND end = maps.id";
 	$router = mysql_query($query) or die(mysql_error());
 
 	// Get Mobs
@@ -81,7 +81,8 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	echo '<p>Routes:</p>';
 	while ($row = mysql_fetch_array($router)) {
-		echo '- '.$row[2].' ('.$row[3].')';
+		if ($quests < $row[2]) echo '- '.$row[1].' ('.$quests.'/'.$row[2].')';
+		else echo '<p><a href="cm.php?id='.$row[0].'">- '.$row[1].'</a></p>';
 	}
 
 	// Show Mobs
