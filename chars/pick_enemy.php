@@ -34,7 +34,9 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	// Get Mobs
 
-	$query = "SELECT mob,rate FROM spawns WHERE map = (SELECT map FROM characters WHERE id = $charid)";
+	$query = "SELECT mob,rate FROM spawns,mobs
+		WHERE map = (SELECT map FROM characters WHERE id = $charid)
+		AND mob = mobs.id AND npc = FALSE";
 	$result = mysql_query($query) or die(mysql_error());
 	$nummobs = mysql_num_rows($result);
 

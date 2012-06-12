@@ -25,12 +25,37 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	$charid = $_SESSION['charid'];
 
+	// Special No Battle Redirect
+
+	if (!char_dead($charid)) {
+		header('Location: ../oops.php');
+		exit;
+	}
+
 	// Get Initial Map
 
 	$query = "SELECT map FROM races WHERE id = (SELECT map FROM characters WHERE id = $charid)";
 	$result = mysql_query($query) or die(mysql_error());
 	$row = mysql_fetch_row($result);
 	$map = $row[0];
+
+	// Get Mob id
+
+	$query = "SELECT mob FROM battles WHERE charid = $charid";
+	$result = mysql_query($query) or die(mysql_error());
+	$row = mysql_fetch_row($result);
+	$mob = $row[0];
+
+	// Remove Battle
+
+	$query = "DELETE FROM battles WHERE charid = $charid";
+	$result = mysql_query($query) or die(mysql_error());
+
+	// Downgrade Questmob
+
+	$query = "UPDATE charquestmobs SET amount = amount - 1
+		WHERE charid = $charid AND questmob in (SELECT id FROM questmobs WHERE mob = $mob)";
+	$result = mysql_query($query) or die(mysql_error());
 
 	// Resurrection
 
