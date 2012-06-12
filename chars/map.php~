@@ -81,7 +81,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 	echo '<p>Routes:</p>';
 	while ($row = mysql_fetch_array($router)) {
-		echo '- '.$row[2].' ('.$quests.'/'.$row[3].')';
+		echo '- '.$row[2].' ('.$row[3].')';
 	}
 
 	// Show Mobs

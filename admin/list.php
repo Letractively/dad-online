@@ -73,6 +73,10 @@ This program is free software: you can redistribute it and/or modify it under th
 				$fkindex = array_search($meta->name, $fknames);
 
 				$fkquery2 = "SELECT name FROM $daddb.$fktables[$fkindex] WHERE id = $row[$i]";
+
+				if ($meta->name == 'user')
+					$fkquery2 = "SELECT email FROM $userdb.$fktables[$fkindex] WHERE id = $row[$i]";
+
 				$fkresult2 = mysql_query($fkquery2) or die(mysql_error());
 				$fkrow = mysql_fetch_row($fkresult2);
 
@@ -84,8 +88,9 @@ This program is free software: you can redistribute it and/or modify it under th
 
 			$i++;
 		}
-		echo ('<td><a href=\'edit.php?id='.$row[0].'&table='.$table.'\'>Edit</a></td>');
-		echo ('<td><a href=\'delete.php?id='.$row[0].'&table='.$table.'\'>Delete</a></td></tr>');
+		if ($table != 'characters')
+			echo ('<td><a href=\'edit.php?id='.$row[0].'&table='.$table.'\'>Edit</a></td>
+				<td><a href=\'delete.php?id='.$row[0].'&table='.$table.'\'>Delete</a></td></tr>');
 	}
 	echo '</table>';
 
