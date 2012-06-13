@@ -1,0 +1,34 @@
+<!--
+DAD Online. Web browser MMORPG.
+Copyright(C) 2012 Aceapps Aplicaciones. 
+This program is free software: you can redistribute it and/or modify it under 
+the terms of the GNU General Public License as published by the Free Software 
+Foundation, either version 3 of the License, or (at your option) any later 
+version. This program is distributed in the hope that it will be useful, but 
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+details. You should have received a copy of the GNU General Public License 
+along with this program. If not, see <http://www.gnu.org/licenses
+*this* source code originaly commited by Sunsoft Servicios.
+-->
+
+<!-- this is the 'register' form -->
+<form id="form2" class="forms" action="register_do.php" 
+      method="post" accept-charset="UTF-8">
+    <fieldset id="fieldset2" class="fieldsets">
+        <legend id="legend2">Register</legend>
+        <label for="input5">Email:</label>
+        <input id="input5" type="text" name="email" maxlength="64" required/>
+        <br />
+        <label for="input6">Password:</label>
+        <input id="input6" type="password" name="pwd1" required/>
+        <br />
+        <label for="input7">Repeat Password:</label>
+        <input id="input7" type="password" name="pwd2" required/>
+        <br />
+        <input id="input8" class="submit" type="submit" value="register" 
+               name="submit"  />
+        <input id="input9" class="register" type="button" value="cancel" 
+               name="register" onClick="location.href=\'../\'" />
+    </fieldset>
+</form>
