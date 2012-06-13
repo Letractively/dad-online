@@ -7,15 +7,17 @@ Foundation, either version 3 of the License, or (at your option) any later
 version. This program is distributed in the hope that it will be useful, but 
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
 FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
-details. You should have received a copy of the GNU General Public License along
-with this program. If not, see <http://www.gnu.org/licenses
+details. You should have received a copy of the GNU General Public License 
+along with this program. If not, see <http://www.gnu.org/licenses
 *this* source code originaly commited by Sunsoft Servicios.
 -->
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
     <head>
         <title>DAD Online - Alternate loging/register</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="jquery-1.7.2.js"></script>
+        <script type="text/javascript" src="functions.js"></script>
     </head>
     <body>
         <?php
@@ -23,15 +25,6 @@ with this program. If not, see <http://www.gnu.org/licenses
         session_start();
         session_destroy();
         ?>
-        <form id="form1" name="lrform" action="users/login_do.php" method="post" accept-charset="UTF-8">
-            <legend>Login</legend>
-            <label>Email:</label>
-            <input type="text" id="input1" name="email" class="email" maxlength="64" required />
-            <label>Password:</label>
-            <input type="password" id="input2" name="password" class="password" required />
-            <input type="submit" id="input3" value="login" name="submit" class="submit" />
-            <input type="button" id="input4" value="register" name="register" class="register" onClick="location.href=\'users/register.php\'" />
-        </form>
-        <div>TODO write content</div>
+        <div id="div1"></div>
     </body>
 </html>
