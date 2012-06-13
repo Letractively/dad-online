@@ -7,11 +7,11 @@ Foundation, either version 3 of the License, or (at your option) any later
 version. This program is distributed in the hope that it will be useful, but 
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
 FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
-details. You should have received a copy of the GNU General Public License
+details. You should have received a copy of the GNU General Public License 
 along with this program. If not, see <http://www.gnu.org/licenses
 *this* source code originaly commited by Sunsoft Servicios.
 -->
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
     <head>
         <title>DAD Online - Alternate loging/register</title>
@@ -25,23 +25,6 @@ along with this program. If not, see <http://www.gnu.org/licenses
         session_start();
         session_destroy();
         ?>
-        <form id="form1" class="forms" method="post" action="users/login_do.php" 
-              accept-charset="UTF-8">
-            <fieldset id="fieldset1" class="fieldsets">
-                <legend id="legend1">Login</legend>
-                <label id="label1" class="labels" for="input1">Email:</label>
-                <input id="input1" class="email" name="email" type="text"   
-                       maxlength="64" required />
-                <br />
-                <label id="label2" class="labels" for="input2">Password:</label>
-                <input id="input2" class="password" name="password" 
-                       type="password" required />
-                <br />
-                <input id="input3" class="submit" name="submit" type="submit" 
-                       value="login" />
-                <input id="input4" class="register" name="register" 
-                       type="button" value="register" />
-            </fieldset>
-        </form>
+        <div id="div1"></div>
     </body>
 </html>

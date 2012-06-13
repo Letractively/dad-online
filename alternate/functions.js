@@ -12,11 +12,17 @@ along with this program. If not, see <http://www.gnu.org/licenses
 *this* source code originaly commited by Sunsoft Servicios.
 */
 
-// function that change the login form into the register form
+// function that loads the login form rigth after the html doc is ready
 $(document).ready(
 function(){
-    $("#input4").click(
+    $("#div1").load("login.htm")
+});
+
+// function that change the login form into the register form, after a click
+$(document).ready(
+function(){
+    $("#input4").live("click",
     function(){
-        $("#form1").load('register_form.txt');
+        $("#div1").load("register.htm");
     });
 });
