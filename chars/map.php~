@@ -44,7 +44,12 @@ This program is free software: you can redistribute it and/or modify it under th
 	$mapname = $row[2];
 	$quests = $row[3];
 
-	// Get Routes
+	// Get Routes without Requirement
+
+	$query = "SELECT start,name FROM routes,maps WHERE end = $map AND start =maps.id";
+	$routes = mysql_query($query) or die(mysql_error());
+
+	// Get Routes with Requirement
 
 	$query = "SELECT end,name,quests FROM routes,maps WHERE start = $map AND end = maps.id";
 	$router = mysql_query($query) or die(mysql_error());
@@ -80,8 +85,11 @@ This program is free software: you can redistribute it and/or modify it under th
 	// Show Routes
 
 	echo '<p>Routes:</p>';
+	while ($row = mysql_fetch_array($routes)) {
+		echo '<p><a href="cm.php?id='.$row[0].'">- '.$row[1].'</a></p>';
+	}
 	while ($row = mysql_fetch_array($router)) {
-		if ($quests < $row[2]) echo '- '.$row[1].' ('.$quests.'/'.$row[2].')';
+		if ($quests < $row[2]) echo '- '.$row[1].' (Missing required quest)';
 		else echo '<p><a href="cm.php?id='.$row[0].'">- '.$row[1].'</a></p>';
 	}
 
