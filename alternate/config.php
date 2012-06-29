@@ -1,4 +1,5 @@
-<!--
+<?php
+/*
 DAD Online. Web browser MMORPG.
 Copyright(C) 2012 Aceapps Aplicaciones. 
 This program is free software: you can redistribute it and/or modify it under 
@@ -10,16 +11,22 @@ FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
 details. You should have received a copy of the GNU General Public License 
 along with this program. If not, see <http://www.gnu.org/licenses
 *this* source code originaly commited by Sunsoft Servicios.
--->
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-    <head>
-        <title>DAD Online - Alternate loging/register</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script type="text/javascript" src="jquery-1.7.2.js"></script>
-        <script type="text/javascript" src="functions.js"></script>
-    </head>
-    <body>
-        <div id="div1"></div>
-    </body>
-</html>
+*/
+
+	// MySQL Info
+	$host = 'localhost';
+	$user = 'dad';
+	$pass = 'dad';
+	$userdb = 'users';
+	$daddb = 'dad';
+
+	// MySQL Connection
+	$connection = mysql_connect($host, $user, $pass);
+    if (!$connection){
+        die('Could not connect: ' . mysql_error($connection));
+    }
+	mysql_select_db($daddb,$connection);
+
+	// Game Configurations
+	$maxchars = 3;
+?>

@@ -15,14 +15,23 @@ along with this program. If not, see <http://www.gnu.org/licenses
 // function that loads the login form rigth after the html doc is ready
 $(document).ready(
 function(){
-    $("#div1").load("login.htm")
+    $("#div1").load("login.htm #form1")
 });
 
-// function that change the login form into the register form, after a click
+// function that change the login form into the register form, on click
 $(document).ready(
 function(){
     $("#input4").live("click",
     function(){
-        $("#div1").load("register.htm");
+        $("#div1").load("register.htm #form2");
+    });
+});
+
+//function that change the register form into the login form, on click
+$(document).ready(
+function(){
+    $('#input9').live('click',
+    function(){
+        $('#div1').load('login.htm #form1');
     });
 });
