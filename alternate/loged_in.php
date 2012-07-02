@@ -15,59 +15,62 @@ along with this program. If not, see <http://www.gnu.org/licenses
 *this* source code originaly commited by Sunsoft Servicios.
 */
 
-// Session Start
+// Session start and load required files
 
-	session_start();
+session_start();
+require_once 'config.php';
+require_once '../include/functions.php';
 
-	// Load files
+// Login Validation
 
-	require_once '../include/config.php';
-	require_once '../include/functions.php';
+if (!session_validate()) {
+    header('Location: index.htm');
+    exit;
+}
 
-	// Login Validation
+// Get session variables
 
-	if (!session_validate()) {
-		header('Location: ../');
-		exit;
-	}
+$userid = $_SESSION['id'];
+$accesslevel = $_SESSION['accesslevel'];
 
-	// Get session variables
-
-	$userid = $_SESSION['id'];
-	$accesslevel = $_SESSION['accesslevel'];
-
-	// Character amount verification info
+// Character amount verification info
 		
-	$query = "SELECT c.id,c.name,r.name,m.name FROM characters AS c,races AS r,maps AS m
-			WHERE c.user = '$userid' AND c.race = r.id AND c.map = m.id";
-	$result = mysql_query($query) or die(mysql_error());
-	$numrows = mysql_num_rows($result);
+$query =
+    "SELECT c.id, c.name, r.name, m.name 
+    FROM characters AS c, races AS r, maps AS m
+    WHERE c.user = '$userid' 
+    AND c.race = r.id 
+    AND c.map = m.id";
+$result = mysql_query($query) 
+    or die('Error 7: ' . mysql_error());
 
-	// No characters redirect
+// No characters redirect
 
-	if(!$numrows) {
-		header('Location: cc.php');
-		exit;
-	}
+$numrows = mysql_num_rows($result);
+if(!$numrows) {
+    header('Location: cc.php');
+    exit;
+}
 
-	// Load HTML5 Template
+// Load HTML5 Template
 
-	$title = '<li><a href="index.php">Home</a></li>
-		<li><a href="profile.php">Profile</a></li>';
+$title = '<li><a href="index.htm">Home</a></li>
+    <li><a href="profile.php">Profile</a></li>';
 
-	// Verify Room for More Characters
+// Verify Room for More Characters
 
-	if($numrows < $maxchars) {
-		$title .= '<li><a href="cc.php">Create Character</a></li>';
-	}
+if($numrows < $maxchars) {
+    $title .= '<li><a href="cc.php">Create Character</a></li>';
+}
 
-	$title .= '<li><a href="logout.php">Logout</a></li>';
-	$depth = "../aat/"; include_once '../aat/header.php';
+$title .= '<li><a href="logout.php">Logout</a></li>';
+$depth = "../aat/"; 
+include_once '../aat/header.php';
 
-	// Char Selection
+// Char Selection
 
-	echo '<table>';
-	while ($row = mysql_fetch_array($result)) {
+echo '<table>';
+while ($row = mysql_fetch_array($result)) {
 		echo '<tr><td>'.$row[1].'</td>
 			<td><img name="pic" src="images/'.$row[2].'.png" border="0"></td>
 			<td>@ '.$row[3].'</td>
