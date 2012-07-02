@@ -20,12 +20,12 @@ require_once 'config.php';
 //Get form variables, via POST method. Function used to provide a safe query 
 $email = mysql_real_escape_string($_POST['email'],$connection);
 if (!$email) {
-    die('Could not connect: ' . mysql_error($connection));
+    die('Error 2: ' . mysql_error($connection));
 }
 
 $password = mysql_real_escape_string($_POST['password'],$connection);
 if (!$password) {
-    die('Could not connect: ' . mysql_error($connection));
+    die('Error 3: ' . mysql_error($connection));
 }
 
 // Login Validation
@@ -37,7 +37,7 @@ $query =
 
 $result = mysql_query($query,$connection);
 if (!$result) {
-    die('Could not connect: ' . mysql_error($connection));
+    die('Error 4: ' . mysql_error($connection));
 }
 
 if(!mysql_num_rows($result)) {
@@ -49,16 +49,19 @@ if(!mysql_num_rows($result)) {
 }
 
 // Actual login
-$row = mysql_fetch_array($result);
+$sqlrow = mysql_fetch_array($result);
+if (!$sqlrow) {
+    die('Error 5: no more rows');
+}
 
 $started = session_start();
 if (!$started) {
-    die('Could not start session');
+    die('Error 6: could not start session');
 }
 
-$_SESSION['id'] = htmlspecialchars($row[0]);
+$_SESSION['id'] = htmlspecialchars($sqlrow['id']);
 $_SESSION['email'] = htmlspecialchars($email);
-$_SESSION['accesslevel'] = htmlspecialchars($row[1]);
+$_SESSION['accesslevel'] = htmlspecialchars($sqlrow['accesslevel']);
 
 header('Location: loged_in.php');
 ?>

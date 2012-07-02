@@ -23,7 +23,7 @@ along with this program. If not, see <http://www.gnu.org/licenses
 	// MySQL Connection
 	$connection = mysql_connect($host, $user, $pass);
     if (!$connection){
-        die('Could not connect: ' . mysql_error($connection));
+        die('Error 1: ' . mysql_error($connection));
     }
 	mysql_select_db($daddb,$connection);
 
