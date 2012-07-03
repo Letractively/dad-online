@@ -14,12 +14,8 @@ along with this program. If not, see <http://www.gnu.org/licenses
 *this* source code originaly commited by Sunsoft Servicios.
 */
 
-if (isset($_POST['email'])) echo 'yes';
-require_once 'functions.php';
+function _login(){
 
-_login();
-
-/*
 // Load MySQL info
 
 require_once 'config.php';
@@ -66,6 +62,6 @@ $_SESSION['email'] = htmlspecialchars($email);
 $_SESSION['accesslevel'] = htmlspecialchars($sqlrow['accesslevel']);
 
 header('Location: loged_in.php');
- * 
- */
+}
+
 ?>
