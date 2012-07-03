@@ -12,9 +12,28 @@ along with this program. If not, see <http://www.gnu.org/licenses
 *this* source code originaly commited by Sunsoft Servicios.
 -->
 
+<!-- this is the 'login' form -->
+<form id="form1" class="forms" method="post" action="login.php" 
+      accept-charset="UTF-8">
+    <fieldset id="fieldset1" class="fieldsets">
+        <legend id="legend1">Login</legend>
+        <label id="label1" class="labels" for="input1">Email:</label>
+        <input id="input1" class="email" name="email" type="text"   
+               maxlength="64" required />
+        <br />
+        <label id="label2" class="labels" for="input2">Password:</label>
+        <input id="input2" class="password" name="password" 
+               type="password" required />
+        <br />
+        <input id="input3" class="submit" type="submit" value="login" />
+        <input id="input4" class="register" type="button" 
+               value="register" />
+    </fieldset>
+</form>
+
 <!-- this is the 'register' form -->
-<form id="form2" class="forms" action="register_do.php" 
-      method="post" accept-charset="UTF-8">
+<form id="form2" class="forms" action="register_do.php" method="post" 
+      accept-charset="UTF-8">
     <fieldset id="fieldset2" class="fieldsets">
         <legend id="legend2">Register</legend>
         <label for="input5">Email:</label>
