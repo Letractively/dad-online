@@ -20,11 +20,11 @@ along with this program. If not, see <http://www.gnu.org/licenses
 session_start()
     or die('Error 7: could not start session');
 require_once 'config.php';
-require_once '../include/functions.php';
+require_once 'functions.php';
 
 // Login Validation
 
-if (!session_validate()) {
+if (!_session_validate()) {
     header('Location: index.htm');
     exit;
 }
@@ -46,26 +46,27 @@ $result = mysql_query($query)
     or die('Error 8: ' . mysql_error());
 
 // No characters redirect
-
+/*
 $numrows = mysql_num_rows($result);
 if(!$numrows) {
     header('Location: ../users/cc.php');
     exit;
 }
-
+*/
 // Load HTML5 Template
-
+include_once '../aat/header.php';
 $title = '<li><a href="index.htm">Home</a></li>
     <li><a href="profile.php">Profile</a></li>';
 
 // Verify Room for More Characters
 
-if($numrows < $maxchars) {
+if ($numrows < $maxchars) {
     $title .= '<li><a href="../users/cc.php">Create Character</a></li>';
 }
 
 $title .= '<li><a href="logout.php">Logout</a></li>';
 
+$depth = "../aat/"; include_once '../aat/header.php';
 
 // Char Selection
 
@@ -87,4 +88,5 @@ if ($accesslevel >= 100)
 
 // Load HTML5 Template
 
+include_once '../aat/footer.php';
 ?>
