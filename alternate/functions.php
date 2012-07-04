@@ -16,52 +16,136 @@ along with this program. If not, see <http://www.gnu.org/licenses
 
 function _login(){
 
-// Load MySQL info
+    // Load MySQL info
 
-require_once 'config.php';
+    require_once 'config.php';
 
-//Get form variables, via POST method. Function used to provide a safe query 
+    //Get form variables, via POST. Function used to provide a safe query 
 
-$email = mysql_real_escape_string($_POST['email'],$connection)
-    or die('Error 2: ' . mysql_error($connection));
-
-
-$password = mysql_real_escape_string($_POST['password'],$connection)
-    or die('Error 3: ' . mysql_error($connection));
+    $email = mysql_real_escape_string($_POST['email'],$connection)
+        or die('Error 2: ' . mysql_error($connection));
 
 
-// Login Validation
+    $password = mysql_real_escape_string($_POST['password'],$connection)
+        or die('Error 3: ' . mysql_error($connection));
 
-$query = 
-    "SELECT id,accesslevel 
-    FROM $userdb.users 
-    WHERE email = '$email'
-    AND password = PASSWORD('$password')";
 
-$result = mysql_query($query,$connection)
-    or die('Error 4: ' . mysql_error($connection));
+    // Login Validation
 
-if(!mysql_num_rows($result)) {
-    echo    '<script type="text/javascript">
-                alert("Invalid email/password!");
-                window.location = ("index.htm");
-            </script>';
-    exit;
+    $query = 
+        "SELECT id,accesslevel 
+        FROM $userdb.users 
+        WHERE email = '$email'
+        AND password = PASSWORD('$password')";
+
+    $result = mysql_query($query,$connection)
+        or die('Error 4: ' . mysql_error($connection));
+
+    if(!mysql_num_rows($result)) {
+        return FALSE;
+        exit;
+    }
+
+    // Actual login
+
+    $sqlrow = mysql_fetch_array($result)
+        or die('Error 5: no more rows');
+
+    $started = session_start()
+        or die('Error 6: could not start session');
+
+    $_SESSION['id'] = htmlspecialchars($sqlrow['id']);
+    $_SESSION['email'] = htmlspecialchars($email);
+    $_SESSION['accesslevel'] = htmlspecialchars($sqlrow['accesslevel']);
+
+    header('Location: loged_in.php');
+
+    return TRUE;
 }
 
-// Actual login
 
-$sqlrow = mysql_fetch_array($result)
-    or die('Error 5: no more rows');
-
-$started = session_start()
-    or die('Error 6: could not start session');
-
-$_SESSION['id'] = htmlspecialchars($sqlrow['id']);
-$_SESSION['email'] = htmlspecialchars($email);
-$_SESSION['accesslevel'] = htmlspecialchars($sqlrow['accesslevel']);
-
-header('Location: loged_in.php');
+function _session_validate() {
+    if(!isset($_SESSION['id']) ||
+       !isset($_SESSION['email'])|| 
+       !isset($_SESSION['accesslevel'])) {
+        session_destroy();
+        return false;
+    } else {
+        return true;
+    }
 }
 
+function _loged_in(){
+    // Session start and load required files
+
+    session_start()
+        or die('Error 7: could not start session');
+    require_once 'config.php';
+    
+
+    // Login Validation
+
+    if (!_session_validate()) {
+        header('Location: index.htm');
+        exit;
+    }
+
+    // Get session variables
+
+    $userid = $_SESSION['id'];
+    $accesslevel = $_SESSION['accesslevel'];
+
+    // Character amount verification info
+
+    $query =
+        "SELECT c.id, c.name, r.name, m.name 
+        FROM characters AS c, races AS r, maps AS m
+        WHERE c.user = '$userid' 
+        AND c.race = r.id 
+        AND c.map = m.id";
+    $result = mysql_query($query) 
+        or die('Error 8: ' . mysql_error());
+
+    // No characters redirect
+
+    $numrows = mysql_num_rows($result);
+    if(!$numrows) {
+        header('Location: ../users/cc.php');
+        exit;
+    }
+
+    // Load HTML5 Template
+
+    $title = '<li><a href="index.htm">Home</a></li>
+        <li><a href="profile.php">Profile</a></li>';
+
+    // Verify Room for More Characters
+
+    if($numrows < $maxchars) {
+        $title .= '<li><a href="../users/cc.php">Create Character</a></li>';
+    }
+
+    $title .= '<li><a href="logout.php">Logout</a></li>';
+
+
+    // Char Selection
+
+    echo '<table>';
+    while ($row = mysql_fetch_array($result)) {
+        echo '<tr><td>'.$row[1].'</td>
+            <td><img name="pic" src="images/'.$row[2].'.png" border="0"></td>
+            <td>@ '.$row[3].'</td>
+            <td><input type="submit" value="play!" name="extra" class="extra" 
+            onClick="location.href=\'sc.php?id='.$row[0].'\'" /></td></tr>';			
+    }
+    echo '</table>';
+
+    // Admin Panel
+
+    if ($accesslevel >= 100) 
+        echo '<p><input type="submit" value="admin panel" name="extra" class="extra"
+        onClick="location.href=\'../admin/index.php\'" /></p>';
+
+    // Load HTML5 Template
+}
 ?>

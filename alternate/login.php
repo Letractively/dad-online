@@ -14,7 +14,7 @@ along with this program. If not, see <http://www.gnu.org/licenses
 *this* source code originaly commited by Sunsoft Servicios.
 */
 
-if (isset($_POST['email'])) echo 'yes';
+
 require_once 'functions.php';
 
 _login();

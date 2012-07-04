@@ -12,13 +12,18 @@ along with this program. If not, see <http://www.gnu.org/licenses
 *this* source code originaly commited by Sunsoft Servicios.
 */
 
-// function that loads the login form rigth after the html doc is ready
+// loads the login form rigth after the html doc is ready
 $(document).ready(
 function(){
-    $("#div1").load("fechable_data.htm #form1")
+    spantxt = document.getElementById('span1').innerHTML;
+    if (spantxt == 'Loged in!'){
+        $('#div1').load('fechable_data.htm #span2');
+    } else {
+        $('#div1').load('fechable_data.htm #form1');
+    }
 });
 
-// function that change the login form into the register form, on click
+// change the login form into the register form, on click
 $(document).ready(
 function(){
     $("#input4").live("click",
@@ -27,7 +32,7 @@ function(){
     });
 });
 
-//function that change the register form into the login form, on click
+// change the register form into the login form, on click
 $(document).ready(
 function(){
     $('#input9').live('click',
@@ -35,3 +40,13 @@ function(){
         $('#div1').load('fechable_data.htm #form1');
     });
 });
+
+/*
+$(document).ready(
+function(){
+    spantxt = document.getElementById('span1').innerHTML;
+    if (spantxt == 'Loged in!'){
+        $('#div1').hide();
+    };
+});
+*/
