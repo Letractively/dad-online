@@ -13,20 +13,21 @@ along with this program. If not, see <http://www.gnu.org/licenses
 *this* source code originaly commited by Sunsoft Servicios.
 */
 
-	// MySQL Info
-	$host = 'localhost';
-	$user = 'dad';
-	$pass = 'dad';
-	$userdb = 'users';
-	$daddb = 'dad';
+// MySQL Info
 
-	// MySQL Connection
-	$connection = mysql_connect($host, $user, $pass);
-    if (!$connection){
-        die('Error 1: ' . mysql_error($connection));
-    }
-	mysql_select_db($daddb,$connection);
+$host = 'localhost';
+$user = 'dad';
+$pass = 'dad';
+$userdb = 'users';
+$daddb = 'dad';
 
-	// Game Configurations
-	$maxchars = 3;
+// MySQL Connection
+    
+$connection = mysql_connect($host, $user, $pass)
+    or die('Error 1: ' . mysql_error($connection));
+mysql_select_db($daddb,$connection);
+
+// Game Configurations
+    
+$maxchars = 3;
 ?>

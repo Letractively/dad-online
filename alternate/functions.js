@@ -17,7 +17,7 @@ $(document).ready(
 function(){
     spantxt = document.getElementById('span1').innerHTML;
     if (spantxt == 'Loged in!'){
-        $('#div1').load('fechable_data.htm #span2');
+        $('#div1').load('fechable_data.htm #ul1');
     } else {
         $('#div1').load('fechable_data.htm #form1');
     }
