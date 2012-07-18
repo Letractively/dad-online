@@ -58,7 +58,7 @@ function _login(){
     $_SESSION['email'] = htmlspecialchars($email);
     $_SESSION['accesslevel'] = htmlspecialchars($sqlrow['accesslevel']);
 
-    header('Location: loged_in.php');
+    //header('Location: loged_in.php');
 
     return TRUE;
 }
@@ -81,7 +81,7 @@ function _loged_in(){
     session_start()
         or die('Error 7: could not start session');
     require_once 'config.php';
-    
+    //require_once 'functions.php';
 
     // Login Validation
 
@@ -105,31 +105,13 @@ function _loged_in(){
         AND c.map = m.id";
     $result = mysql_query($query) 
         or die('Error 8: ' . mysql_error());
-
-    // No characters redirect
-
     $numrows = mysql_num_rows($result);
-    if(!$numrows) {
-        header('Location: ../users/cc.php');
-        exit;
+    if ($numrows == 0) {
+        echo '<span> no characers yet! please create a characer </span>';
     }
-
-    // Load HTML5 Template
-
-    $title = '<li><a href="index.htm">Home</a></li>
-        <li><a href="profile.php">Profile</a></li>';
-
-    // Verify Room for More Characters
-
-    if($numrows < $maxchars) {
-        $title .= '<li><a href="../users/cc.php">Create Character</a></li>';
-    }
-
-    $title .= '<li><a href="logout.php">Logout</a></li>';
-
-
-    // Char Selection
-
+    
+    // Char Selection Table
+    
     echo '<table>';
     while ($row = mysql_fetch_array($result)) {
         echo '<tr><td>'.$row[1].'</td>
@@ -143,9 +125,7 @@ function _loged_in(){
     // Admin Panel
 
     if ($accesslevel >= 100) 
-        echo '<p><input type="submit" value="admin panel" name="extra" class="extra"
-        onClick="location.href=\'../admin/index.php\'" /></p>';
-
-    // Load HTML5 Template
+        echo '<p><input class="extra" type="submit" value="admin panel" 
+            name="extra" onClick="location.href=\'../admin/index.php\'" /></p>';
 }
 ?>

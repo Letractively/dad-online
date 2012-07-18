@@ -1,9 +1,9 @@
 Error Nº    File location
     1       config.php
-    2       login.php
+    2       functions.php _login()
     3       ''
     4       ''
     5       ''
     6       ''
-    7       loged_in.php
+    7       functions.php _loged_in()
     8       ''
