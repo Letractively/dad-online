@@ -9,7 +9,7 @@ WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
 FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
 details. You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses
-*this* source code originaly commited by Sunsoft Servicios.
+*this* source code originally commited by Sunsoft Servicios.
 */
 
 // loads the login form rigth after the html doc is ready
