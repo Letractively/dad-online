@@ -9,7 +9,7 @@ WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
 FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
 details. You should have received a copy of the GNU General Public License 
 along with this program. If not, see <http://www.gnu.org/licenses
-*this* source code originaly commited by Sunsoft Servicios.
+*this* source code originally commited by Sunsoft Servicios.
 -->
 <!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> -->
 <?php
